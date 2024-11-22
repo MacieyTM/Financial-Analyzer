@@ -1,0 +1,7 @@
+{
+  "name": "apka",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
