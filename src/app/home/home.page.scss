@@ -2,9 +2,23 @@ ion-header {
 	ion-toolbar {
 		--background: orange;
 
-    ion-text {
-      font-weight: 700;
-    }
+		ion-title {
+			.header-wrapper {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+
+				ion-icon {
+					width: 2rem;
+					height: 2rem;
+					font-size: 2rem;
+				}
+
+				ion-text {
+					font-weight: 700;
+				}
+			}
+		}
 	}
 }
 
@@ -14,10 +28,70 @@ ion-content {
 
 	ion-text {
 		position: absolute;
-		top: 50%;
+		top: 25%;
 		left: 50%;
-    font-weight: 400;
+		width: 90vw;
+		font-weight: 400;
+		font-size: 1.5rem;
+		text-align: center;
+		letter-spacing: 0.1rem;
 		transform: translate(-50%, -50%);
+	}
+
+	.left-btn {
+		position: absolute;
+		top: 50%;
+		left: 25%;
+		transform: translateY(-50%);
+
+		.btn-wrapper {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 0.5rem;
+
+			span {
+				font-weight: 700;
+				font-size: 0.5rem;
+				letter-spacing: 0.1rem;
+			}
+
+			ion-icon {
+				width: 1rem;
+				height: 1rem;
+				font-size: 1rem;
+			}
+		}
+	}
+
+	.right-btn {
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 0.5rem;
+		top: 50%;
+		right: 25%;
+		transform: translateY(-50%);
+
+		.btn-wrapper {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 0.5rem;
+
+			span {
+				font-weight: 700;
+				font-size: 0.5rem;
+				letter-spacing: 0.1rem;
+			}
+
+			ion-icon {
+				width: 1rem;
+				height: 1rem;
+				font-size: 1rem;
+			}
+		}
 	}
 }
 
@@ -26,8 +100,8 @@ ion-footer {
 		--background: brown;
 		text-align: center;
 
-    ion-text {
-      font-weight: 400;
-    }
+		ion-text {
+			font-weight: 400;
+		}
 	}
 }

@@ -1,17 +1,33 @@
 <ion-header>
 	<ion-toolbar>
 		<ion-title>
-			<ion-text>Header</ion-text>
+			<div class="header-wrapper">
+				<ion-text>Financial Analyzer</ion-text>
+				<ion-icon name="analytics-sharp"></ion-icon>
+				<!-- <ion-icon name="stats-chart-sharp"></ion-icon> -->
+			</div>
 		</ion-title>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-	<ion-text>Content</ion-text>
+	<ion-text>Mobile application for financial management.</ion-text>
+	<ion-button class="left-btn" routerLink="/left">
+		<div class="btn-wrapper">
+			<ion-icon name="arrow-back-circle-outline"></ion-icon>
+			<span>Left</span>
+		</div>
+	</ion-button>
+	<ion-button class="right-btn" routerLink="/right">
+		<div class="btn-wrapper">
+			<span>Right</span>
+			<ion-icon name="arrow-forward-circle-outline"></ion-icon>
+		</div>
+	</ion-button>
 </ion-content>
 
 <ion-footer>
 	<ion-toolbar>
-		<ion-title>Footer</ion-title>
+		<ion-title>M. Grochowski | &copy; 2024</ion-title>
 	</ion-toolbar>
 </ion-footer>

@@ -10,7 +10,15 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'left',
+    loadChildren: () => import('./left/left.module').then( m => m.LeftPageModule)
   },
+  {
+    path: 'right',
+    loadChildren: () => import('./right/right.module').then( m => m.RightPageModule)
+  },
+
 ];
 
 @NgModule({
