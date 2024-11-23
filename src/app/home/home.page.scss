@@ -1,27 +1,33 @@
-#container {
-  text-align: center;
+ion-header {
+	ion-toolbar {
+		--background: orange;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+    ion-text {
+      font-weight: 700;
+    }
+	}
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+ion-content {
+	--background: grey;
+	position: relative;
+
+	ion-text {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+    font-weight: 400;
+		transform: translate(-50%, -50%);
+	}
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+ion-footer {
+	ion-toolbar {
+		--background: brown;
+		text-align: center;
 
-  color: #8c8c8c;
-
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+    ion-text {
+      font-weight: 400;
+    }
+	}
 }
