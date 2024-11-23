@@ -1,11 +1,11 @@
 ion-header {
 	ion-toolbar {
-		--background: orange;
+		--background: var(--ion-color-primary);
 	}
 }
 
 ion-content {
-	--background: grey;
+	--background: var(--ion-color-secondary);
 	position: relative;
 
 	ion-text {
@@ -17,5 +17,6 @@ ion-content {
 		text-align: center;
 		letter-spacing: 0.1rem;
 		transform: translate(-50%, -50%);
+		color: var(--ion-color-text-secondary);
 	}
 }

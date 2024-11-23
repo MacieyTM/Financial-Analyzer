@@ -1,6 +1,6 @@
 ion-header {
 	ion-toolbar {
-		--background: orange;
+		--background: var(--ion-color-primary);
 
 		ion-title {
 			.header-wrapper {
@@ -12,10 +12,12 @@ ion-header {
 					width: 2rem;
 					height: 2rem;
 					font-size: 2rem;
+					color: var(--ion-color-text-secondary);
 				}
 
 				ion-text {
 					font-weight: 700;
+					color: var(--ion-color-text-primary);
 				}
 			}
 		}
@@ -23,8 +25,7 @@ ion-header {
 }
 
 ion-content {
-	--background: grey;
-	position: relative;
+	--background: var(--ion-color-secondary);
 
 	ion-text {
 		position: absolute;
@@ -36,6 +37,7 @@ ion-content {
 		text-align: center;
 		letter-spacing: 0.1rem;
 		transform: translate(-50%, -50%);
+		color: var(--ion-color-text-secondary);
 	}
 
 	.left-btn {
@@ -43,6 +45,7 @@ ion-content {
 		top: 50%;
 		left: 25%;
 		transform: translateY(-50%);
+		color: var(--ion-color-text-primary);
 
 		.btn-wrapper {
 			display: flex;
@@ -73,6 +76,7 @@ ion-content {
 		top: 50%;
 		right: 25%;
 		transform: translateY(-50%);
+		color: var(--ion-color-text-primary);
 
 		.btn-wrapper {
 			display: flex;
@@ -97,10 +101,12 @@ ion-content {
 
 ion-footer {
 	ion-toolbar {
-		--background: brown;
+		--background: var(--ion-color-tertiary);
 		text-align: center;
+		color: var(--ion-color-text-secondary);
 
 		ion-text {
+			font-size: 0.75rem;
 			font-weight: 400;
 		}
 	}

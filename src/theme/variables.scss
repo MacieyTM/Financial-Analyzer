@@ -1,2 +1,8 @@
-// For information on how to create your own theme, please see:
-// http://ionicframework.com/docs/theming/
+:root {
+	--ion-color-primary: orange;
+	--ion-color-secondary: silver;
+	--ion-color-tertiary: chocolate;
+
+	--ion-color-text-primary: darkslategrey;
+	--ion-color-text-secondary: whitesmoke;
+}
