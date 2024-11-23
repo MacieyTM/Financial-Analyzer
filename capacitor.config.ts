@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
-  appName: 'apka',
+  appName: 'Financial Analyzer',
   webDir: 'www'
 };
 
