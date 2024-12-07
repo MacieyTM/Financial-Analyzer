@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage implements OnInit {
-	protected readonly bankAccountAmount: number = 1234567.89;
+	private readonly bankAccountAmount: number = 1234567.89;
 
 	constructor() {}
 
