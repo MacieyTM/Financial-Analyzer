@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 
 @Component({
 	selector: "app-home",
@@ -6,6 +6,14 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
 	styleUrls: ["home.page.scss"],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePage {
+export class HomePage implements OnInit {
+	protected readonly bankAccountAmount: number = 1234567.89;
+
 	constructor() {}
+
+	protected get bankAccountAmountFormatted(): string {
+		return this.bankAccountAmount.toLocaleString();
+	}
+
+	ngOnInit() {}
 }
