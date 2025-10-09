@@ -43,8 +43,8 @@ Make sure you have the following installed:
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/MacieyTM/Apka.git
-cd Apka
+git clone https://github.com/MacieyTM/Financial-Analyzer.git
+cd Financial-Analyzer
 npm install
 ```
 
@@ -69,7 +69,7 @@ ionic capacitor build ios
 
 ## Project Structure
 
-Apka/  
+Financial-Analyzer/  
 │  
 ├ src/  
 │ ├ app/  
@@ -91,11 +91,11 @@ If you’d like to improve Financial Analyzer, please:
 
 Fork the repository
 
-Create a feature branch (```git checkout -b feature/your-feature```)
+Create a feature branch (`git checkout -b feature/your-feature`)
 
-Commit your changes (```git commit -m 'Add new feature'```)
+Commit your changes (`git commit -m 'Add new feature'`)
 
-Push to the branch (```git push origin feature/your-feature```)
+Push to the branch (`git push origin feature/your-feature`)
 
 Open a Pull Request 🎉
 
