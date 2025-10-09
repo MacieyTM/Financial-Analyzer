@@ -80,7 +80,7 @@ Apka/
 │ ├─ assets/ # Images, icons  
 │ └─ theme/ # Global styles and variables  
 │  
-└─ capacitor.config.ts # Capacitor configuration  
+└─ capacitor.config.ts # Capacitor configuration
 
 ---
 
@@ -91,11 +91,11 @@ If you’d like to improve Financial Analyzer, please:
 
 Fork the repository
 
-Create a feature branch (git checkout -b feature/your-feature)
+Create a feature branch (```bashgit checkout -b feature/your-feature```)
 
-Commit your changes (git commit -m 'Add new feature')
+Commit your changes (```bashgit commit -m 'Add new feature'```)
 
-Push to the branch (git push origin feature/your-feature)
+Push to the branch (```bashgit push origin feature/your-feature```)
 
 Open a Pull Request 🎉
 
@@ -103,8 +103,8 @@ Open a Pull Request 🎉
 
 ## 👨‍💻 Author
 
-Maciej Grochowski
-Built with ❤️ using Ionic + Angular
+Maciej Grochowski  
+Built with ❤️ using Ionic + Angular  
 🔗 [GitHub Profile](https://github.com/MacieyTM)
 
-# Enjoy!
+# Enjoy! 😊
