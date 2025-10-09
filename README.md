@@ -19,7 +19,7 @@ Analyze your personal finances with ease.
 
 ## 🧱 Built With
 
-- [Ionic](https://ionicframework.com/) – UI toolkit for mobile & web apps
+- <a href="https://ionicframework.com/" target="_blank">[Ionic]</a> – UI toolkit for mobile & web apps
 - [Angular](https://angular.io/) – Powerful frontend framework
 - [RxJS](https://rxjs.dev/) – Reactive extensions library
 - [NgRx](https://ngrx.io/) – State management made simple and reactive
