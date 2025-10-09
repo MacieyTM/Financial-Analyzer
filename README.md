@@ -19,10 +19,10 @@ Analyze your personal finances with ease.
 
 ## 🧱 Built With
 
-- <a href="https://ionicframework.com/" target="_blank">[Ionic]</a> – UI toolkit for mobile & web apps
-- [Angular](https://angular.io/) – Powerful frontend framework
-- [RxJS](https://rxjs.dev/) – Reactive extensions library
-- [NgRx](https://ngrx.io/) – State management made simple and reactive
+- [Ionic](https://ionicframework.com) – UI toolkit for mobile & web apps
+- [Angular](https://angular.io) – Powerful frontend framework
+- [RxJS](https://rxjs.dev) – Reactive extensions library
+- [NgRx](https://ngrx.io) – State management made simple and reactive
 
 ---
 
@@ -32,7 +32,7 @@ Analyze your personal finances with ease.
 
 Make sure you have the following installed:
 
-- [Node.js](https://nodejs.org/) (LTS recommended)
+- [Node.js](https://nodejs.org) (LTS recommended)
 - [Ionic CLI](https://ionicframework.com/docs/cli)
   ```bash
   npm install -g @ionic/cli
