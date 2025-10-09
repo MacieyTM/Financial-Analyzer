@@ -1,7 +1,7 @@
 {
-  "name": "apka",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
+	"name": "Financial Analyzer",
+	"integrations": {
+		"capacitor": {}
+	},
+	"type": "angular"
 }
