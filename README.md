@@ -69,18 +69,18 @@ ionic capacitor build ios
 
 ## Project Structure
 
-Apka/
-│
-├ src/
-│ ├ app/
-│ │ ├─ components/ # Reusable UI components
-│ │ ├─ pages/ # Feature pages (Dashboard, Reports, etc.)
-│ │ ├─ store/ # NgRx state management
-│ │ └─ services/ # Data & business logic
-│ ├─ assets/ # Images, icons
-│ └─ theme/ # Global styles and variables
-│
-└─ capacitor.config.ts # Capacitor configuration
+Apka/  
+│  
+├ src/  
+│ ├ app/  
+│ │ ├─ components/ # Reusable UI components  
+│ │ ├─ pages/ # Feature pages (Dashboard, Reports, etc.)  
+│ │ ├─ store/ # NgRx state management  
+│ │ └─ services/ # Data & business logic  
+│ ├─ assets/ # Images, icons  
+│ └─ theme/ # Global styles and variables  
+│  
+└─ capacitor.config.ts # Capacitor configuration  
 
 ---
 
