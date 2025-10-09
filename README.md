@@ -7,11 +7,13 @@ Analyze your personal finances with ease.
 
 ## 🚀 Features
 
-- 📊 **Interactive Charts** – Visualize your income, expenses, and savings over time.
-- 💼 **Detailed Reports** – Understand your financial health with clear breakdowns.
+- 🎯 **Goals**: Set and track your savings goals.
+- 🔒 **Data Privacy**: Your data stays safe and private.
+- 💸 **Expense Tracking**: Monitor where your money goes.
+- 📈 **Reports**: Get clear financial summaries and insights.
 - 💡 **Smart Insights** – Identify trends and spending patterns automatically.
-- 🌙 **Modern UI** – Built with Ionic components for a smooth and responsive experience.
-- 🔒 **Local Data Security** – Your financial data stays private and safe.
+- 💼 **Detailed Reports** – Understand your financial health with clear breakdowns.
+- 📊 **Interactive Charts** – Visualize your income, expenses, and savings over time.
 
 ---
 
@@ -104,3 +106,5 @@ Open a Pull Request 🎉
 Maciej Grochowski
 Built with ❤️ using Ionic + Angular
 🔗 [GitHub Profile](https://github.com/MacieyTM)
+
+# Enjoy!
