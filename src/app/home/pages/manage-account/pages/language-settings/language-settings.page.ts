@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { NavController } from "@ionic/angular";
 import { AppTranslateService, SupportedLanguage } from "src/app/services/translate.service";
 
 @Component({
@@ -13,25 +14,20 @@ export class LanguageSettingsPage implements OnInit {
 		{ value: "pl", label: "polish" },
 	];
 
-	protected selectedLanguage: string;
+	protected selectedLanguage: SupportedLanguage;
 
-	constructor(private readonly translateService: AppTranslateService) {
+	constructor(
+		private readonly translateService: AppTranslateService,
+		private readonly navController: NavController
+	) {
 		this.selectedLanguage = localStorage.getItem("selectedLang") || "en";
 	}
 
 	ngOnInit() {}
 
-	ngOnChanges() {
-		this.languageOptions = JSON.parse(JSON.stringify(this.languageOptions));
-	}
-
 	protected changeLanguage(event: any) {
 		const lang = event.detail.value;
 		this.translateService.changeLanguage(lang);
-	}
-
-	protected getCurrentLanguageLabelKey(): string {
-		const key = this.languageOptions.find(({ value }) => this.selectedLanguage === value)?.label;
-		return key ?? "";
+		this.navController.back();
 	}
 }

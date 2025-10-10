@@ -9,8 +9,6 @@ export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 	providedIn: "root",
 })
 export class AppTranslateService {
-	public onLangChange$ = this.translateService.onLangChange.asObservable();
-
 	constructor(private readonly translateService: TranslateService) {
 		this.translateService.addLangs(SUPPORTED_LANGUAGES);
 		const savedLanguage = localStorage.getItem("selectedLang") || "en";
