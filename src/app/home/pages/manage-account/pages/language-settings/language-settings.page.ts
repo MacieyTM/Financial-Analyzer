@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { AppTranslateService } from "src/app/services/translate.service";
 
 @Component({
 	selector: "app-language-settings",
@@ -11,7 +12,17 @@ export class LanguageSettingsPage implements OnInit {
 		{ value: "en", label: "English" },
 		{ value: "pl", label: "Polish" },
 	];
-	constructor() {}
+
+	protected selectedLanguage: string;
+
+	constructor(private readonly translateService: AppTranslateService) {
+		this.selectedLanguage = localStorage.getItem("selectedLang") || "en";
+	}
 
 	ngOnInit() {}
+
+	protected changeLanguage(event: any) {
+		const lang = event.detail.value;
+		this.translateService.changeLanguage(lang);
+	}
 }

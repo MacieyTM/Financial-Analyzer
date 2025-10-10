@@ -17,9 +17,10 @@
 			<ion-select
 				mode="md"
 				fill="outline"
-				value="en"
+				[value]="selectedLanguage"
 				label="Set language"
 				label-placement="floating"
+				(ionChange)="changeLanguage($event)"
 			>
 				<ion-icon name="home" slot="start" />
 				@for (option of options; track option.value) {

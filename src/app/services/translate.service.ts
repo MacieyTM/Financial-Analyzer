@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
 
-const SUPPORTED_LANGUAGES = ["en", "pl"] as const;
+const SUPPORTED_LANGUAGES = ["en", "pl"];
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 
 @Injectable({
@@ -12,8 +12,9 @@ export class AppTranslateService {
 	public onLangChange$ = this.translateService.onLangChange.asObservable();
 
 	constructor(private readonly translateService: TranslateService) {
-		this.translateService.addLangs(["en", "pl"]);
-		this.translateService.use("en");
+		this.translateService.addLangs(SUPPORTED_LANGUAGES);
+		const savedLanguage = localStorage.getItem("selectedLang") || "en";
+		this.translateService.use(savedLanguage);
 	}
 
 	public translate(
@@ -27,5 +28,10 @@ export class AppTranslateService {
 	public getSystemLanguage() {
 		const [language] = window.navigator.language.split("-");
 		return language;
+	}
+
+	public changeLanguage(supportedLanguage: SupportedLanguage) {
+		this.translateService.use(supportedLanguage);
+		localStorage.setItem("selectedLang", supportedLanguage);
 	}
 }
