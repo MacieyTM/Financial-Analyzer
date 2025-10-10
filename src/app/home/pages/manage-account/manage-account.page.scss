@@ -20,9 +20,9 @@ ion-content {
 
 		ion-card-header {
 			display: flex;
+			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			flex-direction: column;
 			gap: 1rem;
 			border-bottom: 1px solid var(--ion-color-secondary);
 			text-align: center;
@@ -71,16 +71,16 @@ ion-content {
 
 		ion-card-content {
 			display: flex;
+			flex-direction: column;
 			justify-content: center;
 			align-items: flex-start;
-			flex-direction: column;
 			gap: 0.75rem;
 
 			.settings-item {
 				display: flex;
+				flex-direction: row;
 				justify-content: flex-start;
 				align-items: center;
-				flex-direction: row;
 				gap: 1rem;
 				width: 100%;
 

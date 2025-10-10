@@ -5,6 +5,7 @@ ion-header {
 		ion-title {
 			.header-wrapper {
 				display: flex;
+				flex-direction: row;
 				justify-content: space-between;
 				align-items: center;
 
@@ -79,6 +80,7 @@ ion-content {
 
 				ion-button.right-btn {
 					display: flex;
+					flex-direction: row;
 					justify-content: center;
 					align-items: center;
 					gap: 0.5rem;
@@ -86,6 +88,7 @@ ion-content {
 
 					.btn-wrapper {
 						display: flex;
+						flex-direction: row;
 						justify-content: center;
 						align-items: center;
 						gap: 0.5rem;

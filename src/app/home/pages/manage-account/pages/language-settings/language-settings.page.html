@@ -6,50 +6,24 @@
 </ion-header>
 
 <ion-content>
-	<ion-card class="first-card">
+	<ion-card>
 		<ion-card-header>
-			<div class="circle">
-				<ion-icon name="person" />
-			</div>
-			<ion-text>Maciej Grochowski</ion-text>
+			<ion-text class="header">Language settings</ion-text>
+			<ion-text class="description">Select and confirm your language.</ion-text>
 		</ion-card-header>
 		<ion-card-content>
-			<ion-text>Manage your account details here</ion-text>
-		</ion-card-content>
-	</ion-card>
-	<ion-card class="second-card">
-		<ion-card-content>
-			<div class="settings-item" routerLink="language-settings">
-				<div class="square">
-					<ion-icon name="language" class="first-icon" />
-				</div>
-				<ion-text>Language settings</ion-text>
-				<ion-icon name="chevron-forward" class="second-icon" />
-			</div>
-			<div class="divider"></div>
-			<div class="settings-item">
-				<div class="square">
-					<ion-icon name="people" class="first-icon" />
-				</div>
-				<ion-text>Users settings</ion-text>
-				<ion-icon name="chevron-forward" class="second-icon" />
-			</div>
-			<div class="divider"></div>
-			<div class="settings-item">
-				<div class="square">
-					<ion-icon name="earth" class="first-icon" />
-				</div>
-				<ion-text>Global settings</ion-text>
-				<ion-icon name="chevron-forward" class="second-icon" />
-			</div>
-			<div class="divider"></div>
-			<div class="settings-item">
-				<div class="square">
-					<ion-icon name="contrast" class="first-icon" />
-				</div>
-				<ion-text>Theme settings</ion-text>
-				<ion-icon name="chevron-forward" class="second-icon" />
-			</div>
+			<ion-select
+				mode="md"
+				fill="outline"
+				value="en"
+				label="Set language"
+				label-placement="floating"
+			>
+				<ion-icon name="home" slot="start" />
+				@for (option of options; track option.value) {
+				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
+				}
+			</ion-select>
 		</ion-card-content>
 	</ion-card>
 </ion-content>

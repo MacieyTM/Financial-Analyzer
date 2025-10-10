@@ -7,6 +7,10 @@ import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguageSettingsPage implements OnInit {
+	protected readonly options = [
+		{ value: "en", label: "English" },
+		{ value: "pl", label: "Polish" },
+	];
 	constructor() {}
 
 	ngOnInit() {}
