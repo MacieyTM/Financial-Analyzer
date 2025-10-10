@@ -13,10 +13,12 @@
 <ion-content>
 	<ion-card class="first-card">
 		<ion-card-header>
-			<ion-text>Mobile application for financial management</ion-text>
+			<ion-text appTranslate="mobile_application_for_financial_management"
+				>Mobile application for financial management</ion-text
+			>
 		</ion-card-header>
 		<ion-card-content>
-			<div class="btns-container">
+			<!-- <div class="btns-container">
 				<ion-button class="left-btn" routerLink="left">
 					<div class="btn-wrapper">
 						<ion-icon name="arrow-back-circle-outline" />
@@ -29,15 +31,15 @@
 						<ion-icon name="arrow-forward-circle-outline" />
 					</div>
 				</ion-button>
-			</div>
+			</div> -->
 			<div class="amount-wrapper">
-				<ion-text>Current bank account amount:</ion-text>
+				<ion-text appTranslate="current_bank_account_amount">Current bank account amount:</ion-text>
 				<span>{{ bankAccountAmountFormatted }}</span>
 				<ion-text>PLN</ion-text>
 			</div>
 		</ion-card-content>
 	</ion-card>
-	<ion-card class="second-card">
+	<!-- <ion-card class="second-card">
 		<ion-card-header>
 			<ion-text>Second Card Header</ion-text>
 		</ion-card-header>
@@ -48,7 +50,7 @@
 			<ion-text>second card content </ion-text>
 			<ion-text>second card content </ion-text>
 		</ion-card-content>
-	</ion-card>
+	</ion-card> -->
 </ion-content>
 
 <ion-footer>

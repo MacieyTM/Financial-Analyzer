@@ -1,16 +1,46 @@
-import { NgModule } from "@angular/core";
+import { APP_INITIALIZER, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
-
 import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
-
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import { TranslateModule, TranslateLoader, TranslateService } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { AppTranslateService } from "./services/translate.service";
+
+export function createTranslateLoader(http: HttpClient) {
+	return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+}
+
+const initializeApp = () => {
+	return () => {};
+};
 
 @NgModule({
 	declarations: [AppComponent],
-	imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
-	providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+	imports: [
+		BrowserModule,
+		IonicModule.forRoot(),
+		AppRoutingModule,
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: createTranslateLoader,
+				deps: [HttpClient],
+			},
+		}),
+	],
+	providers: [
+		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+		{
+			provide: APP_INITIALIZER,
+			useFactory: initializeApp,
+			deps: [AppTranslateService],
+			multi: true,
+		},
+		provideHttpClient(withInterceptorsFromDi()),
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

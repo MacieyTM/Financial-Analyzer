@@ -1,0 +1,15 @@
+{
+	"english": "Angielski",
+	"polish": "Polski",
+	"cancel": "anuluj",
+	"set_language": "Ustaw język",
+	"mobile_application_for_financial_management": "Mobilna aplikacja do zarządzania finansami",
+	"current_bank_account_amount": "Aktualna kwota na koncie bankowym:",
+	"kpi_trends": "Trendy KPI",
+	"this_is_kpi_trends_page": "To jest strona Trendy KPI",
+	"manage_account": "Zarządzaj Kontem",
+	"manage_your_account_details_here": "Zarządzaj szczegółami swojego konta tutaj",
+	"language_settings_header": "Ustawienia Języka",
+	"language_settings": "Ustawienia języka",
+	"select_and_confirm_your_language": "Wybierz i potwierdź swój język. Obsługiwane są jak na razie angielski i polski."
+}

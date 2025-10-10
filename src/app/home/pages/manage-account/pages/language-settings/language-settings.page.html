@@ -1,0 +1,36 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-back-button slot="start" defaultHref="manage-account"></ion-back-button>
+		<ion-title appTranslate="language_settings_header">Language Settings</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-card>
+		<ion-card-header>
+			<ion-text class="header" appTranslate="language_settings">Language settings</ion-text>
+			<ion-text class="description" appTranslate="select_and_confirm_your_language"
+				>Select and confirm your language. Supported are English and Polish so far.</ion-text
+			>
+		</ion-card-header>
+		<ion-card-content>
+			<ion-select
+				interface="alert"
+				[cancelText]="'cancel' | appTranslate: 'cancel'"
+				mode="md"
+				fill="outline"
+				[value]="selectedLanguage"
+				[label]="'Set language' | appTranslate: 'set_language'"
+				label-placement="floating"
+				(ionChange)="changeLanguage($event)"
+			>
+				<ion-icon name="home" slot="start" />
+				@for (option of languageOptions; track option.value) {
+				<ion-select-option [value]="option.value"
+					>{{ option.label | appTranslate: option.label }}</ion-select-option
+				>
+				}
+			</ion-select>
+		</ion-card-content>
+	</ion-card>
+</ion-content>
