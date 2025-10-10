@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { AppTranslateService } from "src/app/services/translate.service";
+import { AppTranslateService, SupportedLanguage } from "src/app/services/translate.service";
 
 @Component({
 	selector: "app-language-settings",
@@ -8,9 +8,9 @@ import { AppTranslateService } from "src/app/services/translate.service";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguageSettingsPage implements OnInit {
-	protected readonly options = [
-		{ value: "en", label: "English" },
-		{ value: "pl", label: "Polish" },
+	protected languageOptions = [
+		{ value: "en", label: "english" },
+		{ value: "pl", label: "polish" },
 	];
 
 	protected selectedLanguage: string;
@@ -21,8 +21,17 @@ export class LanguageSettingsPage implements OnInit {
 
 	ngOnInit() {}
 
+	ngOnChanges() {
+		this.languageOptions = JSON.parse(JSON.stringify(this.languageOptions));
+	}
+
 	protected changeLanguage(event: any) {
 		const lang = event.detail.value;
 		this.translateService.changeLanguage(lang);
+	}
+
+	protected getCurrentLanguageLabelKey(): string {
+		const key = this.languageOptions.find(({ value }) => this.selectedLanguage === value)?.label;
+		return key ?? "";
 	}
 }

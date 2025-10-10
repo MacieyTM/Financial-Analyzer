@@ -1,5 +1,9 @@
 {
+	"english": "Angielski",
+	"polish": "Polski",
 	"mobile_application_for_financial_management": "Mobilna aplikacja do zarządzania finansami",
-	"hello_there": "Witaj",
-	"welcome": "Witamy w naszej aplikacji"
+	"language_settings_header": "Ustawienia Języka",
+	"language_settings": "Ustawienia języka",
+	"set_language": "Ustaw język",
+	"select_and_confirm_your_language": "Wybierz i potwierdź swój język. Obsługiwane są jak na razie angielski i polski."
 }

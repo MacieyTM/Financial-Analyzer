@@ -1,5 +1,9 @@
 {
+	"english": "English",
+	"polish": "Polish",
 	"mobile_application_for_financial_management": "Mobile application for financial management",
-	"hello_there": "Hello",
-	"welcome": "Welcome to our app"
+	"language_settings_header": "Language Settings",
+	"language_settings": "Language settings",
+	"set_language": "Set language",
+	"select_and_confirm_your_language": "Select and confirm your language. Supported are English and Polish so far."
 }
