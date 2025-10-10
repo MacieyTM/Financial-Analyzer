@@ -1,7 +1,7 @@
 <ion-header>
 	<ion-toolbar>
 		<ion-back-button slot="start" defaultHref="home"></ion-back-button>
-		<ion-title>Manage Account</ion-title>
+		<ion-title appTranslate="manage_account">Manage Account</ion-title>
 	</ion-toolbar>
 </ion-header>
 
@@ -14,7 +14,9 @@
 			<ion-text>Maciej Grochowski</ion-text>
 		</ion-card-header>
 		<ion-card-content>
-			<ion-text>Manage your account details here</ion-text>
+			<ion-text appTranslate="manage_your_account_details_here"
+				>Manage your account details here</ion-text
+			>
 		</ion-card-content>
 	</ion-card>
 	<ion-card class="second-card">
@@ -23,10 +25,10 @@
 				<div class="square">
 					<ion-icon name="language" class="first-icon" />
 				</div>
-				<ion-text>Language settings</ion-text>
+				<ion-text appTranslate="language_settings">Language settings</ion-text>
 				<ion-icon name="chevron-forward" class="second-icon" />
 			</div>
-			<div class="divider"></div>
+			<!-- <div class="divider"></div>
 			<div class="settings-item">
 				<div class="square">
 					<ion-icon name="people" class="first-icon" />
@@ -49,7 +51,7 @@
 				</div>
 				<ion-text>Theme settings</ion-text>
 				<ion-icon name="chevron-forward" class="second-icon" />
-			</div>
+			</div> -->
 		</ion-card-content>
 	</ion-card>
 </ion-content>
