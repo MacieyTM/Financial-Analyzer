@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { AppTranslateService } from "../services/translate.service";
 
 @Component({
 	selector: "app-home",

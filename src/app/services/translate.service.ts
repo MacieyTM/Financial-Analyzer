@@ -13,6 +13,7 @@ export class AppTranslateService {
 
 	constructor(private readonly translateService: TranslateService) {
 		this.translateService.addLangs(["en", "pl"]);
+		this.translateService.use("en");
 	}
 
 	public translate(
