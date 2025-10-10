@@ -5,7 +5,6 @@ import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
-// import { UiModule } from "./ui.module";
 import { TranslateModule, TranslateLoader, TranslateService } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { AppTranslateService } from "./services/translate.service";
@@ -24,7 +23,6 @@ const initializeApp = () => {
 		BrowserModule,
 		IonicModule.forRoot(),
 		AppRoutingModule,
-		// UiModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
