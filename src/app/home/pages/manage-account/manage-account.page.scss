@@ -11,17 +11,116 @@ ion-header {
 
 ion-content {
 	--background: var(--ion-color-secondary);
-	position: relative;
 
-	ion-text {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		font-weight: 400;
-		font-size: 1.5rem;
-		text-align: center;
-		letter-spacing: 0.1rem;
-		transform: translate(-50%, -50%);
-		color: var(--ion-color-text-secondary);
+	ion-card.first-card {
+		margin: 1rem;
+		padding: 0.5rem 1rem;
+		border-radius: 0.75rem;
+		background-color: var(--ion-color-text-secondary);
+
+		ion-card-header {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			gap: 1rem;
+			border-bottom: 1px solid var(--ion-color-secondary);
+			text-align: center;
+
+			.circle {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 4rem;
+				height: 4rem;
+				border-radius: 50%;
+				background-color: var(--ion-color-primary);
+
+				ion-icon {
+					width: 2rem;
+					height: 2rem;
+					font-size: 2rem;
+					color: var(--ion-color-tertiary);
+				}
+			}
+
+			ion-text {
+				font-size: 1rem;
+				font-weight: 700;
+				color: var(--ion-color-text-primary);
+			}
+		}
+
+		ion-card-content {
+			margin-top: 1rem;
+			text-align: center;
+
+			ion-text {
+				font-size: 1rem;
+				font-weight: 400;
+				color: var(--ion-color-text-primary);
+			}
+		}
+	}
+
+	ion-card.second-card {
+		margin: 1rem;
+		padding: 0.5rem 0;
+		border-radius: 0.75rem;
+		background-color: var(--ion-color-text-secondary);
+
+		ion-card-content {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: flex-start;
+			gap: 0.75rem;
+
+			.settings-item {
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-start;
+				align-items: center;
+				gap: 1rem;
+				width: 100%;
+
+				.square {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: 2rem;
+					height: 2rem;
+					border-radius: 0.5rem;
+					background-color: var(--ion-color-primary);
+
+					ion-icon.first-icon {
+						width: 1.25rem;
+						height: 1.25rem;
+						font-size: 1.25rem;
+						color: var(--ion-color-tertiary);
+					}
+				}
+
+				ion-text {
+					font-size: 1rem;
+					font-weight: 400;
+					color: var(--ion-color-text-primary);
+				}
+
+				ion-icon.second-icon {
+					width: 1.25rem;
+					height: 1.25rem;
+					margin-left: auto;
+					font-size: 1.25rem;
+					color: var(--ion-color-secondary);
+				}
+			}
+
+			.divider {
+				width: 100%;
+				height: 1px;
+				background-color: var(--ion-color-secondary);
+			}
+		}
 	}
 }
