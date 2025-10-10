@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { IonicModule } from "@ionic/angular";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-// import { NgPipesModule } from "ngx-pipes";
 import { TranslateDirective } from "./directives/translate.directive";
 import { AppTranslatePipe } from "./pipes/translate.pipe";
 import { TranslatePipe } from "@ngx-translate/core";
