@@ -1,6 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { NavController } from "@ionic/angular";
 
+const originalUserData = {
+	name: "",
+	surname: "",
+	nick: "",
+};
+
 @Component({
 	selector: "app-user-settings",
 	templateUrl: "./user-settings.page.html",
@@ -11,6 +17,8 @@ export class UserSettingsPage implements OnInit {
 	public userName!: string;
 	public userSurname!: string;
 	public userNick!: string;
+
+	private originalUserData = originalUserData;
 
 	constructor(private readonly navController: NavController) {}
 
@@ -35,6 +43,12 @@ export class UserSettingsPage implements OnInit {
 				this.userSurname = surname || "";
 			}
 		}
+
+		this.originalUserData = {
+			name: this.userName,
+			surname: this.userSurname,
+			nick: this.userNick,
+		};
 	}
 
 	protected cancel() {
@@ -50,7 +64,14 @@ export class UserSettingsPage implements OnInit {
 			return true;
 		}
 
-		return name && surname && nick;
+		const unchanged =
+			JSON.stringify({
+				name: this.userName,
+				surname: this.userSurname,
+				nick: this.userNick,
+			}) === JSON.stringify(this.originalUserData);
+
+		return name && surname && nick || unchanged;
 	}
 
 	protected save(name: string, surname: string, nick: string) {
