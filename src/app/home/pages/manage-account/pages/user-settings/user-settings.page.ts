@@ -22,11 +22,18 @@ export class UserSettingsPage implements OnInit {
 		const storedFullName = localStorage.getItem("userFullName");
 
 		if (storedFullName) {
-			const [name, surname, nick] = storedFullName.split(" ");
+			const nicknameStart = storedFullName.indexOf("(");
+			const nicknameEnd = storedFullName.indexOf(")");
 
-			this.userName = name || "";
-			this.userSurname = surname || "";
-			this.userNick = nick || "";
+			if (nicknameStart !== -1 && nicknameEnd !== -1) {
+				this.userName = storedFullName.substring(0, storedFullName.indexOf(" "));
+				this.userSurname = storedFullName.substring(this.userName.length + 1, nicknameStart).trim();
+				this.userNick = storedFullName.substring(nicknameStart + 1, nicknameEnd);
+			} else {
+				const [name, surname] = storedFullName.split(" ");
+				this.userName = name || "";
+				this.userSurname = surname || "";
+			}
 		}
 	}
 
@@ -39,11 +46,15 @@ export class UserSettingsPage implements OnInit {
 		const surname = this.userSurname.trim().length === 0;
 		const nick = this.userNick.trim().length === 0;
 
+		if (this.userNick.includes("(") || this.userNick.includes(")")) {
+			return true;
+		}
+
 		return name && surname && nick;
 	}
 
 	protected save(name: string, surname: string, nick: string) {
-		const fullUserName = `${name} ${surname} (${nick})`;
+		const fullUserName = nick ? `${name} ${surname} (${nick})` : `${name} ${surname}`;
 
 		localStorage.setItem("userFullName", fullUserName);
 		this.navController.navigateBack("home");
