@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { NavController } from "@ionic/angular";
+import { NavController, ToastController } from "@ionic/angular";
+import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
 
 const originalUserData = {
 	name: "",
@@ -18,11 +19,18 @@ export class UserSettingsPage implements OnInit {
 	public userSurname!: string;
 	public userNick!: string;
 
+	private languageChanged!: boolean;
 	private originalUserData = originalUserData;
 
-	constructor(private readonly navController: NavController) {}
+	constructor(
+		private readonly navController: NavController,
+		private readonly toastController: ToastController,
+		private readonly translatePipe: AppTranslatePipe
+	) {}
 
 	ngOnInit() {
+		this.languageChanged = false;
+
 		this.userName = "";
 		this.userSurname = "";
 		this.userNick = "";
@@ -83,6 +91,27 @@ export class UserSettingsPage implements OnInit {
 		const fullUserName = nick ? `${name} ${surname} (${nick})` : `${name} ${surname}`;
 
 		localStorage.setItem("userFullName", fullUserName);
+		this.languageChanged = true;
 		this.navController.navigateBack("home");
+	}
+
+	private async showSuccessToast(): Promise<void> {
+		const toast = await this.toastController.create({
+			message: this.translatePipe.transform(
+				"Language changed successfully!!",
+				"changes_saved_successfully"
+			),
+			duration: 3000,
+			position: "bottom",
+			color: "success",
+			icon: "checkmark-circle",
+		});
+		toast.present();
+	}
+
+	ngOnDestroy() {
+		if (this.languageChanged) {
+			this.showSuccessToast();
+		}
 	}
 }

@@ -19,5 +19,7 @@
 	"your_name": "Your name",
 	"your_surname": "Your surname",
 	"your_nick": "Your nick",
-	"save": "Save"
+	"save": "Save",
+	"language_changed_successfully": "Language changed successfully!",
+	"changes_saved_successfully": "Changes saved successfully!"
 }
