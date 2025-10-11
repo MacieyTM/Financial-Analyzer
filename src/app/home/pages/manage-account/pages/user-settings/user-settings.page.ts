@@ -26,6 +26,10 @@ export class UserSettingsPage implements OnInit {
 		}
 	}
 
+	protected cancel() {
+		this.navController.back();
+	}
+
 	protected save(name: string, surname: string) {
 		const fullUserName = `${name} ${surname}`;
 

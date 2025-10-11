@@ -39,31 +39,44 @@ ion-content {
 		}
 
 		ion-card-content {
-			margin-top: 1rem;
-			display: flex;
-			flex-direction: column;
-			justify-content: start;
-			align-items: center;
-			gap: 0.5rem;
+			.content-wrapper {
+				margin-top: 1rem;
+				display: flex;
+				flex-direction: column;
+				justify-content: start;
+				align-items: center;
+				gap: 0.5rem;
 
-			ion-input {
-				--highlight-color-valid: var(--ion-color-primary);
-				--placeholder-color: var(--ion-color-text-secondary);
-				font-size: 1rem;
-				font-weight: 700;
-				background-color: #fff;
-				color: var(--ion-color-text-primary);
-
-				ion-icon {
-					width: 1rem;
-					height: 1rem;
+				ion-input {
+					--highlight-color-valid: var(--ion-color-primary);
+					--placeholder-color: var(--ion-color-text-secondary);
 					font-size: 1rem;
-					color: var(--ion-color-tertiary);
+					font-weight: 700;
+					color: var(--ion-color-text-primary);
+
+					ion-icon {
+						width: 1rem;
+						height: 1rem;
+						font-size: 1rem;
+						color: var(--ion-color-tertiary);
+					}
 				}
 			}
 
-			ion-button {
-				width: 100%;
+			.buttons-wrapper {
+				margin-top: 1rem;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+				gap: 0.5rem;
+
+				ion-button {
+					--background: var(--ion-color-primary);
+					font-size: 1rem;
+					font-weight: 700;
+					color: var(--ion-color-text-primary);
+				}
 			}
 		}
 	}

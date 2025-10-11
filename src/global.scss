@@ -35,3 +35,18 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+ion-select {
+	background-color: #fff;
+}
+
+ion-input {
+	background-color: #fff;
+}
+
+ion-button {
+	width: 100%;
+	text-transform: none;
+	letter-spacing: 0.1rem;
+	--border-radius: 0.75rem;
+}
