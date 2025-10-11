@@ -25,8 +25,8 @@ export class LanguageSettingsPage implements OnInit {
 
 	ngOnInit() {}
 
-	protected changeLanguage(event: any) {
-		const lang = event.detail.value;
+	protected changeLanguage(chosenLang: any) {
+		const lang = chosenLang.detail.value;
 		this.translateService.changeLanguage(lang);
 		this.navController.back();
 	}

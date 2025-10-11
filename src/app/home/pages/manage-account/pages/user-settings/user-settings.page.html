@@ -1,0 +1,46 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-back-button slot="start" defaultHref="manage-account"></ion-back-button>
+		<ion-title appTranslate="user_settings_header">User Settings</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-card>
+		<ion-card-header>
+			<ion-text class="header" appTranslate="user_settings">User settings</ion-text>
+			<ion-text class="description" appTranslate="enter_and_confirm_your_name_and_surname"
+				>Enter and confirm your name and surname.</ion-text
+			>
+		</ion-card-header>
+		<ion-card-content>
+			<ion-input
+				mode="md"
+				fill="outline"
+				[(ngModel)]="userName"
+				type="text"
+				inputmode="text"
+				label-placement="floating"
+				[label]="'Your name' | appTranslate: 'your_name'"
+				[clearInput]="true"
+				[maxlength]="10"
+			>
+				<ion-icon name="person" slot="start"></ion-icon>
+			</ion-input>
+			<ion-input
+				mode="md"
+				fill="outline"
+				[(ngModel)]="userSurname"
+				type="text"
+				inputmode="text"
+				label-placement="floating"
+				[label]="'Your name' | appTranslate: 'your_name'"
+				[clearInput]="true"
+				[maxlength]="10"
+			>
+				<ion-icon name="person" slot="start"></ion-icon>
+			</ion-input>
+			<ion-button (click)="save(userName, userSurname)" appTranslate="save">Save</ion-button>
+		</ion-card-content>
+	</ion-card>
+</ion-content>
