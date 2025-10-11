@@ -14,6 +14,13 @@ const routes: Routes = [
 				(m) => m.LanguageSettingsPageModule
 			),
 	},
+	{
+		path: "user-settings",
+		loadChildren: () =>
+			import("./pages/user-settings/user-settings.module").then(
+				(m) => m.UserSettingsPageModule
+			),
+	},
 ];
 
 @NgModule({
