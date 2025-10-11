@@ -21,6 +21,10 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 		{ value: "zh", label: "chinese" },
 		{ value: "hi", label: "hindi" },
 		{ value: "pt", label: "portuguese" },
+		{ value: "ru", label: "russian" },
+		{ value: "ja", label: "japanese" },
+		{ value: "ko", label: "korean" },
+		{ value: "tr", label: "turkish" },
 	];
 
 	private languageChanged!: boolean;

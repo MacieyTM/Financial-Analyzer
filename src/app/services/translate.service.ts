@@ -2,7 +2,22 @@ import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
 
-const SUPPORTED_LANGUAGES = ["en", "pl", "de", "fr", "it", "es", "zh", "hi", "pt"];
+const SUPPORTED_LANGUAGES = [
+	"en",
+	"pl",
+	"de",
+	"fr",
+	"it",
+	"es",
+	"zh",
+	"hi",
+	"pt",
+	"ru",
+	"ja",
+	"ko",
+	"tr",
+];
+
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 
 @Injectable({
