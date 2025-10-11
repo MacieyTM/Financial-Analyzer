@@ -27,11 +27,6 @@ export class UserSettingsPage implements OnInit {
 	}
 
 	protected save(name: string, surname: string) {
-		if (!name || !surname) {
-			alert("Both fields are required.");
-			return;
-		}
-
 		const fullUserName = `${name} ${surname}`;
 
 		localStorage.setItem("userFullName", fullUserName);
