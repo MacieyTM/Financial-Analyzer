@@ -68,6 +68,14 @@ ion-button {
 	}
 
 	&[disabled] {
-		--background: var(--ion-color-secondary);
+		--opacity: 0.5;
+	}
+
+	&:first-child {
+		width: fit-content;
+	}
+
+	&:last-child {
+		flex: 1;
 	}
 }
