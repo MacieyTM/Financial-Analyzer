@@ -37,16 +37,25 @@
 @import "@ionic/angular/css/palettes/dark.system.css";
 
 ion-select {
+	--highlight-color-valid: orange;
+	color: black;
+	font-weight: 700;
 	background-color: #fff;
 }
 
 ion-input {
-	background-color: #fff;
 }
 
 ion-button {
+	--background: orange;
+	--border-radius: 0.75rem;
 	width: 100%;
+	color: black;
+	font-weight: 700;
 	text-transform: none;
 	letter-spacing: 0.1rem;
-	--border-radius: 0.75rem;
+
+	&[disabled] {
+		--background: darkgrey;
+	}
 }

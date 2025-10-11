@@ -30,6 +30,13 @@ export class UserSettingsPage implements OnInit {
 		this.navController.back();
 	}
 
+	protected isButtonDisabled(): boolean {
+		const name = this.userName.trim().length === 0;
+		const surnmae = this.userSurname.trim().length === 0;
+
+		return name && surnmae;
+	}
+
 	protected save(name: string, surname: string) {
 		const fullUserName = `${name} ${surname}`;
 

@@ -45,7 +45,12 @@
 			</div>
 			<div class="buttons-wrapper">
 				<ion-button (click)="cancel()" appTranslate="cancel">Cancel</ion-button>
-				<ion-button (click)="save(userName, userSurname)" appTranslate="save">Save</ion-button>
+				<ion-button
+					[disabled]="isButtonDisabled()"
+					(click)="save(userName, userSurname)"
+					appTranslate="save"
+					>Save</ion-button
+				>
 			</div>
 		</ion-card-content>
 	</ion-card>
