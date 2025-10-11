@@ -10,7 +10,7 @@
 		<ion-card-header>
 			<ion-text class="header" appTranslate="user_settings">User settings</ion-text>
 			<ion-text class="description" appTranslate="enter_and_confirm_your_name_and_surname"
-				>Enter and confirm your name and surname.</ion-text
+				>Enter and confirm your name and surname or even nick.</ion-text
 			>
 		</ion-card-header>
 		<ion-card-content>
@@ -43,12 +43,26 @@
 				>
 					<ion-icon name="person" slot="start"></ion-icon>
 				</ion-input>
+				<ion-input
+					mode="md"
+					fill="outline"
+					[(ngModel)]="userNick"
+					type="text"
+					inputmode="text"
+					label-placement="floating"
+					[label]="'Your nick' | appTranslate: 'your_nick'"
+					[placeholder]="'Your nick' | appTranslate: 'your_nick'"
+					[clearInput]="true"
+					[maxlength]="20"
+				>
+					<ion-icon name="person" slot="start"></ion-icon>
+				</ion-input>
 			</div>
 			<div class="buttons-wrapper">
 				<ion-button (click)="cancel()" appTranslate="cancel">Cancel</ion-button>
 				<ion-button
 					[disabled]="isButtonDisabled()"
-					(click)="save(userName, userSurname)"
+					(click)="save(userName, userSurname, userNick)"
 					appTranslate="save"
 					>Save</ion-button
 				>

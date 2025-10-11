@@ -10,19 +10,23 @@ import { NavController } from "@ionic/angular";
 export class UserSettingsPage implements OnInit {
 	public userName!: string;
 	public userSurname!: string;
+	public userNick!: string;
 
 	constructor(private readonly navController: NavController) {}
 
 	ngOnInit() {
 		this.userName = "";
 		this.userSurname = "";
+		this.userNick = "";
+
 		const storedFullName = localStorage.getItem("userFullName");
 
 		if (storedFullName) {
-			const [name, surName] = storedFullName.split(" ");
+			const [name, surname, nick] = storedFullName.split(" ");
 
 			this.userName = name || "";
-			this.userSurname = surName || "";
+			this.userSurname = surname || "";
+			this.userNick = nick || "";
 		}
 	}
 
@@ -32,13 +36,14 @@ export class UserSettingsPage implements OnInit {
 
 	protected isButtonDisabled(): boolean {
 		const name = this.userName.trim().length === 0;
-		const surnmae = this.userSurname.trim().length === 0;
+		const surname = this.userSurname.trim().length === 0;
+		const nick = this.userNick.trim().length === 0;
 
-		return name && surnmae;
+		return name && surname && nick;
 	}
 
-	protected save(name: string, surname: string) {
-		const fullUserName = `${name} ${surname}`;
+	protected save(name: string, surname: string, nick: string) {
+		const fullUserName = `${name} ${surname} (${nick})`;
 
 		localStorage.setItem("userFullName", fullUserName);
 		this.navController.navigateBack("home");

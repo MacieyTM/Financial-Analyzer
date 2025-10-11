@@ -9,14 +9,15 @@
 	"this_is_kpi_trends_page": "To jest strona Trendy KPI",
 	"manage_account": "Zarządzaj Kontem",
 	"edit_your_user_settings_to_add_the_personal_preferences_to_this_account": "Edytuj ustawienia użytkownika, aby dodać preferencje osobiste do tego konta.",
-	"manage_your_account_details_here": "Zarządzaj szczegółami swojego konta tutaj",
+	"manage_your_account_details_here": "Zarządzaj szczegółami swojego konta tutaj.",
 	"language_settings_header": "Ustawienia Języka",
 	"language_settings": "Ustawienia języka",
 	"select_and_confirm_your_language": "Wybierz i potwierdź swój język. Obsługiwane są jak na razie angielski i polski.",
 	"user_settings_header": "Ustawienia Użytkownika",
 	"user_settings": "Ustawienia użytkownika",
-	"enter_and_confirm_your_name_and_surname": "Wpisz i potwierdź swoje imię i nazwisko.",
+	"enter_and_confirm_your_name_and_surname": "Wpisz i potwierdź swoje imię i nazwisko lub nawet pseudonim.",
 	"your_name": "Twoje imię",
 	"your_surname": "Twoje nazwisko",
+	"your_nick": "Twój pseudonim",
 	"save": "Zapisz"
 }
