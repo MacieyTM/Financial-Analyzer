@@ -37,30 +37,37 @@
 @import "@ionic/angular/css/palettes/dark.system.css";
 
 ion-select {
-	--highlight-color-valid: orange;
-	color: black;
+	--highlight-color-valid: var(--ion-color-primary);
+	color: var(--ion-color-text-primary);
 	font-weight: 700;
-	background-color: #fff;
+	background-color: var(--ion-color-light);
 }
 
 ion-input {
-	--highlight-color-valid: orange !important;
-	--placeholder-color: darkgrey !important;
+	--highlight-color-valid: var(--ion-color-primary) !important;
+	--placeholder-color: var(--ion-color-secondary) !important;
 	color: black !important;
 	font-weight: 700;
-	background-color: #fff;
+	background-color: var(--ion-color-light);
 }
 
 ion-button {
-	--background: orange;
 	--border-radius: 0.75rem;
+	--background: var(--ion-color-primary);
 	width: 100%;
-	color: black;
 	font-weight: 700;
 	text-transform: none;
 	letter-spacing: 0.1rem;
+	color: var(--ion-color-text-primary);
+
+	&[fill="outline"] {
+		&::part(native) {
+			border-color: var(--ion-color-primary);
+			background: var(--ion-color-light);
+		}
+	}
 
 	&[disabled] {
-		--background: darkgrey;
+		--background: var(--ion-color-secondary);
 	}
 }
