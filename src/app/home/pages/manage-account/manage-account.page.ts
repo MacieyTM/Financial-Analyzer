@@ -12,8 +12,6 @@ export class ManageAccountPage implements OnInit {
 
 	constructor() {}
 
-	// ionViewWillEnter() {}
-
 	ngOnInit() {
 		this.isLocalStorageUserFullName = !!localStorage.getItem("userFullName");
 		this.userFullName = localStorage.getItem("userFullName") || "";

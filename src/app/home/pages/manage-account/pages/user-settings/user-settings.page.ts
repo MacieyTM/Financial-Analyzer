@@ -30,6 +30,6 @@ export class UserSettingsPage implements OnInit {
 		const fullUserName = `${name} ${surname}`;
 
 		localStorage.setItem("userFullName", fullUserName);
-		this.navController.back();
+		this.navController.navigateBack("home");
 	}
 }
