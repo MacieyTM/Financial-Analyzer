@@ -1,6 +1,12 @@
 {
 	"english": "Angielski",
 	"polish": "Polski",
+	"german": "Niemiecki",
+	"french": "Francuski",
+	"italian": "Włoski",
+	"spanish": "Hiszpański",
+	"chinese": "Chiński",
+	"hindi": "Hindi",
 	"cancel": "Anuluj",
 	"set_language": "Ustaw język",
 	"mobile_application_for_financial_management": "Mobilna aplikacja do zarządzania finansami",

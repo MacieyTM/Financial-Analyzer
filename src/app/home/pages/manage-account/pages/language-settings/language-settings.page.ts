@@ -14,6 +14,12 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 	protected languageOptions = [
 		{ value: "en", label: "english" },
 		{ value: "pl", label: "polish" },
+		{ value: "de", label: "german" },
+		{ value: "fr", label: "french" },
+		{ value: "it", label: "italian" },
+		{ value: "es", label: "spanish" },
+		{ value: "zh", label: "chinese" },
+		{ value: "hi", label: "hindi" },
 	];
 
 	private languageChanged!: boolean;
