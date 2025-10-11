@@ -71,7 +71,12 @@ export class UserSettingsPage implements OnInit {
 				nick: this.userNick,
 			}) === JSON.stringify(this.originalUserData);
 
-		return name && surname && nick || unchanged;
+		const startsWithSpace =
+			this.userName.startsWith(" ") ||
+			this.userSurname.startsWith(" ") ||
+			this.userNick.startsWith(" ");
+
+		return (name && surname && nick) || unchanged || startsWithSpace;
 	}
 
 	protected save(name: string, surname: string, nick: string) {
