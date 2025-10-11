@@ -48,6 +48,12 @@ ion-content {
 				font-size: 1rem;
 				font-weight: 700;
 				color: var(--ion-color-text-primary);
+
+				&.error {
+					font-weight: 400;
+					font-size: 0.75rem;
+					color: var(--ion-color-danger);
+				}
 			}
 		}
 

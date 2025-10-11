@@ -13,6 +13,12 @@
 			</div>
 			@if (isLocalStorageUserFullName) {
 			<ion-text>{{ userFullName }}</ion-text>
+			} @else {
+			<ion-text
+				class="error"
+				appTranslate="edit_your_user_settings_to_add_the_personal_preferences_to_this_account"
+				>Edit your user settings to add the personal preferences to this account.</ion-text
+			>
 			}
 		</ion-card-header>
 		<ion-card-content>

@@ -23,6 +23,7 @@
 					inputmode="text"
 					label-placement="floating"
 					[label]="'Your name' | appTranslate: 'your_name'"
+					[placeholder]="'Your name' | appTranslate: 'your_name'"
 					[clearInput]="true"
 					[maxlength]="20"
 				>
@@ -34,7 +35,7 @@
 					[(ngModel)]="userSurname"
 					type="text"
 					inputmode="text"
-					label-placement="stacked"
+					label-placement="floating"
 					[label]="'Your surname' | appTranslate: 'your_surname'"
 					[placeholder]="'Your surname' | appTranslate: 'your_surname'"
 					[clearInput]="true"

@@ -44,6 +44,11 @@ ion-select {
 }
 
 ion-input {
+	--highlight-color-valid: orange !important;
+	--placeholder-color: darkgrey !important;
+	color: black !important;
+	font-weight: 700;
+	background-color: #fff;
 }
 
 ion-button {
