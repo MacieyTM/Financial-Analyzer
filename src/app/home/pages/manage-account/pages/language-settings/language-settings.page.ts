@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from "@angular/core";
 import { Network } from "@capacitor/network";
 import { NavController, ToastController } from "@ionic/angular";
 import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
@@ -45,8 +45,8 @@ const FLAG_MAP_DATA = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguageSettingsPage implements OnInit, OnDestroy {
+	public readonly isOnline = signal(true);
 	public networkListener: any;
-	public isOnline = true;
 
 	protected selectedLanguage: SupportedLanguage;
 	protected languageOptions = LANGUAGE_OPTIONS_DATA;
@@ -65,10 +65,10 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 
 	async ngOnInit() {
 		const status = await Network.getStatus();
-		this.isOnline = status.connected;
+		this.isOnline.set(status.connected);
 
 		this.networkListener = Network.addListener("networkStatusChange", (status) => {
-			this.isOnline = status.connected;
+			this.isOnline.set(status.connected);
 		});
 
 		this.languageChanged = false;
