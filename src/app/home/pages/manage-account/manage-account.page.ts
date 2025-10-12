@@ -16,4 +16,8 @@ export class ManageAccountPage implements OnInit {
 		this.isLocalStorageUserFullName = !!localStorage.getItem("userFullName");
 		this.userFullName = localStorage.getItem("userFullName") || "";
 	}
+
+	alert() {
+		alert("Not implemented yet!");
+	}
 }

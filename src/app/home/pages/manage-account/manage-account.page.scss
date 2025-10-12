@@ -14,7 +14,6 @@ ion-content {
 
 	ion-card.first-card {
 		margin: 1rem;
-		padding: 0.5rem 0;
 		border-radius: 0.75rem;
 		background-color: var(--ion-color-text-secondary);
 
@@ -71,62 +70,56 @@ ion-content {
 	}
 
 	ion-card.second-card {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
 		margin: 1rem;
-		padding: 0.5rem 0;
 		border-radius: 0.75rem;
 		background-color: var(--ion-color-text-secondary);
 
 		ion-card-content {
 			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: flex-start;
-			gap: 0.75rem;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+			gap: 1rem;
+			width: 100%;
+			border-bottom: 1px solid var(--ion-color-secondary);
 
-			.settings-item {
+			&:last-child {
+				border-bottom: none;
+			}
+
+			.square {
 				display: flex;
-				flex-direction: row;
-				justify-content: flex-start;
+				justify-content: center;
 				align-items: center;
-				gap: 1rem;
-				width: 100%;
+				width: 2rem;
+				height: 2rem;
+				border-radius: 0.5rem;
+				background-color: var(--ion-color-primary);
 
-				.square {
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					width: 2rem;
-					height: 2rem;
-					border-radius: 0.5rem;
-					background-color: var(--ion-color-primary);
-
-					ion-icon.first-icon {
-						width: 1.25rem;
-						height: 1.25rem;
-						font-size: 1.25rem;
-						color: var(--ion-color-tertiary);
-					}
-				}
-
-				ion-text {
-					font-size: 1rem;
-					font-weight: 400;
-					color: var(--ion-color-text-primary);
-				}
-
-				ion-icon.second-icon {
+				ion-icon.first-icon {
 					width: 1.25rem;
 					height: 1.25rem;
-					margin-left: auto;
 					font-size: 1.25rem;
-					color: var(--ion-color-secondary);
+					color: var(--ion-color-tertiary);
 				}
 			}
 
-			.divider {
-				width: 100%;
-				height: 1px;
-				background-color: var(--ion-color-secondary);
+			ion-text {
+				font-size: 1rem;
+				font-weight: 400;
+				color: var(--ion-color-text-primary);
+			}
+
+			ion-icon.second-icon {
+				width: 1.25rem;
+				height: 1.25rem;
+				margin-left: auto;
+				font-size: 1.25rem;
+				color: var(--ion-color-secondary);
 			}
 		}
 	}
