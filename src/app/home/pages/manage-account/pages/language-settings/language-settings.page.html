@@ -63,12 +63,15 @@
 </ion-content>
 
 <ng-template #flag let-language="language">
-	<!-- <img
+	@if (isOnline) {
+	<img
 		class="flag"
 		[src]="'https://purecatamphetamine.github.io/country-flag-icons/3x2/' + flagMap[language] + '.svg'"
 		[alt]="language"
 		width="30px"
 		height="20px"
-	/> -->
+	/>
+	} @else {
 	<span class="fi fi-{{ flagMap[language].toLowerCase() }} flag"></span>
+	}
 </ng-template>
