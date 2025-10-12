@@ -54,3 +54,33 @@ ion-content {
 		}
 	}
 }
+
+mat-form-field.language-form-field {
+	width: 100%;
+}
+
+mat-select-trigger.language-trigger {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+
+	ion-text {
+		font-size: 14px;
+		color: var(--ion-color-custom-5c5f65);
+	}
+}
+
+.language-option {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+
+	ion-text {
+		font-size: 14px;
+	}
+}
+
+img.flag-img {
+	height: 1rem;
+	width: 1.5rem;
+}

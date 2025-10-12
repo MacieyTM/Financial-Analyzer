@@ -31,6 +31,43 @@
 				>
 				}
 			</ion-select>
+			<!-- <mat-form-field class="language-form-field">
+				<mat-select
+					#select
+					[value]="selectedLanguage"
+					(selectionChange)="changeLanguage($event.value)"
+				>
+					<mat-select-trigger class="language-trigger">
+						<ng-container
+							*ngTemplateOutlet="flag; context: { language: selectedLanguage }"
+						></ng-container>
+						@if (getCurrentLanguageLabelKey(); as langKey) {
+						<ion-text>{{ langKey | appTranslate: langKey }}</ion-text>
+						}
+					</mat-select-trigger>
+
+					@for (option of languageOptions; track option.value) {
+					<mat-option [value]="option.value">
+						<div class="language-option">
+							<ng-container
+								*ngTemplateOutlet="flag; context: { language: option.value }"
+							></ng-container>
+							<ion-text>{{ option.label | appTranslate: option.label }}</ion-text>
+						</div>
+					</mat-option>
+					}
+				</mat-select>
+			</mat-form-field> -->
 		</ion-card-content>
 	</ion-card>
 </ion-content>
+
+<!-- <ng-template #flag let-language="language">
+	<img
+		class="flag-img"
+		[src]="'https://purecatamphetamine.github.io/country-flag-icons/3x2/' + language.toUpperCase() + '.svg'"
+		[alt]="language"
+		width="30px"
+		height="20px"
+	/>
+</ng-template> -->

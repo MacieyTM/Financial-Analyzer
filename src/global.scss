@@ -36,6 +36,10 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
 
+html {
+	--mat-form-field-filled-focus-active-indicator-color: var(--ion-color-primary);
+}
+
 ion-select {
 	--highlight-color-valid: var(--ion-color-primary);
 	color: var(--ion-color-text-primary);
@@ -78,4 +82,16 @@ ion-button {
 	&:last-child {
 		flex: 1;
 	}
+}
+
+.mat-primary .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal::after {
+	color: #000 !important;
+}
+
+.mat-mdc-select-arrow {
+	color: #000 !important;
+}
+
+.mat-focused .mat-mdc-form-field-focus-overlay {
+	opacity: 0 !important;
 }
