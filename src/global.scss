@@ -101,3 +101,11 @@ ion-button {
 .mat-mdc-text-field-wrapper {
 	background-color: var(--ion-color-light) !important;
 }
+
+.mat-mdc-select-arrow-wrapper {
+	padding-top: 0.5rem;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+	display: none;
+}
