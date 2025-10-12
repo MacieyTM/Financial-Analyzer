@@ -102,7 +102,6 @@ export class UserSettingsPage implements OnInit {
 				"changes_saved_successfully"
 			),
 			duration: 3000,
-			position: "bottom",
 			color: "success",
 			icon: "checkmark-circle",
 		});

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnChanges, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
 import { NavController, ToastController } from "@ionic/angular";
 import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
 import { AppTranslateService, SupportedLanguage } from "src/app/services/translate.service";
@@ -9,7 +9,7 @@ import { AppTranslateService, SupportedLanguage } from "src/app/services/transla
 	styleUrls: ["./language-settings.page.scss"],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LanguageSettingsPage implements OnInit, OnChanges, OnDestroy {
+export class LanguageSettingsPage implements OnInit, OnDestroy {
 	protected selectedLanguage: SupportedLanguage;
 	protected languageOptions = [
 		{ value: "en", label: "english" },
@@ -43,10 +43,6 @@ export class LanguageSettingsPage implements OnInit, OnChanges, OnDestroy {
 		this.languageChanged = false;
 	}
 
-	ngOnChanges() {
-		this.languageOptions = JSON.parse(JSON.stringify(this.languageOptions));
-	}
-
 	protected changeLanguage(chosenLang: any) {
 		const lang = chosenLang;
 		this.translateService.changeLanguage(lang);
@@ -66,7 +62,6 @@ export class LanguageSettingsPage implements OnInit, OnChanges, OnDestroy {
 				"language_changed_successfully"
 			),
 			duration: 3000,
-			position: "bottom",
 			color: "success",
 			icon: "checkmark-circle",
 		});
