@@ -56,6 +56,7 @@ ion-content {
 }
 
 mat-form-field.language-form-field {
+	margin-top: 0.5rem;
 	width: 100%;
 }
 
@@ -85,6 +86,7 @@ mat-select-trigger.language-trigger {
 		font-size: 1.25rem;
 	}
 }
+
 img.flag,
 span.flag {
 	width: 3rem;
