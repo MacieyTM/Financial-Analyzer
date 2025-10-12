@@ -64,19 +64,19 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 	}
 
 	async ngOnInit() {
-		const status = await Network.getStatus();
-		this.isOnline.set(status.connected);
+		const currentStatus = await Network.getStatus();
+		this.isOnline.set(currentStatus.connected);
 
-		this.networkListener = Network.addListener("networkStatusChange", (status) => {
+		this.networkListener = await Network.addListener("networkStatusChange", (status) => {
 			this.isOnline.set(status.connected);
 		});
 
 		this.languageChanged = false;
 	}
 
-	protected changeLanguage(chosenLang: any) {
-		const lang = chosenLang;
-		this.translateService.changeLanguage(lang);
+	protected changeLanguage(chosenLanguage: any) {
+		const language = chosenLanguage;
+		this.translateService.changeLanguage(language);
 		this.languageChanged = true;
 		this.navController.back();
 	}
