@@ -8,6 +8,10 @@ import { HttpClient, provideHttpClient, withInterceptorsFromDi } from "@angular/
 import { TranslateModule, TranslateLoader, TranslateService } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { AppTranslateService } from "./services/translate.service";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
+import { MatIconModule } from "@angular/material/icon";
 
 export function createTranslateLoader(http: HttpClient) {
 	return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -23,6 +27,10 @@ const initializeApp = () => {
 		BrowserModule,
 		IonicModule.forRoot(),
 		AppRoutingModule,
+		BrowserAnimationsModule,
+		MatFormFieldModule,
+		MatSelectModule,
+		MatIconModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,

@@ -1,0 +1,72 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-back-button slot="start" defaultHref="manage-account"></ion-back-button>
+		<ion-title appTranslate="user_settings_header">User Settings</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-card>
+		<ion-card-header>
+			<ion-text class="header" appTranslate="user_settings">User settings</ion-text>
+			<ion-text class="description" appTranslate="enter_and_confirm_your_name_and_surname"
+				>Enter and confirm your name and surname or even nick.</ion-text
+			>
+		</ion-card-header>
+		<ion-card-content>
+			<div class="content-wrapper">
+				<ion-input
+					mode="md"
+					fill="outline"
+					[(ngModel)]="userName"
+					type="text"
+					inputmode="text"
+					label-placement="floating"
+					[label]="'Your name' | appTranslate: 'your_name'"
+					[placeholder]="'Your name' | appTranslate: 'your_name'"
+					[clearInput]="true"
+					[maxlength]="20"
+				>
+					<ion-icon name="person" slot="start"></ion-icon>
+				</ion-input>
+				<ion-input
+					mode="md"
+					fill="outline"
+					[(ngModel)]="userSurname"
+					type="text"
+					inputmode="text"
+					label-placement="floating"
+					[label]="'Your surname' | appTranslate: 'your_surname'"
+					[placeholder]="'Your surname' | appTranslate: 'your_surname'"
+					[clearInput]="true"
+					[maxlength]="20"
+				>
+					<ion-icon name="person" slot="start"></ion-icon>
+				</ion-input>
+				<ion-input
+					mode="md"
+					fill="outline"
+					[(ngModel)]="userNick"
+					type="text"
+					inputmode="text"
+					label-placement="floating"
+					[label]="'Your nick' | appTranslate: 'your_nick'"
+					[placeholder]="'Your nick' | appTranslate: 'your_nick'"
+					[clearInput]="true"
+					[maxlength]="20"
+				>
+					<ion-icon name="person" slot="start"></ion-icon>
+				</ion-input>
+			</div>
+			<div class="buttons-wrapper">
+				<ion-button fill="outline" (click)="cancel()" appTranslate="cancel">Cancel</ion-button>
+				<ion-button
+					[disabled]="isButtonDisabled()"
+					(click)="save(userName, userSurname, userNick)"
+					appTranslate="save"
+					>Save</ion-button
+				>
+			</div>
+		</ion-card-content>
+	</ion-card>
+</ion-content>

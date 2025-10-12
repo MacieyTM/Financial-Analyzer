@@ -11,11 +11,19 @@
 			<div class="circle">
 				<ion-icon name="person" />
 			</div>
-			<ion-text>Maciej Grochowski</ion-text>
+			@if (isLocalStorageUserFullName) {
+			<ion-text>{{ userFullName }}</ion-text>
+			} @else {
+			<ion-text
+				class="error"
+				appTranslate="edit_your_user_settings_to_add_the_personal_preferences_to_this_account"
+				>Edit your user settings to add the personal preferences to this account.</ion-text
+			>
+			}
 		</ion-card-header>
 		<ion-card-content>
 			<ion-text appTranslate="manage_your_account_details_here"
-				>Manage your account details here</ion-text
+				>Manage your account details here.</ion-text
 			>
 		</ion-card-content>
 	</ion-card>
@@ -28,15 +36,15 @@
 				<ion-text appTranslate="language_settings">Language settings</ion-text>
 				<ion-icon name="chevron-forward" class="second-icon" />
 			</div>
-			<!-- <div class="divider"></div>
-			<div class="settings-item">
+			<div class="divider"></div>
+			<div class="settings-item" routerLink="user-settings">
 				<div class="square">
 					<ion-icon name="people" class="first-icon" />
 				</div>
-				<ion-text>Users settings</ion-text>
+				<ion-text appTranslate="user_settings">User settings</ion-text>
 				<ion-icon name="chevron-forward" class="second-icon" />
 			</div>
-			<div class="divider"></div>
+			<!-- <div class="divider"></div>
 			<div class="settings-item">
 				<div class="square">
 					<ion-icon name="earth" class="first-icon" />

@@ -39,54 +39,38 @@ ion-content {
 		}
 
 		ion-card-content {
-			margin-top: 1rem;
+			.content-wrapper {
+				margin-top: 1rem;
+				display: flex;
+				flex-direction: column;
+				justify-content: start;
+				align-items: center;
+				gap: 0.5rem;
 
-			// ion-select {
-			// 	font-size: 1rem;
+				ion-input {
+					font-size: 1rem;
 
-			// 	ion-icon {
-			// 		width: 1.25rem;
-			// 		height: 1.25rem;
-			// 		font-size: 1.25rem;
-			// 		color: var(--ion-color-tertiary);
-			// 	}
-			// }
+					ion-icon {
+						width: 1rem;
+						height: 1rem;
+						font-size: 1rem;
+						color: var(--ion-color-tertiary);
+					}
+				}
+			}
+
+			.buttons-wrapper {
+				margin-top: 1rem;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+				gap: 0.5rem;
+
+				ion-button {
+					font-size: 1rem;
+				}
+			}
 		}
 	}
-}
-
-mat-form-field.language-form-field {
-	width: 100%;
-}
-
-mat-select-trigger.language-trigger {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-items: center;
-	gap: 0.75rem;
-
-	ion-text {
-		font-weight: 700;
-		font-size: 1.25rem;
-		color: var(--ion-color-custom-5c5f65);
-	}
-}
-
-.language-option {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-items: center;
-	gap: 0.75rem;
-
-	ion-text {
-		font-weight: 700;
-		font-size: 1.25rem;
-	}
-}
-img.flag,
-span.flag {
-	width: 3rem;
-	height: 2rem;
 }
