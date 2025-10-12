@@ -7,8 +7,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ManageAccountPage implements OnInit {
-	public isLocalStorageUserFullName!: boolean;
-	public userFullName!: string;
+	public isLocalStorageUserFullName: boolean;
+	public userFullName: string;
 
 	constructor() {}
 

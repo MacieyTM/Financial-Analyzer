@@ -52,7 +52,7 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 	protected languageOptions = LANGUAGE_OPTIONS_DATA;
 	protected flagMap: Record<SupportedLanguage, string> = FLAG_MAP_DATA;
 
-	private languageChanged!: boolean;
+	private languageChanged: boolean;
 
 	constructor(
 		private readonly translateService: AppTranslateService,
