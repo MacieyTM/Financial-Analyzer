@@ -17,8 +17,8 @@ import { EMPTY, Observable, Subscription, first, switchMap, tap } from "rxjs";
 })
 export class TranslateDirective implements OnInit, OnChanges, OnDestroy {
 	@Input({ required: true })
-	appTranslate!: string;
-	@Input() appTranslateParams!: object;
+	appTranslate: string;
+	@Input() appTranslateParams: object;
 
 	private readonly subscription: Subscription;
 

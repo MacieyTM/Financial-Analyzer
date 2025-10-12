@@ -23,7 +23,6 @@ ion-content {
 			justify-content: center;
 			align-items: flex-start;
 			gap: 1rem;
-			border-bottom: 1px solid var(--ion-color-secondary);
 
 			ion-text.header {
 				font-size: 1.25rem;
@@ -40,12 +39,12 @@ ion-content {
 
 		ion-card-content {
 			.content-wrapper {
-				margin-top: 1rem;
+				margin-top: 0.5rem;
 				display: flex;
 				flex-direction: column;
 				justify-content: start;
 				align-items: center;
-				gap: 0.5rem;
+				gap: 1rem;
 
 				ion-input {
 					font-size: 1rem;

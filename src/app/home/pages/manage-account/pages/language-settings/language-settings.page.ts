@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from "@angular/core";
+import { Network } from "@capacitor/network";
 import { NavController, ToastController } from "@ionic/angular";
 import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
 import { AppTranslateService, SupportedLanguage } from "src/app/services/translate.service";
@@ -44,11 +45,14 @@ const FLAG_MAP_DATA = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguageSettingsPage implements OnInit, OnDestroy {
+	public readonly isOnline = signal(true);
+	public networkListener: any;
+
 	protected selectedLanguage: SupportedLanguage;
 	protected languageOptions = LANGUAGE_OPTIONS_DATA;
 	protected flagMap: Record<SupportedLanguage, string> = FLAG_MAP_DATA;
 
-	private languageChanged!: boolean;
+	private languageChanged: boolean;
 
 	constructor(
 		private readonly translateService: AppTranslateService,
@@ -59,13 +63,20 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 		this.selectedLanguage = localStorage.getItem("selectedLang") || "en";
 	}
 
-	ngOnInit() {
+	async ngOnInit() {
+		const currentStatus = await Network.getStatus();
+		this.isOnline.set(currentStatus.connected);
+
+		this.networkListener = await Network.addListener("networkStatusChange", (status) => {
+			this.isOnline.set(status.connected);
+		});
+
 		this.languageChanged = false;
 	}
 
-	protected changeLanguage(chosenLang: any) {
-		const lang = chosenLang;
-		this.translateService.changeLanguage(lang);
+	protected changeLanguage(chosenLanguage: any) {
+		const language = chosenLanguage;
+		this.translateService.changeLanguage(language);
 		this.languageChanged = true;
 		this.navController.back();
 	}
@@ -89,6 +100,10 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
+		if (this.networkListener) {
+			this.networkListener.remove();
+		}
+
 		if (this.languageChanged) {
 			this.showSuccessToast();
 		}

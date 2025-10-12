@@ -8,13 +8,21 @@ import { TranslatePipe } from "@ngx-translate/core";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { MatIconModule } from "@angular/material/icon";
+import { MatDividerModule } from "@angular/material/divider";
 
 const PIPES = [AppTranslatePipe];
 const DIRECTIVES = [TranslateDirective];
 
 @NgModule({
 	declarations: [...PIPES, ...DIRECTIVES],
-	exports: [MatFormFieldModule, MatSelectModule, MatIconModule, ...PIPES, ...DIRECTIVES],
+	exports: [
+		MatFormFieldModule,
+		MatSelectModule,
+		MatIconModule,
+		MatDividerModule,
+		...PIPES,
+		...DIRECTIVES,
+	],
 	imports: [
 		CommonModule,
 		IonicModule,
@@ -23,6 +31,7 @@ const DIRECTIVES = [TranslateDirective];
 		MatFormFieldModule,
 		MatSelectModule,
 		MatIconModule,
+		MatDividerModule,
 	],
 	providers: [TranslatePipe, AppTranslatePipe],
 })
