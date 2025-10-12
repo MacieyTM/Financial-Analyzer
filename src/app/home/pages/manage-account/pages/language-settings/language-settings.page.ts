@@ -48,7 +48,7 @@ export class LanguageSettingsPage implements OnInit, OnChanges, OnDestroy {
 	}
 
 	protected changeLanguage(chosenLang: any) {
-		const lang = chosenLang.detail.value;
+		const lang = chosenLang;
 		this.translateService.changeLanguage(lang);
 		this.languageChanged = true;
 		this.navController.back();

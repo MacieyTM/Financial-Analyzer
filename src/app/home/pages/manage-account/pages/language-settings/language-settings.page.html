@@ -14,7 +14,7 @@
 			>
 		</ion-card-header>
 		<ion-card-content>
-			<ion-select
+			<!-- <ion-select
 				interface="alert"
 				[cancelText]="'cancel' | appTranslate: 'cancel'"
 				mode="md"
@@ -30,8 +30,8 @@
 					>{{ option.label | appTranslate: option.label }}</ion-select-option
 				>
 				}
-			</ion-select>
-			<!-- <mat-form-field class="language-form-field">
+			</ion-select> -->
+			<mat-form-field class="language-form-field">
 				<mat-select
 					#select
 					[value]="selectedLanguage"
@@ -57,12 +57,12 @@
 					</mat-option>
 					}
 				</mat-select>
-			</mat-form-field> -->
+			</mat-form-field>
 		</ion-card-content>
 	</ion-card>
 </ion-content>
 
-<!-- <ng-template #flag let-language="language">
+<ng-template #flag let-language="language">
 	<img
 		class="flag-img"
 		[src]="'https://purecatamphetamine.github.io/country-flag-icons/3x2/' + language.toUpperCase() + '.svg'"
@@ -70,4 +70,4 @@
 		width="30px"
 		height="20px"
 	/>
-</ng-template> -->
+</ng-template>
