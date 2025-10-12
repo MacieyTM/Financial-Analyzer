@@ -25,6 +25,8 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+@import "flag-icons/css/flag-icons.min.css";
+
 /**
  * Ionic Dark Mode
  * -----------------------------------------------------
@@ -36,31 +38,62 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
 
+html {
+	--mat-form-field-filled-focus-active-indicator-color: var(--ion-color-primary);
+}
+
 ion-select {
-	--highlight-color-valid: orange;
-	color: black;
+	--highlight-color-valid: var(--ion-color-primary);
+	color: var(--ion-color-text-primary);
 	font-weight: 700;
-	background-color: #fff;
+	background-color: var(--ion-color-light);
 }
 
 ion-input {
-	--highlight-color-valid: orange !important;
-	--placeholder-color: darkgrey !important;
-	color: black !important;
+	--highlight-color-valid: var(--ion-color-primary) !important;
+	--placeholder-color: var(--ion-color-secondary) !important;
+	color: var(--ion-color-text-primary) !important;
 	font-weight: 700;
-	background-color: #fff;
+	background-color: var(--ion-color-light);
 }
 
 ion-button {
-	--background: orange;
 	--border-radius: 0.75rem;
+	--background: var(--ion-color-primary);
 	width: 100%;
-	color: black;
 	font-weight: 700;
 	text-transform: none;
 	letter-spacing: 0.1rem;
+	color: var(--ion-color-text-primary);
+
+	&[fill="outline"] {
+		&::part(native) {
+			border-color: var(--ion-color-primary);
+			background: var(--ion-color-light);
+		}
+	}
 
 	&[disabled] {
-		--background: darkgrey;
+		--opacity: 0.5;
 	}
+
+	&:first-child {
+		width: fit-content;
+	}
+
+	&:last-child {
+		flex: 1;
+	}
+}
+
+.mat-primary .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal::after {
+	color: var(--ion-color-text-primary) !important;
+}
+
+.mat-mdc-select-arrow {
+	color: var(--ion-color-text-primary) !important;
+}
+
+.mat-focused .mat-mdc-form-field-focus-overlay {
+	opacity: 0 !important;
 }

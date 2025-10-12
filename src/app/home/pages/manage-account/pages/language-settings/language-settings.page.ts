@@ -3,6 +3,40 @@ import { NavController, ToastController } from "@ionic/angular";
 import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
 import { AppTranslateService, SupportedLanguage } from "src/app/services/translate.service";
 
+const LANGUAGE_OPTIONS_DATA = [
+	{ value: "en", label: "english" },
+	{ value: "pl", label: "polish" },
+	{ value: "de", label: "german" },
+	{ value: "fr", label: "french" },
+	{ value: "it", label: "italian" },
+	{ value: "es", label: "spanish" },
+	{ value: "zh", label: "chinese" },
+	{ value: "hi", label: "hindi" },
+	{ value: "pt", label: "portuguese" },
+	{ value: "ru", label: "russian" },
+	{ value: "ja", label: "japanese" },
+	{ value: "ko", label: "korean" },
+	{ value: "tr", label: "turkish" },
+	{ value: "uk", label: "ukrainian" },
+];
+
+const FLAG_MAP_DATA = {
+	en: "US",
+	pl: "PL",
+	de: "DE",
+	fr: "FR",
+	it: "IT",
+	es: "ES",
+	zh: "CN",
+	hi: "IN",
+	pt: "PT",
+	ru: "RU",
+	ja: "JP",
+	ko: "KR",
+	tr: "TR",
+	uk: "UA",
+};
+
 @Component({
 	selector: "app-language-settings",
 	templateUrl: "./language-settings.page.html",
@@ -11,10 +45,8 @@ import { AppTranslateService, SupportedLanguage } from "src/app/services/transla
 })
 export class LanguageSettingsPage implements OnInit, OnDestroy {
 	protected selectedLanguage: SupportedLanguage;
-	protected languageOptions = [
-		{ value: "en", label: "english" },
-		{ value: "pl", label: "polish" },
-	];
+	protected languageOptions = LANGUAGE_OPTIONS_DATA;
+	protected flagMap: Record<SupportedLanguage, string> = FLAG_MAP_DATA;
 
 	private languageChanged!: boolean;
 
@@ -32,10 +64,15 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 	}
 
 	protected changeLanguage(chosenLang: any) {
-		const lang = chosenLang.detail.value;
+		const lang = chosenLang;
 		this.translateService.changeLanguage(lang);
 		this.languageChanged = true;
 		this.navController.back();
+	}
+
+	protected getCurrentLanguageLabelKey(): string | undefined {
+		const key = this.languageOptions.find(({ value }) => this.selectedLanguage === value)?.label;
+		return key;
 	}
 
 	private async showSuccessToast(): Promise<void> {
@@ -45,7 +82,6 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 				"language_changed_successfully"
 			),
 			duration: 3000,
-			position: "bottom",
 			color: "success",
 			icon: "checkmark-circle",
 		});

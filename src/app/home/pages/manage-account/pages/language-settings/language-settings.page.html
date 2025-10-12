@@ -10,11 +10,11 @@
 		<ion-card-header>
 			<ion-text class="header" appTranslate="language_settings">Language settings</ion-text>
 			<ion-text class="description" appTranslate="select_and_confirm_your_language"
-				>Select and confirm your language. Supported are English and Polish so far.</ion-text
+				>Select and confirm your language.</ion-text
 			>
 		</ion-card-header>
 		<ion-card-content>
-			<ion-select
+			<!-- <ion-select
 				interface="alert"
 				[cancelText]="'cancel' | appTranslate: 'cancel'"
 				mode="md"
@@ -30,7 +30,75 @@
 					>{{ option.label | appTranslate: option.label }}</ion-select-option
 				>
 				}
-			</ion-select>
+			</ion-select> -->
+			<mat-form-field class="language-form-field">
+				<mat-select
+					#select
+					[value]="selectedLanguage"
+					(selectionChange)="changeLanguage($event.value)"
+				>
+					<mat-select-trigger class="language-trigger">
+						<ng-container
+							*ngTemplateOutlet="flag; context: { language: selectedLanguage }"
+						></ng-container>
+						@if (getCurrentLanguageLabelKey(); as langKey) {
+						<ion-text>{{ langKey | appTranslate: langKey }}</ion-text>
+						}
+					</mat-select-trigger>
+
+					@for (option of languageOptions; track option.value) {
+					<mat-option [value]="option.value">
+						<div class="language-option">
+							<ng-container
+								*ngTemplateOutlet="flag; context: { language: option.value }"
+							></ng-container>
+							<ion-text>{{ option.label | appTranslate: option.label }}</ion-text>
+						</div>
+					</mat-option>
+					}
+				</mat-select>
+			</mat-form-field>
 		</ion-card-content>
 	</ion-card>
 </ion-content>
+
+<ng-template #flag let-language="language">
+	<img
+		class="flag"
+		[src]="'https://purecatamphetamine.github.io/country-flag-icons/3x2/' + flagMap[language] + '.svg'"
+		[alt]="language"
+		width="30px"
+		height="20px"
+	/>
+	<!-- @switch(language) { @case ("en") {
+	<span class="fi fi-us flag"></span>
+	} @case ("pl") {
+	<span class="fi fi-pl flag"></span>
+	} @case ("de") {
+	<span class="fi fi-de flag"></span>
+	} @case ("fr") {
+	<span class="fi fi-fr flag"></span>
+	} @case ("it") {
+	<span class="fi fi-it flag"></span>
+	} @case ("es") {
+	<span class="fi fi-es flag"></span>
+	} @case ("zh") {
+	<span class="fi fi-cn flag"></span>
+	} @case ("hi") {
+	<span class="fi fi-in flag"></span>
+	} @case ("pt") {
+	<span class="fi fi-pt flag"></span>
+	} @case ("ru") {
+	<span class="fi fi-ru flag"></span>
+	} @case ("ja") {
+	<span class="fi fi-jp flag"></span>
+	} @case ("ko") {
+	<span class="fi fi-kr flag"></span>
+	} @case ("tr") {
+	<span class="fi fi-tr flag"></span>
+	} @case ("uk") {
+	<span class="fi fi-ua flag"></span>
+	} @default {
+	<span class="fi fi-us flag"></span>
+	} } -->
+</ng-template>
