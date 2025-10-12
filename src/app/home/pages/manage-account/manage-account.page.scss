@@ -24,7 +24,6 @@ ion-content {
 			align-items: center;
 			gap: 1rem;
 			text-align: center;
-			border-bottom: 1px solid var(--ion-color-secondary);
 
 			.circle {
 				display: flex;
@@ -85,11 +84,6 @@ ion-content {
 			align-items: center;
 			gap: 1rem;
 			width: 100%;
-			border-bottom: 1px solid var(--ion-color-secondary);
-
-			&:last-child {
-				border-bottom: none;
-			}
 
 			.square {
 				display: flex;
