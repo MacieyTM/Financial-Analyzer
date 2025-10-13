@@ -81,7 +81,7 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 		this.navController.back();
 	}
 
-	protected getCurrentLanguageLabelKey(): string | undefined {
+	protected getCurrentLanguageLabelKey(): string {
 		const key = this.languageOptions.find(({ value }) => this.selectedLanguage === value)?.label;
 		return key;
 	}
