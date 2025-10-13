@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { CommonModule, NgOptimizedImage } from "@angular/common";
 import { IonicModule } from "@ionic/angular";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TranslateDirective } from "./directives/translate.directive";
@@ -20,6 +20,7 @@ const DIRECTIVES = [TranslateDirective];
 		MatSelectModule,
 		MatIconModule,
 		MatDividerModule,
+		NgOptimizedImage,
 		...PIPES,
 		...DIRECTIVES,
 	],
@@ -32,6 +33,7 @@ const DIRECTIVES = [TranslateDirective];
 		MatSelectModule,
 		MatIconModule,
 		MatDividerModule,
+		NgOptimizedImage,
 	],
 	providers: [TranslatePipe, AppTranslatePipe],
 })
