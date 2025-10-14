@@ -21,7 +21,7 @@ export class KpiTrendsPage implements OnInit {
 	public constructor() {}
 
 	public ngOnInit(): void {
-		this.setOrientationLandscape();
+		ScreenOrientation.lock({ type: OrientationType.LANDSCAPE });
 
 		this.data = this.getData();
 		this.borderColor = getComputedStyle(document.documentElement).getPropertyValue(
@@ -68,16 +68,8 @@ export class KpiTrendsPage implements OnInit {
 		};
 	}
 
-	// private ionViewWillEnter(): void {
-	// 	this.setOrientationLandscape();
-	// }
-
-	// private ionViewDidLeave(): void {
-	// 	this.setOrientationPortrait();
-	// }
-
 	public ngOnDestroy(): void {
-		this.setOrientationPortrait();
+		ScreenOrientation.lock({ type: OrientationType.PORTRAIT });
 	}
 
 	private getData(): number[] {
@@ -99,13 +91,5 @@ export class KpiTrendsPage implements OnInit {
 			"November",
 			"December",
 		];
-	}
-
-	private async setOrientationLandscape(): Promise<void> {
-		return await ScreenOrientation.lock({ type: OrientationType.LANDSCAPE });
-	}
-
-	private async setOrientationPortrait(): Promise<void> {
-		return await ScreenOrientation.lock({ type: OrientationType.PORTRAIT });
 	}
 }

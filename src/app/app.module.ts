@@ -13,7 +13,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { MatIconModule } from "@angular/material/icon";
 import { MatDividerModule } from "@angular/material/divider";
-import { NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from "@angular/common";
+import { ScreenOrientation } from "@capawesome/capacitor-screen-orientation";
 
 export function createTranslateLoader(http: HttpClient) {
 	return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -21,6 +22,9 @@ export function createTranslateLoader(http: HttpClient) {
 
 const initializeApp = () => {
 	return () => {};
+	// this.platform.ready().then(() => {
+	// 	ScreenOrientation.lock({ type: "portrait" });
+	// });
 };
 
 @NgModule({
