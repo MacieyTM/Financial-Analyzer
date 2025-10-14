@@ -5,7 +5,7 @@ import { TranslatePipe } from "@ngx-translate/core";
 	name: "appTranslate",
 })
 export class AppTranslatePipe implements PipeTransform {
-	constructor(private readonly translatePipe: TranslatePipe) {}
+	public constructor(private readonly translatePipe: TranslatePipe) {}
 
 	transform(_: string, translationKey: string, args?: object): string {
 		return this.translatePipe.transform(translationKey, args);

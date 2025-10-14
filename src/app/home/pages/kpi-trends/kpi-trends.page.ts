@@ -17,9 +17,9 @@ export class KpiTrendsPage implements OnInit {
 	private borderColor: string;
 	private data: number[];
 
-	constructor() {}
+	public constructor() {}
 
-	ngOnInit() {
+	public ngOnInit(): void {
 		this.data = this.getData();
 		this.borderColor = getComputedStyle(document.documentElement).getPropertyValue(
 			"--ion-color-primary"

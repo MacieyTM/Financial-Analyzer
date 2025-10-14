@@ -19,14 +19,14 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 
 	private languageChanged: boolean;
 
-	constructor(
+	public constructor(
 		private readonly translateService: AppTranslateService,
 		private readonly navController: NavController,
 		private readonly toastController: ToastController,
 		private readonly translatePipe: AppTranslatePipe
 	) {}
 
-	async ngOnInit() {
+	public async ngOnInit(): Promise<void> {
 		this.selectedLanguage = localStorage.getItem("selectedLang") || "en";
 		this.languageOptions = this.getLanguageOptionsData();
 		this.flagMap = this.getFlagMapData();
@@ -41,7 +41,17 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 		this.languageChanged = false;
 	}
 
-	protected changeLanguage(chosenLanguage: any) {
+	public ngOnDestroy(): void {
+		if (this.networkListener) {
+			this.networkListener.remove();
+		}
+
+		if (this.languageChanged) {
+			this.showSuccessToast();
+		}
+	}
+
+	protected changeLanguage(chosenLanguage: any): void {
 		const language = chosenLanguage;
 		this.translateService.changeLanguage(language);
 		this.languageChanged = true;
@@ -53,7 +63,7 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 		return key;
 	}
 
-	private getLanguageOptionsData() {
+	private getLanguageOptionsData(): any {
 		return [
 			{ value: "en", label: "english" },
 			{ value: "pl", label: "polish" },
@@ -72,7 +82,7 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 		];
 	}
 
-	private getFlagMapData() {
+	private getFlagMapData(): Record<SupportedLanguage, string> {
 		return {
 			en: "US",
 			pl: "PL",
@@ -102,15 +112,5 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 			icon: "checkmark-circle",
 		});
 		toast.present();
-	}
-
-	ngOnDestroy() {
-		if (this.networkListener) {
-			this.networkListener.remove();
-		}
-
-		if (this.languageChanged) {
-			this.showSuccessToast();
-		}
 	}
 }

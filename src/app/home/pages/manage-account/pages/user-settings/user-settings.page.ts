@@ -22,13 +22,13 @@ export class UserSettingsPage implements OnInit {
 	private userSettingsChanged: boolean;
 	private originalUserData = originalUserData;
 
-	constructor(
+	public constructor(
 		private readonly navController: NavController,
 		private readonly toastController: ToastController,
 		private readonly translatePipe: AppTranslatePipe
 	) {}
 
-	ngOnInit() {
+	public ngOnInit(): void {
 		this.userSettingsChanged = false;
 
 		this.userName = "";
@@ -59,7 +59,13 @@ export class UserSettingsPage implements OnInit {
 		};
 	}
 
-	protected cancel() {
+	ngOnDestroy(): void {
+		if (this.userSettingsChanged) {
+			this.showSuccessToast();
+		}
+	}
+
+	protected cancel(): void {
 		this.navController.back();
 	}
 
@@ -87,7 +93,7 @@ export class UserSettingsPage implements OnInit {
 		return (name && surname && nick) || unchanged || startsWithSpace;
 	}
 
-	protected save(name: string, surname: string, nick: string) {
+	protected save(name: string, surname: string, nick: string): void {
 		const fullUserName = nick ? `${name} ${surname} (${nick})` : `${name} ${surname}`;
 
 		localStorage.setItem("userFullName", fullUserName);
@@ -106,11 +112,5 @@ export class UserSettingsPage implements OnInit {
 			icon: "checkmark-circle",
 		});
 		toast.present();
-	}
-
-	ngOnDestroy() {
-		if (this.userSettingsChanged) {
-			this.showSuccessToast();
-		}
 	}
 }

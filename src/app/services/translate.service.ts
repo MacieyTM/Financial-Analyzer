@@ -25,7 +25,7 @@ export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 	providedIn: "root",
 })
 export class AppTranslateService {
-	constructor(private readonly translateService: TranslateService) {
+	public constructor(private readonly translateService: TranslateService) {
 		this.translateService.addLangs(SUPPORTED_LANGUAGES);
 		const savedLanguage = localStorage.getItem("selectedLang") || "en";
 		this.translateService.use(savedLanguage);
@@ -39,12 +39,12 @@ export class AppTranslateService {
 		return this.translateService.get(translationKey, translationParams);
 	}
 
-	public getSystemLanguage() {
+	public getSystemLanguage(): string {
 		const [language] = window.navigator.language.split("-");
 		return language;
 	}
 
-	public changeLanguage(supportedLanguage: SupportedLanguage) {
+	public changeLanguage(supportedLanguage: SupportedLanguage): void {
 		this.translateService.use(supportedLanguage);
 		localStorage.setItem("selectedLang", supportedLanguage);
 	}

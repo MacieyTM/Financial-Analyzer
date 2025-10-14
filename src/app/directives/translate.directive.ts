@@ -22,7 +22,7 @@ export class TranslateDirective implements OnInit, OnChanges, OnDestroy {
 
 	private readonly subscription: Subscription;
 
-	constructor(
+	public constructor(
 		private readonly translate: TranslateService,
 		private readonly renderer: Renderer2,
 		private readonly el: ElementRef,
