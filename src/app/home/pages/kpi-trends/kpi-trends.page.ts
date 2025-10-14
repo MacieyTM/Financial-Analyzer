@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { ChartOptions, ChartData, Chart } from "chart.js";
+import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
 import zoomPlugin from "chartjs-plugin-zoom";
 
 Chart.register(zoomPlugin);
@@ -20,6 +21,8 @@ export class KpiTrendsPage implements OnInit {
 	public constructor() {}
 
 	public ngOnInit(): void {
+		this.setOrientationLandscape();
+
 		this.data = this.getData();
 		this.borderColor = getComputedStyle(document.documentElement).getPropertyValue(
 			"--ion-color-primary"
@@ -65,6 +68,18 @@ export class KpiTrendsPage implements OnInit {
 		};
 	}
 
+	// private ionViewWillEnter(): void {
+	// 	this.setOrientationLandscape();
+	// }
+
+	// private ionViewDidLeave(): void {
+	// 	this.setOrientationPortrait();
+	// }
+
+	public ngOnDestroy(): void {
+		this.setOrientationPortrait();
+	}
+
 	private getData(): number[] {
 		return [65, 59, 80, 81, 56, 59, 80, 81, 56, 59, 80, 81];
 	}
@@ -84,5 +99,13 @@ export class KpiTrendsPage implements OnInit {
 			"November",
 			"December",
 		];
+	}
+
+	private async setOrientationLandscape(): Promise<void> {
+		return await ScreenOrientation.lock({ type: OrientationType.LANDSCAPE });
+	}
+
+	private async setOrientationPortrait(): Promise<void> {
+		return await ScreenOrientation.lock({ type: OrientationType.PORTRAIT });
 	}
 }
