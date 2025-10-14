@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { ChartOptions, ChartData, Chart } from "chart.js";
 import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
+import { Capacitor } from "@capacitor/core";
+
 import zoomPlugin from "chartjs-plugin-zoom";
 
 Chart.register(zoomPlugin);
@@ -21,7 +23,9 @@ export class KpiTrendsPage implements OnInit {
 	public constructor() {}
 
 	public ngOnInit(): void {
-		ScreenOrientation.lock({ type: OrientationType.LANDSCAPE });
+		if (Capacitor.getPlatform() !== "web") {
+			ScreenOrientation.lock({ type: OrientationType.LANDSCAPE });
+		}
 
 		this.data = this.getData();
 		this.borderColor = getComputedStyle(document.documentElement).getPropertyValue(
@@ -41,7 +45,7 @@ export class KpiTrendsPage implements OnInit {
 		};
 
 		this.chartOptions = {
-			responsive: true,
+			responsive: false,
 			// plugins: {
 			// 	zoom: {
 			// 		zoom: {
@@ -69,7 +73,9 @@ export class KpiTrendsPage implements OnInit {
 	}
 
 	public ngOnDestroy(): void {
-		ScreenOrientation.lock({ type: OrientationType.PORTRAIT });
+		if (Capacitor.getPlatform() !== "web") {
+			ScreenOrientation.lock({ type: OrientationType.PORTRAIT });
+		}
 	}
 
 	private getData(): number[] {
