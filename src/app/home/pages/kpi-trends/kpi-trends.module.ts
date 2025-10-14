@@ -8,9 +8,18 @@ import { KpiTrendsPageRoutingModule } from "./kpi-trends-routing.module";
 
 import { KpiTrendsPage } from "./kpi-trends.page";
 import { UiModule } from "src/app/ui.module";
+import { BaseChartDirective, provideCharts, withDefaultRegisterables } from "ng2-charts";
 
 @NgModule({
-	imports: [CommonModule, FormsModule, IonicModule, KpiTrendsPageRoutingModule, UiModule],
+	imports: [
+		CommonModule,
+		FormsModule,
+		IonicModule,
+		KpiTrendsPageRoutingModule,
+		UiModule,
+		BaseChartDirective,
+	],
 	declarations: [KpiTrendsPage],
+	providers: [provideCharts(withDefaultRegisterables())],
 })
 export class KpiTrendsPageModule {}

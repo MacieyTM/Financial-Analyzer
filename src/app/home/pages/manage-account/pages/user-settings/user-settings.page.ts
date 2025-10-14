@@ -15,21 +15,21 @@ const originalUserData = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserSettingsPage implements OnInit {
-	public userName: string;
-	public userSurname: string;
-	public userNick: string;
+	protected userName: string;
+	protected userSurname: string;
+	protected userNick: string;
 
-	private languageChanged: boolean;
+	private userSettingsChanged: boolean;
 	private originalUserData = originalUserData;
 
-	constructor(
+	public constructor(
 		private readonly navController: NavController,
 		private readonly toastController: ToastController,
 		private readonly translatePipe: AppTranslatePipe
 	) {}
 
-	ngOnInit() {
-		this.languageChanged = false;
+	public ngOnInit(): void {
+		this.userSettingsChanged = false;
 
 		this.userName = "";
 		this.userSurname = "";
@@ -59,7 +59,13 @@ export class UserSettingsPage implements OnInit {
 		};
 	}
 
-	protected cancel() {
+	ngOnDestroy(): void {
+		if (this.userSettingsChanged) {
+			this.showSuccessToast();
+		}
+	}
+
+	protected cancel(): void {
 		this.navController.back();
 	}
 
@@ -87,11 +93,11 @@ export class UserSettingsPage implements OnInit {
 		return (name && surname && nick) || unchanged || startsWithSpace;
 	}
 
-	protected save(name: string, surname: string, nick: string) {
+	protected save(name: string, surname: string, nick: string): void {
 		const fullUserName = nick ? `${name} ${surname} (${nick})` : `${name} ${surname}`;
 
 		localStorage.setItem("userFullName", fullUserName);
-		this.languageChanged = true;
+		this.userSettingsChanged = true;
 		this.navController.navigateBack("home");
 	}
 
@@ -106,11 +112,5 @@ export class UserSettingsPage implements OnInit {
 			icon: "checkmark-circle",
 		});
 		toast.present();
-	}
-
-	ngOnDestroy() {
-		if (this.languageChanged) {
-			this.showSuccessToast();
-		}
 	}
 }

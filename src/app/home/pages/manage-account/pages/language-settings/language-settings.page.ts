@@ -1,42 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from "@angular/core";
 import { Network } from "@capacitor/network";
 import { NavController, ToastController } from "@ionic/angular";
+import {
+	FLAG_MAP_DATA,
+	LANGUAGE_OPTIONS_DATA,
+	SupportedLanguage,
+} from "src/app/models/languages.model";
 import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
-import { AppTranslateService, SupportedLanguage } from "src/app/services/translate.service";
-
-const LANGUAGE_OPTIONS_DATA = [
-	{ value: "en", label: "english" },
-	{ value: "pl", label: "polish" },
-	{ value: "de", label: "german" },
-	{ value: "fr", label: "french" },
-	{ value: "it", label: "italian" },
-	{ value: "es", label: "spanish" },
-	{ value: "zh", label: "chinese" },
-	{ value: "hi", label: "hindi" },
-	{ value: "pt", label: "portuguese" },
-	{ value: "ru", label: "russian" },
-	{ value: "ja", label: "japanese" },
-	{ value: "ko", label: "korean" },
-	{ value: "tr", label: "turkish" },
-	{ value: "uk", label: "ukrainian" },
-];
-
-const FLAG_MAP_DATA = {
-	en: "US",
-	pl: "PL",
-	de: "DE",
-	fr: "FR",
-	it: "IT",
-	es: "ES",
-	zh: "CN",
-	hi: "IN",
-	pt: "PT",
-	ru: "RU",
-	ja: "JP",
-	ko: "KR",
-	tr: "TR",
-	uk: "UA",
-};
+import { AppTranslateService } from "src/app/services/translate.service";
 
 @Component({
 	selector: "app-language-settings",
@@ -45,25 +16,26 @@ const FLAG_MAP_DATA = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguageSettingsPage implements OnInit, OnDestroy {
-	public readonly isOnline = signal(true);
-	public networkListener: any;
-
+	protected networkListener: any;
+	protected languageOptions: any;
+	protected readonly isOnline = signal(true);
 	protected selectedLanguage: SupportedLanguage;
-	protected languageOptions = LANGUAGE_OPTIONS_DATA;
-	protected flagMap: Record<SupportedLanguage, string> = FLAG_MAP_DATA;
+	protected flagMap: Record<SupportedLanguage, string>;
 
 	private languageChanged: boolean;
 
-	constructor(
+	public constructor(
 		private readonly translateService: AppTranslateService,
 		private readonly navController: NavController,
 		private readonly toastController: ToastController,
 		private readonly translatePipe: AppTranslatePipe
-	) {
-		this.selectedLanguage = localStorage.getItem("selectedLang") || "en";
-	}
+	) {}
 
-	async ngOnInit() {
+	public async ngOnInit(): Promise<void> {
+		this.selectedLanguage = localStorage.getItem("selectedLang") || "en";
+		this.languageOptions = LANGUAGE_OPTIONS_DATA;
+		this.flagMap = FLAG_MAP_DATA;
+
 		const currentStatus = await Network.getStatus();
 		this.isOnline.set(currentStatus.connected);
 
@@ -74,7 +46,17 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 		this.languageChanged = false;
 	}
 
-	protected changeLanguage(chosenLanguage: any) {
+	public ngOnDestroy(): void {
+		if (this.networkListener) {
+			this.networkListener.remove();
+		}
+
+		if (this.languageChanged) {
+			this.showSuccessToast();
+		}
+	}
+
+	protected changeLanguage(chosenLanguage: any): void {
 		const language = chosenLanguage;
 		this.translateService.changeLanguage(language);
 		this.languageChanged = true;
@@ -97,15 +79,5 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 			icon: "checkmark-circle",
 		});
 		toast.present();
-	}
-
-	ngOnDestroy() {
-		if (this.networkListener) {
-			this.networkListener.remove();
-		}
-
-		if (this.languageChanged) {
-			this.showSuccessToast();
-		}
 	}
 }

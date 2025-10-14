@@ -1,0 +1,52 @@
+export const SUPPORTED_LANGUAGES: string[] = [
+	"en",
+	"pl",
+	"de",
+	"fr",
+	"it",
+	"es",
+	"zh",
+	"hi",
+	"pt",
+	"ru",
+	"ja",
+	"ko",
+	"tr",
+	"uk",
+];
+
+export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
+
+export const LANGUAGE_OPTIONS_DATA: any = [
+	{ value: "en", label: "english" },
+	{ value: "pl", label: "polish" },
+	{ value: "de", label: "german" },
+	{ value: "fr", label: "french" },
+	{ value: "it", label: "italian" },
+	{ value: "es", label: "spanish" },
+	{ value: "zh", label: "chinese" },
+	{ value: "hi", label: "hindi" },
+	{ value: "pt", label: "portuguese" },
+	{ value: "ru", label: "russian" },
+	{ value: "ja", label: "japanese" },
+	{ value: "ko", label: "korean" },
+	{ value: "tr", label: "turkish" },
+	{ value: "uk", label: "ukrainian" },
+];
+
+export const FLAG_MAP_DATA: Record<SupportedLanguage, string> = {
+	en: "US",
+	pl: "PL",
+	de: "DE",
+	fr: "FR",
+	it: "IT",
+	es: "ES",
+	zh: "CN",
+	hi: "IN",
+	pt: "PT",
+	ru: "RU",
+	ja: "JP",
+	ko: "KR",
+	tr: "TR",
+	uk: "UA",
+};

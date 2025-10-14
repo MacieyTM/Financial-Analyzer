@@ -15,23 +15,6 @@
 		</ion-card-header>
 		<mat-divider />
 		<ion-card-content>
-			<!-- <ion-select
-				interface="alert"
-				[cancelText]="'cancel' | appTranslate: 'cancel'"
-				mode="md"
-				fill="outline"
-				[value]="selectedLanguage"
-				[label]="'Set language' | appTranslate: 'set_language'"
-				label-placement="floating"
-				(ionChange)="changeLanguage($event)"
-			>
-				<ion-icon name="home" slot="start" />
-				@for (option of languageOptions; track option.value) {
-				<ion-select-option [value]="option.value"
-					>{{ option.label | appTranslate: option.label }}</ion-select-option
-				>
-				}
-			</ion-select> -->
 			<mat-form-field class="language-form-field">
 				<mat-select
 					#select
@@ -47,7 +30,7 @@
 						}
 					</mat-select-trigger>
 
-					@for (option of languageOptions; track option.value) {
+					@for (option of languageOptions; track $index) {
 					<mat-option [value]="option.value">
 						<div class="language-option">
 							<ng-container
