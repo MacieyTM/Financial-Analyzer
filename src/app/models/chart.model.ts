@@ -1,6 +1,6 @@
-export const DATA = [65, 59, 80, 81, 56, 59, 80, 81, 56, 59, 80, 81];
+export const DATA: number[] = [65, 59, 80, 81, 56, 59, 80, 81, 56, 59, 80, 81];
 
-export const LABEL_MONTHS = [
+export const LABEL_MONTHS: string[] = [
 	"January",
 	"February",
 	"March",
