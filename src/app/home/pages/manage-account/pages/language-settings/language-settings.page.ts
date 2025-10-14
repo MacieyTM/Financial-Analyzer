@@ -1,7 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from "@angular/core";
 import { Network } from "@capacitor/network";
 import { NavController, ToastController } from "@ionic/angular";
-import { SupportedLanguage } from "src/app/models/languages.model";
+import {
+	FLAG_MAP_DATA,
+	LANGUAGE_OPTIONS_DATA,
+	SupportedLanguage,
+} from "src/app/models/languages.model";
 import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
 import { AppTranslateService } from "src/app/services/translate.service";
 
@@ -29,8 +33,8 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 
 	public async ngOnInit(): Promise<void> {
 		this.selectedLanguage = localStorage.getItem("selectedLang") || "en";
-		this.languageOptions = this.getLanguageOptionsData();
-		this.flagMap = this.getFlagMapData();
+		this.languageOptions = LANGUAGE_OPTIONS_DATA;
+		this.flagMap = FLAG_MAP_DATA;
 
 		const currentStatus = await Network.getStatus();
 		this.isOnline.set(currentStatus.connected);
@@ -62,44 +66,6 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 	protected getCurrentLanguageLabelKey(): string {
 		const key = this.languageOptions.find(({ value }) => this.selectedLanguage === value)?.label;
 		return key;
-	}
-
-	private getLanguageOptionsData(): any {
-		return [
-			{ value: "en", label: "english" },
-			{ value: "pl", label: "polish" },
-			{ value: "de", label: "german" },
-			{ value: "fr", label: "french" },
-			{ value: "it", label: "italian" },
-			{ value: "es", label: "spanish" },
-			{ value: "zh", label: "chinese" },
-			{ value: "hi", label: "hindi" },
-			{ value: "pt", label: "portuguese" },
-			{ value: "ru", label: "russian" },
-			{ value: "ja", label: "japanese" },
-			{ value: "ko", label: "korean" },
-			{ value: "tr", label: "turkish" },
-			{ value: "uk", label: "ukrainian" },
-		];
-	}
-
-	private getFlagMapData(): Record<SupportedLanguage, string> {
-		return {
-			en: "US",
-			pl: "PL",
-			de: "DE",
-			fr: "FR",
-			it: "IT",
-			es: "ES",
-			zh: "CN",
-			hi: "IN",
-			pt: "PT",
-			ru: "RU",
-			ja: "JP",
-			ko: "KR",
-			tr: "TR",
-			uk: "UA",
-		};
 	}
 
 	private async showSuccessToast(): Promise<void> {
