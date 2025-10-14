@@ -6,5 +6,20 @@
 </ion-header>
 
 <ion-content>
-	<ion-text appTranslate="this_is_kpi_trends_page">This is KPI Trends page</ion-text>
+	<ion-card>
+		<ion-card-header>
+			<ion-icon name="stats-chart" />
+			<ion-text appTranslate="this_is_kpi_trends_page">This is KPI Trends page</ion-text>
+		</ion-card-header>
+		<ion-card-content>
+			<canvas
+				baseChart
+				type="line"
+				[options]="chartOptions"
+				[labels]="chartData.labels"
+				[datasets]="chartData.datasets"
+			>
+			</canvas>
+		</ion-card-content>
+	</ion-card>
 </ion-content>
