@@ -12,9 +12,9 @@ import { AppTranslateService, SupportedLanguage } from "src/app/services/transla
 })
 export class LanguageSettingsPage implements OnInit, OnDestroy {
 	protected networkListener: any;
+	protected languageOptions: any;
 	protected readonly isOnline = signal(true);
 	protected selectedLanguage: SupportedLanguage;
-	protected languageOptions: any;
 	protected flagMap: Record<SupportedLanguage, string>;
 
 	private languageChanged: boolean;
@@ -24,11 +24,13 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 		private readonly navController: NavController,
 		private readonly toastController: ToastController,
 		private readonly translatePipe: AppTranslatePipe
-	) {
-		this.selectedLanguage = localStorage.getItem("selectedLang") || "en";
-	}
+	) {}
 
 	async ngOnInit() {
+		this.selectedLanguage = localStorage.getItem("selectedLang") || "en";
+		this.languageOptions = this.getLanguageOptionsData();
+		this.flagMap = this.getFlagMapData();
+
 		const currentStatus = await Network.getStatus();
 		this.isOnline.set(currentStatus.connected);
 
@@ -36,8 +38,6 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 			this.isOnline.set(status.connected);
 		});
 
-		this.languageOptions = this.getLanguageOptionsData();
-		this.languageOptions = this.getFlagMapData();
 		this.languageChanged = false;
 	}
 

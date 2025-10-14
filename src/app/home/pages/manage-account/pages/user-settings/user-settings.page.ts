@@ -19,7 +19,7 @@ export class UserSettingsPage implements OnInit {
 	protected userSurname: string;
 	protected userNick: string;
 
-	private languageChanged: boolean;
+	private userSettingsChanged: boolean;
 	private originalUserData = originalUserData;
 
 	constructor(
@@ -29,7 +29,7 @@ export class UserSettingsPage implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.languageChanged = false;
+		this.userSettingsChanged = false;
 
 		this.userName = "";
 		this.userSurname = "";
@@ -91,7 +91,7 @@ export class UserSettingsPage implements OnInit {
 		const fullUserName = nick ? `${name} ${surname} (${nick})` : `${name} ${surname}`;
 
 		localStorage.setItem("userFullName", fullUserName);
-		this.languageChanged = true;
+		this.userSettingsChanged = true;
 		this.navController.navigateBack("home");
 	}
 
@@ -109,7 +109,7 @@ export class UserSettingsPage implements OnInit {
 	}
 
 	ngOnDestroy() {
-		if (this.languageChanged) {
+		if (this.userSettingsChanged) {
 			this.showSuccessToast();
 		}
 	}
