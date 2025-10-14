@@ -4,6 +4,7 @@ import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen
 import { Capacitor } from "@capacitor/core";
 
 import zoomPlugin from "chartjs-plugin-zoom";
+import { DATA, LABEL_MONTHS } from "src/app/models/chart.model";
 
 Chart.register(zoomPlugin);
 
@@ -25,13 +26,13 @@ export class KpiTrendsPage implements OnInit {
 			ScreenOrientation.lock({ type: OrientationType.LANDSCAPE });
 		}
 
-		this.data = this.getData();
+		this.data = DATA;
 		this.borderColor = getComputedStyle(document.documentElement).getPropertyValue(
 			"--ion-color-primary"
 		);
 
 		this.chartData = {
-			labels: this.getLabelMonths(),
+			labels: LABEL_MONTHS,
 			datasets: [
 				{
 					fill: true,
@@ -74,26 +75,5 @@ export class KpiTrendsPage implements OnInit {
 		if (Capacitor.getPlatform() !== "web") {
 			ScreenOrientation.lock({ type: OrientationType.PORTRAIT });
 		}
-	}
-
-	private getData(): number[] {
-		return [65, 59, 80, 81, 56, 59, 80, 81, 56, 59, 80, 81];
-	}
-
-	private getLabelMonths(): string[] {
-		return [
-			"January",
-			"February",
-			"March",
-			"April",
-			"May",
-			"June",
-			"July",
-			"August",
-			"September",
-			"October",
-			"November",
-			"December",
-		];
 	}
 }
