@@ -10,8 +10,6 @@ export class ManageAccountPage implements OnInit {
 	protected userFullName: string;
 	protected isLocalStorageUserFullName: boolean;
 
-	public constructor() {}
-
 	public ngOnInit(): void {
 		this.isLocalStorageUserFullName = !!localStorage.getItem("userFullName");
 		this.userFullName = localStorage.getItem("userFullName") || "";

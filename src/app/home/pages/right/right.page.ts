@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 
 @Component({
 	selector: "app-right",
@@ -6,7 +6,4 @@ import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 	styleUrls: ["./right.page.scss"],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RightPage implements OnInit {
-	public constructor() {}
-	public ngOnInit(): void {}
-}
+export class RightPage {}

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 
 @Component({
 	selector: "app-home-right",
@@ -6,7 +6,4 @@ import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 	styleUrls: ["./home-right.component.scss"],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeRightComponent implements OnInit {
-	public constructor() {}
-	public ngOnInit(): void {}
-}
+export class HomeRightComponent {}

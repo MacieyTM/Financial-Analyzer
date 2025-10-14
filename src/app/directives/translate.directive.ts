@@ -33,15 +33,15 @@ export class TranslateDirective implements OnInit, OnChanges, OnDestroy {
 			.subscribe();
 	}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this.performTranslation().subscribe();
 	}
 
-	ngOnChanges(_: SimpleChanges): void {
+	public ngOnChanges(_: SimpleChanges): void {
 		this.performTranslation().subscribe();
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscription?.unsubscribe();
 	}
 

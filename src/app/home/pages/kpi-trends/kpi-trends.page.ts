@@ -20,8 +20,6 @@ export class KpiTrendsPage implements OnInit {
 	private borderColor: string;
 	private data: number[];
 
-	public constructor() {}
-
 	public ngOnInit(): void {
 		if (Capacitor.getPlatform() !== "web") {
 			ScreenOrientation.lock({ type: OrientationType.LANDSCAPE });
