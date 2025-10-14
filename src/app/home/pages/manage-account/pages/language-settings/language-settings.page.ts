@@ -4,40 +4,6 @@ import { NavController, ToastController } from "@ionic/angular";
 import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
 import { AppTranslateService, SupportedLanguage } from "src/app/services/translate.service";
 
-const LANGUAGE_OPTIONS_DATA = [
-	{ value: "en", label: "english" },
-	{ value: "pl", label: "polish" },
-	{ value: "de", label: "german" },
-	{ value: "fr", label: "french" },
-	{ value: "it", label: "italian" },
-	{ value: "es", label: "spanish" },
-	{ value: "zh", label: "chinese" },
-	{ value: "hi", label: "hindi" },
-	{ value: "pt", label: "portuguese" },
-	{ value: "ru", label: "russian" },
-	{ value: "ja", label: "japanese" },
-	{ value: "ko", label: "korean" },
-	{ value: "tr", label: "turkish" },
-	{ value: "uk", label: "ukrainian" },
-];
-
-const FLAG_MAP_DATA = {
-	en: "US",
-	pl: "PL",
-	de: "DE",
-	fr: "FR",
-	it: "IT",
-	es: "ES",
-	zh: "CN",
-	hi: "IN",
-	pt: "PT",
-	ru: "RU",
-	ja: "JP",
-	ko: "KR",
-	tr: "TR",
-	uk: "UA",
-};
-
 @Component({
 	selector: "app-language-settings",
 	templateUrl: "./language-settings.page.html",
@@ -48,8 +14,8 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 	protected networkListener: any;
 	protected readonly isOnline = signal(true);
 	protected selectedLanguage: SupportedLanguage;
-	protected languageOptions = LANGUAGE_OPTIONS_DATA;
-	protected flagMap: Record<SupportedLanguage, string> = FLAG_MAP_DATA;
+	protected languageOptions: any;
+	protected flagMap: Record<SupportedLanguage, string>;
 
 	private languageChanged: boolean;
 
@@ -70,6 +36,8 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 			this.isOnline.set(status.connected);
 		});
 
+		this.languageOptions = this.getLanguageOptionsData();
+		this.languageOptions = this.getFlagMapData();
 		this.languageChanged = false;
 	}
 
@@ -83,6 +51,44 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 	protected getCurrentLanguageLabelKey(): string {
 		const key = this.languageOptions.find(({ value }) => this.selectedLanguage === value)?.label;
 		return key;
+	}
+
+	private getLanguageOptionsData() {
+		return [
+			{ value: "en", label: "english" },
+			{ value: "pl", label: "polish" },
+			{ value: "de", label: "german" },
+			{ value: "fr", label: "french" },
+			{ value: "it", label: "italian" },
+			{ value: "es", label: "spanish" },
+			{ value: "zh", label: "chinese" },
+			{ value: "hi", label: "hindi" },
+			{ value: "pt", label: "portuguese" },
+			{ value: "ru", label: "russian" },
+			{ value: "ja", label: "japanese" },
+			{ value: "ko", label: "korean" },
+			{ value: "tr", label: "turkish" },
+			{ value: "uk", label: "ukrainian" },
+		];
+	}
+
+	private getFlagMapData() {
+		return {
+			en: "US",
+			pl: "PL",
+			de: "DE",
+			fr: "FR",
+			it: "IT",
+			es: "ES",
+			zh: "CN",
+			hi: "IN",
+			pt: "PT",
+			ru: "RU",
+			ja: "JP",
+			ko: "KR",
+			tr: "TR",
+			uk: "UA",
+		};
 	}
 
 	private async showSuccessToast(): Promise<void> {

@@ -4,21 +4,6 @@ import zoomPlugin from "chartjs-plugin-zoom";
 
 Chart.register(zoomPlugin);
 
-const MONTHS: string[] = [
-	"January",
-	"February",
-	"March",
-	"April",
-	"May",
-	"June",
-	"July",
-	"August",
-	"September",
-	"October",
-	"November",
-	"December",
-];
-
 @Component({
 	selector: "app-kpi-trends",
 	templateUrl: "./kpi-trends.page.html",
@@ -26,46 +11,66 @@ const MONTHS: string[] = [
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KpiTrendsPage implements OnInit {
-	protected chartData: ChartData = {
-		labels: MONTHS,
-		datasets: [
-			{
-				fill: true,
-				label: "Money Amount",
-				borderColor: "orange",
-				data: [65, 59, 80, 81, 56, 59, 80, 81, 56, 59, 80, 81],
-			},
-		],
-	};
-
-	protected chartOptions: ChartOptions = {
-		responsive: true,
-		// plugins: {
-		// 	zoom: {
-		// 		zoom: {
-		// 			wheel: {
-		// 				enabled: true,
-		// 				speed: 0.3,
-		// 			},
-		// 			pinch: {
-		// 				enabled: true,
-		// 			},
-		// 			drag: {
-		// 				enabled: false,
-		// 			},
-		// 			mode: "x",
-		// 		},
-		// 		pan: {
-		// 			enabled: true,
-		// 			threshold: 10,
-		// 			modifierKey: null,
-		// 			mode: "x",
-		// 		},
-		// 	},
-		// },
-	};
+	protected chartData: ChartData;
+	protected chartOptions: ChartOptions;
 
 	constructor() {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.chartData = {
+			labels: this.getLabelMonths(),
+			datasets: [
+				{
+					fill: true,
+					label: "Money Amount",
+					borderColor: "orange",
+					data: [65, 59, 80, 81, 56, 59, 80, 81, 56, 59, 80, 81],
+				},
+			],
+		};
+
+		this.chartOptions = {
+			responsive: true,
+			// plugins: {
+			// 	zoom: {
+			// 		zoom: {
+			// 			wheel: {
+			// 				enabled: true,
+			// 				speed: 0.3,
+			// 			},
+			// 			pinch: {
+			// 				enabled: true,
+			// 			},
+			// 			drag: {
+			// 				enabled: false,
+			// 			},
+			// 			mode: "x",
+			// 		},
+			// 		pan: {
+			// 			enabled: true,
+			// 			threshold: 10,
+			// 			modifierKey: null,
+			// 			mode: "x",
+			// 		},
+			// 	},
+			// },
+		};
+	}
+
+	private getLabelMonths(): string[] {
+		return [
+			"January",
+			"February",
+			"March",
+			"April",
+			"May",
+			"June",
+			"July",
+			"August",
+			"September",
+			"October",
+			"November",
+			"December",
+		];
+	}
 }
