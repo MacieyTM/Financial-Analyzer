@@ -14,17 +14,25 @@ export class KpiTrendsPage implements OnInit {
 	protected chartData: ChartData;
 	protected chartOptions: ChartOptions;
 
+	private borderColor: string;
+	private data: number[];
+
 	constructor() {}
 
 	ngOnInit() {
+		this.data = this.getData();
+		this.borderColor = getComputedStyle(document.documentElement).getPropertyValue(
+			"--ion-color-primary"
+		);
+
 		this.chartData = {
 			labels: this.getLabelMonths(),
 			datasets: [
 				{
 					fill: true,
+					data: this.data,
+					borderColor: this.borderColor,
 					label: "Money Amount",
-					borderColor: "orange",
-					data: [65, 59, 80, 81, 56, 59, 80, 81, 56, 59, 80, 81],
 				},
 			],
 		};
@@ -55,6 +63,10 @@ export class KpiTrendsPage implements OnInit {
 			// 	},
 			// },
 		};
+	}
+
+	private getData(): number[] {
+		return [65, 59, 80, 81, 56, 59, 80, 81, 56, 59, 80, 81];
 	}
 
 	private getLabelMonths(): string[] {
