@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { ChartOptions, ChartData } from "chart.js";
+import { ChartOptions, ChartData, Chart } from "chart.js";
+import zoomPlugin from "chartjs-plugin-zoom";
+
+Chart.register(zoomPlugin);
 
 const MONTHS: string[] = [
 	"January",
@@ -23,11 +26,7 @@ const MONTHS: string[] = [
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KpiTrendsPage implements OnInit {
-	public chartOptions: ChartOptions = {
-		responsive: true,
-	};
-
-	public chartData: ChartData = {
+	protected chartData: ChartData = {
 		labels: MONTHS,
 		datasets: [
 			{
@@ -37,6 +36,33 @@ export class KpiTrendsPage implements OnInit {
 				data: [65, 59, 80, 81, 56, 59, 80, 81, 56, 59, 80, 81],
 			},
 		],
+	};
+
+	protected chartOptions: ChartOptions = {
+		responsive: true,
+		// plugins: {
+		// 	zoom: {
+		// 		zoom: {
+		// 			wheel: {
+		// 				enabled: true,
+		// 				speed: 0.3,
+		// 			},
+		// 			pinch: {
+		// 				enabled: true,
+		// 			},
+		// 			drag: {
+		// 				enabled: false,
+		// 			},
+		// 			mode: "x",
+		// 		},
+		// 		pan: {
+		// 			enabled: true,
+		// 			threshold: 10,
+		// 			modifierKey: null,
+		// 			mode: "x",
+		// 		},
+		// 	},
+		// },
 	};
 
 	constructor() {}

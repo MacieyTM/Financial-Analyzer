@@ -31,7 +31,7 @@ export class AppTranslateService {
 		this.translateService.use(savedLanguage);
 	}
 
-	public translate(
+	protected translate(
 		_: string,
 		translationKey: string,
 		translationParams?: object

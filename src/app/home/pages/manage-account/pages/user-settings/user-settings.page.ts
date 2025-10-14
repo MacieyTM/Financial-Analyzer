@@ -15,9 +15,9 @@ const originalUserData = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserSettingsPage implements OnInit {
-	public userName: string;
-	public userSurname: string;
-	public userNick: string;
+	protected userName: string;
+	protected userSurname: string;
+	protected userNick: string;
 
 	private languageChanged: boolean;
 	private originalUserData = originalUserData;

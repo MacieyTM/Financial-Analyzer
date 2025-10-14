@@ -45,9 +45,8 @@ const FLAG_MAP_DATA = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguageSettingsPage implements OnInit, OnDestroy {
-	public readonly isOnline = signal(true);
-	public networkListener: any;
-
+	protected networkListener: any;
+	protected readonly isOnline = signal(true);
 	protected selectedLanguage: SupportedLanguage;
 	protected languageOptions = LANGUAGE_OPTIONS_DATA;
 	protected flagMap: Record<SupportedLanguage, string> = FLAG_MAP_DATA;
