@@ -17,12 +17,12 @@ import { EMPTY, Observable, Subscription, first, switchMap, tap } from "rxjs";
 })
 export class TranslateDirective implements OnInit, OnChanges, OnDestroy {
 	@Input({ required: true })
-	appTranslate!: string;
-	@Input() appTranslateParams!: object;
+	appTranslate: string;
+	@Input() appTranslateParams: object;
 
 	private readonly subscription: Subscription;
 
-	constructor(
+	public constructor(
 		private readonly translate: TranslateService,
 		private readonly renderer: Renderer2,
 		private readonly el: ElementRef,
@@ -33,15 +33,15 @@ export class TranslateDirective implements OnInit, OnChanges, OnDestroy {
 			.subscribe();
 	}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this.performTranslation().subscribe();
 	}
 
-	ngOnChanges(_: SimpleChanges): void {
+	public ngOnChanges(_: SimpleChanges): void {
 		this.performTranslation().subscribe();
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscription?.unsubscribe();
 	}
 

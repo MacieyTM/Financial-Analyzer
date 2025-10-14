@@ -86,6 +86,11 @@ ion-button {
 	}
 }
 
+mat-divider {
+	width: 100%;
+	background-color: var(--ion-color-secondary);
+}
+
 .mat-primary .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal::after {
 	color: var(--ion-color-text-primary) !important;
 }
@@ -96,4 +101,16 @@ ion-button {
 
 .mat-focused .mat-mdc-form-field-focus-overlay {
 	opacity: 0 !important;
+}
+
+.mat-mdc-text-field-wrapper {
+	background-color: var(--ion-color-light) !important;
+}
+
+.mat-mdc-select-arrow-wrapper {
+	padding-top: 0.5rem;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+	display: none;
 }

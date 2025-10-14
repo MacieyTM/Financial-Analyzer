@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { MatIconModule } from "@angular/material/icon";
+import { MatDividerModule } from "@angular/material/divider";
+import { NgOptimizedImage } from "@angular/common";
 
 export function createTranslateLoader(http: HttpClient) {
 	return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -31,6 +33,8 @@ const initializeApp = () => {
 		MatFormFieldModule,
 		MatSelectModule,
 		MatIconModule,
+		MatDividerModule,
+		NgOptimizedImage,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,

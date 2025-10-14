@@ -10,11 +10,9 @@ import { AppTranslateService } from "../services/translate.service";
 export class HomePage implements OnInit {
 	private readonly bankAccountAmount: number = 1234567.89;
 
-	constructor() {}
-
 	protected get bankAccountAmountFormatted(): string {
 		return this.bankAccountAmount.toLocaleString();
 	}
 
-	ngOnInit() {}
+	public ngOnInit(): void {}
 }

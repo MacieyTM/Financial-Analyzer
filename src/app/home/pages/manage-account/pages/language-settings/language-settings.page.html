@@ -13,24 +13,8 @@
 				>Select and confirm your language.</ion-text
 			>
 		</ion-card-header>
+		<mat-divider />
 		<ion-card-content>
-			<!-- <ion-select
-				interface="alert"
-				[cancelText]="'cancel' | appTranslate: 'cancel'"
-				mode="md"
-				fill="outline"
-				[value]="selectedLanguage"
-				[label]="'Set language' | appTranslate: 'set_language'"
-				label-placement="floating"
-				(ionChange)="changeLanguage($event)"
-			>
-				<ion-icon name="home" slot="start" />
-				@for (option of languageOptions; track option.value) {
-				<ion-select-option [value]="option.value"
-					>{{ option.label | appTranslate: option.label }}</ion-select-option
-				>
-				}
-			</ion-select> -->
 			<mat-form-field class="language-form-field">
 				<mat-select
 					#select
@@ -46,7 +30,7 @@
 						}
 					</mat-select-trigger>
 
-					@for (option of languageOptions; track option.value) {
+					@for (option of languageOptions; track $index) {
 					<mat-option [value]="option.value">
 						<div class="language-option">
 							<ng-container
@@ -63,42 +47,14 @@
 </ion-content>
 
 <ng-template #flag let-language="language">
-	<img
-		class="flag"
+	@if (isOnline()) {
+	<ion-img
 		[src]="'https://purecatamphetamine.github.io/country-flag-icons/3x2/' + flagMap[language] + '.svg'"
 		[alt]="language"
-		width="30px"
-		height="20px"
+		width="36px"
+		height="24px"
 	/>
-	<!-- @switch(language) { @case ("en") {
-	<span class="fi fi-us flag"></span>
-	} @case ("pl") {
-	<span class="fi fi-pl flag"></span>
-	} @case ("de") {
-	<span class="fi fi-de flag"></span>
-	} @case ("fr") {
-	<span class="fi fi-fr flag"></span>
-	} @case ("it") {
-	<span class="fi fi-it flag"></span>
-	} @case ("es") {
-	<span class="fi fi-es flag"></span>
-	} @case ("zh") {
-	<span class="fi fi-cn flag"></span>
-	} @case ("hi") {
-	<span class="fi fi-in flag"></span>
-	} @case ("pt") {
-	<span class="fi fi-pt flag"></span>
-	} @case ("ru") {
-	<span class="fi fi-ru flag"></span>
-	} @case ("ja") {
-	<span class="fi fi-jp flag"></span>
-	} @case ("ko") {
-	<span class="fi fi-kr flag"></span>
-	} @case ("tr") {
-	<span class="fi fi-tr flag"></span>
-	} @case ("uk") {
-	<span class="fi fi-ua flag"></span>
-	} @default {
-	<span class="fi fi-us flag"></span>
-	} } -->
+	} @else {
+	<span class="fi fi-{{ flagMap[language].toLowerCase() }}"></span>
+	}
 </ng-template>
