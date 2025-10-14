@@ -1,9 +1,7 @@
 import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
-import { SUPPORTED_LANGUAGES } from "../models/languages.model";
-
-export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
+import { SUPPORTED_LANGUAGES, SupportedLanguage } from "../models/languages.model";
 
 @Injectable({
 	providedIn: "root",

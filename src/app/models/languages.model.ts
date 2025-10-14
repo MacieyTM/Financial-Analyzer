@@ -14,3 +14,5 @@ export const SUPPORTED_LANGUAGES = [
 	"tr",
 	"uk",
 ];
+
+export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];

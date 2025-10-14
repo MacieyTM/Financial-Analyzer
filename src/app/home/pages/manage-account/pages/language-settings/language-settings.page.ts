@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from "@angular/core";
 import { Network } from "@capacitor/network";
 import { NavController, ToastController } from "@ionic/angular";
+import { SupportedLanguage } from "src/app/models/languages.model";
 import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
-import { AppTranslateService, SupportedLanguage } from "src/app/services/translate.service";
+import { AppTranslateService } from "src/app/services/translate.service";
 
 @Component({
 	selector: "app-language-settings",
