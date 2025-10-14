@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
-import { Capacitor } from "@capacitor/core";
+import { Platform } from "@ionic/angular";
+// import { Capacitor } from "@capacitor/core";
 
 @Component({
 	selector: "app-root",
@@ -9,9 +10,12 @@ import { Capacitor } from "@capacitor/core";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-	constructor() {
-		if (Capacitor.getPlatform() !== "web") {
+	constructor(private readonly platform: Platform) {
+		if (this.platform.is("android") || this.platform.is("ios")) {
 			ScreenOrientation.lock({ type: OrientationType.PORTRAIT });
 		}
+		// if (Capacitor.getPlatform() !== "web") {
+		// 	ScreenOrientation.lock({ type: OrientationType.PORTRAIT });
+		// }
 	}
 }
