@@ -27,10 +27,6 @@
 			<canvas baseChart type="doughnut" [options]="chartOptions" [datasets]="chartData.datasets">
 			</canvas>
 
-			<!-- @if (isMobile()) { -->
-			<app-take-photo (imageUploaded)="onImageUploaded($event)" />
-			<!-- } -->
-
 			<div class="btns-container">
 				<ion-button routerLink="manage-account/language-settings">
 					<div class="btn-wrapper">
@@ -45,6 +41,10 @@
 					</div>
 				</ion-button>
 			</div>
+
+			<!-- @if (isMobile()) { -->
+			<app-take-photo (imageUploaded)="onImageUploaded($event)" />
+			<!-- } -->
 		</ion-card-content>
 	</ion-card>
 </ion-content>
