@@ -15,9 +15,17 @@
 			<canvas
 				baseChart
 				type="line"
-				[options]="chartOptions"
-				[labels]="chartData.labels"
-				[datasets]="chartData.datasets"
+				[options]="chartOptionsLine"
+				[labels]="chartDataLine.labels"
+				[datasets]="chartDataLine.datasets"
+			>
+			</canvas>
+			<canvas
+				baseChart
+				type="bar"
+				[options]="chartOptionsBar"
+				[labels]="chartDataBar.labels"
+				[datasets]="chartDataBar.datasets"
 			>
 			</canvas>
 		</ion-card-content>

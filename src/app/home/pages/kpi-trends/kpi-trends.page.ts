@@ -15,8 +15,11 @@ Chart.register(zoomPlugin);
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KpiTrendsPage implements OnInit {
-	protected chartData: ChartConfiguration<"line">["data"];
-	protected chartOptions: ChartConfiguration<"line">["options"];
+	protected chartDataLine: ChartConfiguration<"line">["data"];
+	protected chartOptionsLine: ChartConfiguration<"line">["options"];
+
+	protected chartDataBar: ChartConfiguration<"bar">["data"];
+	protected chartOptionsBar: ChartConfiguration<"bar">["options"];
 
 	private data: number[];
 	private borderColor: string;
@@ -33,21 +36,30 @@ export class KpiTrendsPage implements OnInit {
 			"--ion-color-primary"
 		);
 
-		this.chartData = {
+		this.chartDataLine = {
 			labels: this.labelMonths,
 			datasets: [
 				{
 					fill: true,
 					data: this.data,
 					borderColor: this.borderColor,
+					backgroundColor: "#00f",
 				},
 			],
 		};
 
-		this.chartOptions = {
+		this.chartOptionsLine = {
 			animation: false,
-			responsive: false,
+			responsive: true,
 			maintainAspectRatio: false,
+			plugins: {
+				legend: {
+					display: false,
+				},
+				tooltip: {
+					enabled: false,
+				},
+			},
 			// plugins: {
 			// 	zoom: {
 			// 		zoom: {
@@ -71,6 +83,33 @@ export class KpiTrendsPage implements OnInit {
 			// 		},
 			// 	},
 			// },
+		};
+
+		this.chartDataBar = {
+			labels: this.labelMonths,
+			datasets: [
+				{
+					data: this.data,
+					borderColor: this.borderColor,
+					backgroundColor: "#00f",
+					hoverBackgroundColor: "#0f0",
+					hoverBorderColor: "#f00",
+				},
+			],
+		};
+
+		this.chartOptionsBar = {
+			animation: false,
+			responsive: true,
+			maintainAspectRatio: false,
+			plugins: {
+				legend: {
+					display: false,
+				},
+				tooltip: {
+					enabled: false,
+				},
+			},
 		};
 	}
 

@@ -29,24 +29,20 @@ export class HomePage {
 				{
 					data: this.data,
 					borderColor: this.borderColor,
-					backgroundColor: ["#f00", "#f00", "#f00", "#f00"],
-					hoverBackgroundColor: ["#f00", "#f00", "#f00", "#f00"],
-					hoverBorderColor: ["#f00", "#f00", "#f00", "#f00"],
-					borderWidth: 3,
-					borderRadius: 15,
-					spacing: 4,
+					backgroundColor: ["#f00", "#ff0", "#0f0", "#00f"],
+					hoverBackgroundColor: ["#f00", "#ff0", "#0f0", "#00f"],
+					hoverBorderColor: ["#f00", "#ff0", "#0f0", "#00f"],
 				},
 			],
 		};
 
 		this.chartOptions = {
-			cutout: "85%",
+			cutout: "50%",
 			responsive: false,
 			maintainAspectRatio: false,
 			plugins: {
 				legend: {
 					display: false,
-					position: "bottom",
 				},
 				tooltip: {
 					enabled: false,
