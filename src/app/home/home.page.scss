@@ -48,6 +48,11 @@ ion-content {
 			}
 		}
 
+		canvas {
+			width: 15rem !important;
+			height: 15rem !important;
+		}
+
 		ion-card-content {
 			display: flex;
 			flex-direction: column;

@@ -40,7 +40,7 @@ export class KpiTrendsPage implements OnInit {
 			labels: this.labelMonths,
 			datasets: [
 				{
-					fill: true,
+					fill: false,
 					data: this.data,
 					borderColor: this.borderColor,
 					backgroundColor: "#00f",
@@ -94,6 +94,7 @@ export class KpiTrendsPage implements OnInit {
 					backgroundColor: "#00f",
 					hoverBackgroundColor: "#0f0",
 					hoverBorderColor: "#f00",
+					borderWidth: 2,
 				},
 			],
 		};
