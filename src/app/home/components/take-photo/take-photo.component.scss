@@ -1,6 +1,6 @@
 ion-card {
 	width: 100%;
-	background-color: var(--ion-color-custom-f7f8fa);
+	background-color: var(--ion-color-text-secondary);
 }
 
 ion-icon {
@@ -14,7 +14,7 @@ ion-card-content {
 	padding: 0;
 	width: 100%;
 
-	.add-screenshot-btn {
+	.take-photo-btn {
 		position: absolute;
 		display: flex;
 		flex-direction: column;
@@ -95,6 +95,7 @@ ion-modal {
 		--padding-top: 1.5rem;
 		--padding-end: 1.5rem;
 		--padding-start: 1.5rem;
+		--background: var(--ion-color-text-secondary);
 	}
 
 	.modal-header {
@@ -125,13 +126,18 @@ ion-modal {
 	}
 
 	.square-icon {
+		position: relative;
 		width: 42px;
 		height: 42px;
-		position: relative;
-		background: var(--ion-color-custom-51);
+		border-radius: 0.5rem;
+		background-color: var(--ion-color-light);
 
 		ion-icon {
-			color: var(--ion-color-primary-dark);
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			color: var(--ion-color-tertiary);
 		}
 	}
 }

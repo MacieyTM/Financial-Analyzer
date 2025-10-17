@@ -18,7 +18,7 @@ import { PhotoService } from "src/app/services/photo.service";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TakePhotoComponent implements OnInit, OnDestroy {
-	@Output() feedbackImageUploaded = new EventEmitter<{
+	@Output() imageUploaded = new EventEmitter<{
 		imagePath: string;
 		isPhotoUploading: boolean;
 	}>();
@@ -35,7 +35,7 @@ export class TakePhotoComponent implements OnInit, OnDestroy {
 	public uploadProgress$ = this.photoService.uploadProgress$.pipe(
 		tap((progress) => {
 			if (progress?.imagePath) {
-				this.feedbackImageUploaded.emit({
+				this.imageUploaded.emit({
 					imagePath: progress.imagePath,
 					isPhotoUploading: false,
 				});
@@ -95,7 +95,7 @@ export class TakePhotoComponent implements OnInit, OnDestroy {
 		this.photoService.discardPhoto();
 		this.isError.set(false);
 
-		this.feedbackImageUploaded.emit({
+		this.imageUploaded.emit({
 			imagePath: "",
 			isPhotoUploading: false,
 		});
@@ -105,7 +105,7 @@ export class TakePhotoComponent implements OnInit, OnDestroy {
 	public async upload(): Promise<void> {
 		const blob = await this.photoService.takePhoto();
 		this.photoBlob.set(blob);
-		this.feedbackImageUploaded.emit({
+		this.imageUploaded.emit({
 			imagePath: "",
 			isPhotoUploading: true,
 		});
@@ -122,7 +122,7 @@ export class TakePhotoComponent implements OnInit, OnDestroy {
 
 	public async openPhotoLibrarySingle(): Promise<void> {
 		const blob = await this.photoService.openPhotoLibrary();
-		this.feedbackImageUploaded.emit({
+		this.imageUploaded.emit({
 			imagePath: "",
 			isPhotoUploading: true,
 		});

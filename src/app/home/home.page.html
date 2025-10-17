@@ -17,9 +17,9 @@
 				>Mobile application for financial management</ion-text
 			>
 		</ion-card-header>
-		@if (!isWeb) {
-		<app-take-photo (feedbackImageUploaded)="onFeedbackImageUploaded($event)"></app-take-photo>
-		}
+		<!-- @if (isMobile()) { -->
+		<app-take-photo (imageUploaded)="onImageUploaded($event)"></app-take-photo>
+		<!-- } -->
 		<canvas baseChart type="doughnut" [options]="chartOptions" [datasets]="chartData.datasets">
 		</canvas>
 		<ion-card-content>

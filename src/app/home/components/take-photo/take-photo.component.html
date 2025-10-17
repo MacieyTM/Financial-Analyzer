@@ -3,17 +3,17 @@
 		@if (defaultImageUrl && (imageUrl$ | async) === '') { @if ((imageModified$ | async) === false) {
 		<ng-container *ngTemplateOutlet="photoUploaded; context: { isDefault: true }"></ng-container>
 		} @else {
-		<div class="add-screenshot-btn" (click)="openModal()">
+		<div class="take-photo-btn" (click)="openModal()">
 			<ion-icon name="camera"></ion-icon>
 			<ion-text>Add screenshot</ion-text>
 		</div>
-		<ion-img src="../../../assets/shapes.svg" [style.opacity]="0.1"></ion-img>
+		<ion-img src="assets/shapes.svg" [style.opacity]="0.1"></ion-img>
 		} } @if (!defaultImageUrl && (imageUrl$ | async) === '') {
-		<div class="add-screenshot-btn" (click)="openModal()">
+		<div class="take-photo-btn" (click)="openModal()">
 			<ion-icon name="camera"></ion-icon>
 			<ion-text>Add screenshot</ion-text>
 		</div>
-		<ion-img src="../../../assets/shapes.svg" [style.opacity]="0.1"></ion-img>
+		<ion-img src="assets/shapes.svg" [style.opacity]="0.1"></ion-img>
 		} @if ((imageUrl$ | async) !== '') {
 		<ng-container *ngTemplateOutlet="photoUploaded; context: { isDefault: false }"></ng-container>
 		} @if (uploadProgress$ | async; as uploadProgress) { @if (uploadProgress < 1) {

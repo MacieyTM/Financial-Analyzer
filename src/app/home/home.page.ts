@@ -15,15 +15,13 @@ export class HomePage {
 	protected readonly bankAccountAmount = signal<string>(BANK_ACCOUNT_AMOUNT.toLocaleString());
 	protected chartData: ChartConfiguration<"doughnut">["data"];
 	protected chartOptions: ChartConfiguration<"doughnut">["options"];
-	protected isWeb: boolean;
 
 	private data: number[];
 	private borderColor: string;
-	private feedbackImagePath: string;
+	private imagePath: string;
 
 	public ngOnInit(): void {
-		this.isWeb = Capacitor.getPlatform() === "web";
-		this.feedbackImagePath = "";
+		this.imagePath = "";
 
 		this.data = CHART_DATA_QUARTERS;
 		this.borderColor = getComputedStyle(document.documentElement).getPropertyValue(
@@ -57,7 +55,12 @@ export class HomePage {
 		};
 	}
 
-	protected onFeedbackImageUploaded(image: { imagePath: string }): void {
-		this.feedbackImagePath = image?.imagePath;
+	protected onImageUploaded(image: { imagePath: string }): void {
+		this.imagePath = image?.imagePath;
+	}
+
+	protected isMobile(): boolean {
+		const currentPlatform = Capacitor.getPlatform();
+		return currentPlatform !== "web";
 	}
 }
