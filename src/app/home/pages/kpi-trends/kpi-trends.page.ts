@@ -41,9 +41,14 @@ export class KpiTrendsPage implements OnInit {
 			datasets: [
 				{
 					fill: false,
+					pointRadius: 0,
 					data: this.data,
-					borderColor: this.borderColor,
+					borderColor: "#00f",
 					backgroundColor: "#00f",
+					pointBorderColor: "#00f",
+					pointBackgroundColor: "#00f",
+					pointHoverBorderColor: "#00f",
+					pointHoverBackgroundColor: "#00f",
 				},
 			],
 		};
