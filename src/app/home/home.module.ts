@@ -6,6 +6,8 @@ import { HomePage } from "./home.page";
 import { HomePageRoutingModule } from "./home-routing.module";
 import { UiModule } from "../ui.module";
 import { BaseChartDirective, provideCharts, withDefaultRegisterables } from "ng2-charts";
+import { TakePhotoComponent } from "./take-photo/take-photo.component";
+import { ImgLoadableComponent } from "./img-loadable/img-loadable.component";
 
 @NgModule({
 	imports: [
@@ -16,7 +18,7 @@ import { BaseChartDirective, provideCharts, withDefaultRegisterables } from "ng2
 		UiModule,
 		BaseChartDirective,
 	],
-	declarations: [HomePage],
+	declarations: [HomePage, TakePhotoComponent, ImgLoadableComponent],
 	providers: [provideCharts(withDefaultRegisterables())],
 })
 export class HomePageModule {}
