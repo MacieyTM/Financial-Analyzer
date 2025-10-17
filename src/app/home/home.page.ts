@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
-import { ChartOptions, ChartData } from "chart.js";
-import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
-import { Capacitor } from "@capacitor/core";
-import { DATA } from "src/app/models/chart.model";
+import { ChartConfiguration } from "chart.js";
+import { CHART_DATA_QUARTERS } from "src/app/models/chart.model";
 
 const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
 
@@ -14,14 +12,14 @@ const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
 })
 export class HomePage {
 	protected readonly bankAccountAmount = signal<string>(BANK_ACCOUNT_AMOUNT.toLocaleString());
-	protected chartData: ChartData<"doughnut">;
-	protected chartOptions: ChartOptions<"doughnut">;
+	protected chartData: ChartConfiguration<"doughnut">["data"];
+	protected chartOptions: ChartConfiguration<"doughnut">["options"];
 
 	private data: number[];
 	private borderColor: string;
 
 	public ngOnInit(): void {
-		this.data = DATA;
+		this.data = CHART_DATA_QUARTERS;
 		this.borderColor = getComputedStyle(document.documentElement).getPropertyValue(
 			"--ion-color-primary"
 		);
@@ -42,7 +40,9 @@ export class HomePage {
 		};
 
 		this.chartOptions = {
-			// cutout: "85%",
+			cutout: "85%",
+			responsive: false,
+			maintainAspectRatio: false,
 			plugins: {
 				legend: {
 					display: false,
@@ -52,8 +52,6 @@ export class HomePage {
 					enabled: false,
 				},
 			},
-			maintainAspectRatio: false,
-			responsive: true,
 		};
 	}
 }

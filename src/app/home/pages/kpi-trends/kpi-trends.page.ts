@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { ChartOptions, ChartData, Chart } from "chart.js";
+import { Chart, ChartConfiguration } from "chart.js";
 import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
 import { Capacitor } from "@capacitor/core";
-import { DATA, LABEL_MONTHS } from "src/app/models/chart.model";
+import { CHART_DATA_MONTHS, CHART_LABEL_MONTHS } from "src/app/models/chart.model";
 
 import zoomPlugin from "chartjs-plugin-zoom";
 
@@ -15,8 +15,8 @@ Chart.register(zoomPlugin);
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KpiTrendsPage implements OnInit {
-	protected chartData: ChartData<"line">;
-	protected chartOptions: ChartOptions<"line">;
+	protected chartData: ChartConfiguration<"line">["data"];
+	protected chartOptions: ChartConfiguration<"line">["options"];
 
 	private data: number[];
 	private borderColor: string;
@@ -27,8 +27,8 @@ export class KpiTrendsPage implements OnInit {
 			ScreenOrientation.lock({ type: OrientationType.LANDSCAPE });
 		}
 
-		this.data = DATA;
-		this.labelMonths = LABEL_MONTHS;
+		this.data = CHART_DATA_MONTHS;
+		this.labelMonths = CHART_LABEL_MONTHS;
 		this.borderColor = getComputedStyle(document.documentElement).getPropertyValue(
 			"--ion-color-primary"
 		);
@@ -47,6 +47,7 @@ export class KpiTrendsPage implements OnInit {
 		this.chartOptions = {
 			animation: false,
 			responsive: false,
+			maintainAspectRatio: false,
 			// plugins: {
 			// 	zoom: {
 			// 		zoom: {
