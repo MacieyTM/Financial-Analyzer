@@ -57,10 +57,10 @@ ion-content {
 
 			.btns-container {
 				display: flex;
-				flex-direction: row;
+				flex-direction: column;
 				justify-content: center;
 				align-items: center;
-				gap: 1rem;
+				gap: 0.5rem;
 
 				ion-button.left-btn {
 					color: var(--ion-color-text-primary);
