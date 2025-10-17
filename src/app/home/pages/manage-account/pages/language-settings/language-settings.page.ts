@@ -60,7 +60,7 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 		const language = chosenLanguage;
 		this.translateService.changeLanguage(language);
 		this.languageChanged = true;
-		this.navController.back();
+		this.navController.navigateBack("home");
 	}
 
 	protected getCurrentLanguageLabelKey(): string {

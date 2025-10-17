@@ -29,14 +29,17 @@ ion-content {
 	--background: var(--ion-color-secondary);
 
 	ion-card.first-card {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 1rem;
 		margin: 1rem;
-		height: 20rem;
-		border-radius: 1rem;
+		border-radius: 0.75rem;
 		background-color: var(--ion-color-text-secondary);
 
 		ion-card-header {
 			ion-text {
-				// width: 90vw;
 				font-weight: 400;
 				font-size: 1.5rem;
 				text-align: center;
@@ -46,8 +49,13 @@ ion-content {
 		}
 
 		ion-card-content {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			gap: 2rem;
+
 			.btns-container {
-				margin-top: 5rem;
 				display: flex;
 				flex-direction: row;
 				justify-content: center;
@@ -64,17 +72,11 @@ ion-content {
 						align-items: center;
 						gap: 0.5rem;
 
-						span {
-							font-weight: 700;
-							font-size: 0.5rem;
-							letter-spacing: 0.1rem;
-						}
-
-						ion-icon {
-							width: 1rem;
-							height: 1rem;
-							font-size: 1rem;
-						}
+						// ion-icon {
+						// 	width: 2rem;
+						// 	height: 2rem;
+						// 	font-size: 2rem;
+						// }
 					}
 				}
 
@@ -84,6 +86,7 @@ ion-content {
 					justify-content: center;
 					align-items: center;
 					gap: 0.5rem;
+					width: fit-content;
 					color: var(--ion-color-text-primary);
 
 					.btn-wrapper {
@@ -93,23 +96,16 @@ ion-content {
 						align-items: center;
 						gap: 0.5rem;
 
-						span {
-							font-weight: 700;
-							font-size: 0.5rem;
-							letter-spacing: 0.1rem;
-						}
-
-						ion-icon {
-							width: 1rem;
-							height: 1rem;
-							font-size: 1rem;
-						}
+						// ion-icon {
+						// 	width: 2rem;
+						// 	height: 2rem;
+						// 	font-size: 2rem;
+						// }
 					}
 				}
 			}
 
 			.amount-wrapper {
-				margin-top: 5rem;
 				display: flex;
 				flex-direction: row;
 				justify-content: center;
@@ -126,8 +122,7 @@ ion-content {
 
 	ion-card.second-card {
 		margin: 1rem;
-		height: 10rem;
-		border-radius: 1rem;
+		border-radius: 0.75rem;
 		background-color: var(--ion-color-text-secondary);
 	}
 }

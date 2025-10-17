@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { AppTranslateService } from "../services/translate.service";
+import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
+
+const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
 
 @Component({
 	selector: "app-home",
@@ -7,12 +8,6 @@ import { AppTranslateService } from "../services/translate.service";
 	styleUrls: ["home.page.scss"],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePage implements OnInit {
-	private readonly bankAccountAmount: number = 1234567.89;
-
-	protected get bankAccountAmountFormatted(): string {
-		return this.bankAccountAmount.toLocaleString();
-	}
-
-	public ngOnInit(): void {}
+export class HomePage {
+	protected readonly bankAccountAmount = signal<string>(BANK_ACCOUNT_AMOUNT.toLocaleString());
 }

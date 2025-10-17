@@ -33,5 +33,6 @@
 	"your_nick": "Twój pseudonim",
 	"save": "Zapisz",
 	"language_changed_successfully": "Język został pomyślnie zmieniony!",
-	"changes_saved_successfully": "Zmiany zostały pomyślnie zapisane!"
+	"changes_saved_successfully": "Zmiany pomyślnie zapisane!",
+	"user_details_saved_successfully": "Szczegóły użytkownika pomyślnie zapisane!"
 }
