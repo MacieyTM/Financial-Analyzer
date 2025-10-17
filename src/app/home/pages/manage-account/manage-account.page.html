@@ -29,36 +29,38 @@
 		</ion-card-content>
 	</ion-card>
 	<ion-card class="second-card">
-		<ion-card-content routerLink="language-settings">
-			<div class="square">
-				<ion-icon name="language" class="first-icon" />
+		<ion-card-content>
+			<div class="settings-item" routerLink="language-settings">
+				<div class="square">
+					<ion-icon name="language" class="first-icon" />
+				</div>
+				<ion-text appTranslate="language_settings">Language settings</ion-text>
+				<ion-icon name="chevron-forward" class="second-icon" />
 			</div>
-			<ion-text appTranslate="language_settings">Language settings</ion-text>
-			<ion-icon name="chevron-forward" class="second-icon" />
-		</ion-card-content>
-		<mat-divider />
-		<ion-card-content routerLink="user-settings">
-			<div class="square">
-				<ion-icon name="people" class="first-icon" />
+			<mat-divider />
+			<div class="settings-item" routerLink="user-settings">
+				<div class="square">
+					<ion-icon name="people" class="first-icon" />
+				</div>
+				<ion-text appTranslate="user_settings">User settings</ion-text>
+				<ion-icon name="chevron-forward" class="second-icon" />
 			</div>
-			<ion-text appTranslate="user_settings">User settings</ion-text>
-			<ion-icon name="chevron-forward" class="second-icon" />
-		</ion-card-content>
-		<mat-divider />
-		<ion-card-content (click)="alert()">
-			<div class="square">
-				<ion-icon name="contrast" class="first-icon" />
+			<mat-divider />
+			<div class="settings-item" (click)="alert()">
+				<div class="square">
+					<ion-icon name="contrast" class="first-icon" />
+				</div>
+				<ion-text>Theme settings</ion-text>
+				<ion-icon name="chevron-forward" class="second-icon" />
 			</div>
-			<ion-text>Theme settings</ion-text>
-			<ion-icon name="chevron-forward" class="second-icon" />
-		</ion-card-content>
-		<mat-divider />
-		<ion-card-content (click)="alert()">
-			<div class="square">
-				<ion-icon name="earth" class="first-icon" />
+			<mat-divider />
+			<div class="settings-item" (click)="alert()">
+				<div class="square">
+					<ion-icon name="earth" class="first-icon" />
+				</div>
+				<ion-text>Global settings</ion-text>
+				<ion-icon name="chevron-forward" class="second-icon" />
 			</div>
-			<ion-text>Global settings</ion-text>
-			<ion-icon name="chevron-forward" class="second-icon" />
 		</ion-card-content>
 	</ion-card>
 </ion-content>
