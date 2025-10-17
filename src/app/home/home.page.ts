@@ -29,7 +29,7 @@ export class HomePage {
 		);
 
 		this.chartData = {
-			labels: LABEL_MONTHS,
+			labels: this.labelMonths,
 			datasets: [
 				{
 					fill: true,

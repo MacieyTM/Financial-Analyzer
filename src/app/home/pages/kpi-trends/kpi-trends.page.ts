@@ -34,7 +34,7 @@ export class KpiTrendsPage implements OnInit {
 		);
 
 		this.chartData = {
-			labels: LABEL_MONTHS,
+			labels: this.labelMonths,
 			datasets: [
 				{
 					fill: true,
