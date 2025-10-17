@@ -55,7 +55,7 @@
 		height="228px"
 		width="100%"
 		fit="fill"
-	></app-img-loadable>
+	/>
 	} @if (!isDefault) {
 	<app-img-loadable
 		[src]="imageUrl$ | async"
@@ -65,7 +65,7 @@
 		width="100%"
 		fit="fill"
 		[ngStyle]="{ opacity: (uploadProgress$ | async) < 1 ? 0.1 : 1 }"
-	></app-img-loadable>
+	/>
 	} @if (isError()) {
 	<ion-button
 		(click)="reUpload()"
