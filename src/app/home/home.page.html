@@ -18,6 +18,15 @@
 			>
 		</ion-card-header>
 		<mat-divider />
+		<canvas
+			baseChart
+			type="doughnut"
+			[options]="chartOptions"
+			[labels]="chartData.labels"
+			[datasets]="chartData.datasets"
+		>
+		</canvas>
+		<mat-divider />
 		<ion-card-content>
 			<div class="btns-container">
 				<ion-button class="left-btn" routerLink="manage-account/language-settings">
