@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
+import { Capacitor } from "@capacitor/core";
 import { ChartConfiguration } from "chart.js";
 import { CHART_DATA_QUARTERS } from "src/app/models/chart.model";
 
@@ -14,12 +15,14 @@ export class HomePage {
 	protected readonly bankAccountAmount = signal<string>(BANK_ACCOUNT_AMOUNT.toLocaleString());
 	protected chartData: ChartConfiguration<"doughnut">["data"];
 	protected chartOptions: ChartConfiguration<"doughnut">["options"];
+	protected isWeb: boolean;
 
 	private data: number[];
 	private borderColor: string;
 	private feedbackImagePath: string;
 
 	public ngOnInit(): void {
+		this.isWeb = Capacitor.getPlatform() === "web";
 		this.feedbackImagePath = "";
 
 		this.data = CHART_DATA_QUARTERS;

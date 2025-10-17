@@ -17,21 +17,23 @@
 				>Mobile application for financial management</ion-text
 			>
 		</ion-card-header>
+		@if (!isWeb) {
 		<app-take-photo (feedbackImageUploaded)="onFeedbackImageUploaded($event)"></app-take-photo>
+		}
 		<canvas baseChart type="doughnut" [options]="chartOptions" [datasets]="chartData.datasets">
 		</canvas>
 		<ion-card-content>
 			<div class="btns-container">
-				<ion-button class="left-btn" routerLink="manage-account/language-settings">
+				<ion-button routerLink="manage-account/language-settings">
 					<div class="btn-wrapper">
-						<ion-icon name="arrow-back-circle-outline" />
+						<ion-icon name="language" />
 						<span appTranslate="language_settings_header">Language Settings</span>
 					</div>
 				</ion-button>
-				<ion-button class="right-btn" routerLink="manage-account/user-settings">
+				<ion-button routerLink="manage-account/user-settings">
 					<div class="btn-wrapper">
+						<ion-icon name="person" />
 						<span appTranslate="user_settings_header">User Settings</span>
-						<ion-icon name="arrow-forward-circle-outline" />
 					</div>
 				</ion-button>
 			</div>

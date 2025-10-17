@@ -67,7 +67,7 @@ ion-content {
 				align-items: center;
 				gap: 0.5rem;
 
-				ion-button.left-btn {
+				ion-button {
 					color: var(--ion-color-text-primary);
 
 					.btn-wrapper {
@@ -78,33 +78,9 @@ ion-content {
 						gap: 0.5rem;
 
 						ion-icon {
-							width: 2rem;
-							height: 2rem;
-							font-size: 2rem;
-						}
-					}
-				}
-
-				ion-button.right-btn {
-					display: flex;
-					flex-direction: row;
-					justify-content: center;
-					align-items: center;
-					gap: 0.5rem;
-					width: fit-content;
-					color: var(--ion-color-text-primary);
-
-					.btn-wrapper {
-						display: flex;
-						flex-direction: row;
-						justify-content: center;
-						align-items: center;
-						gap: 0.5rem;
-
-						ion-icon {
-							width: 2rem;
-							height: 2rem;
-							font-size: 2rem;
+							width: 1.25rem;
+							height: 1.25rem;
+							font-size: 1.25rem;
 						}
 					}
 				}
