@@ -11,18 +11,26 @@
 </ion-header>
 
 <ion-content>
-	<ion-card class="first-card">
+	<ion-card>
 		<ion-card-header>
 			<ion-text appTranslate="mobile_application_for_financial_management"
 				>Mobile application for financial management</ion-text
 			>
 		</ion-card-header>
-		<!-- @if (isMobile()) { -->
-		<app-take-photo (imageUploaded)="onImageUploaded($event)"></app-take-photo>
-		<!-- } -->
-		<canvas baseChart type="doughnut" [options]="chartOptions" [datasets]="chartData.datasets">
-		</canvas>
+		<mat-divider />
+		<div class="amount-wrapper">
+			<ion-text appTranslate="current_bank_account_amount">Current bank account amount:</ion-text>
+			<span>{{ bankAccountAmount() }}</span>
+			<ion-text>PLN</ion-text>
+		</div>
 		<ion-card-content>
+			<canvas baseChart type="doughnut" [options]="chartOptions" [datasets]="chartData.datasets">
+			</canvas>
+
+			<!-- @if (isMobile()) { -->
+			<app-take-photo (imageUploaded)="onImageUploaded($event)" />
+			<!-- } -->
+
 			<div class="btns-container">
 				<ion-button routerLink="manage-account/language-settings">
 					<div class="btn-wrapper">
@@ -37,25 +45,8 @@
 					</div>
 				</ion-button>
 			</div>
-			<div class="amount-wrapper">
-				<ion-text appTranslate="current_bank_account_amount">Current bank account amount:</ion-text>
-				<span>{{ bankAccountAmount() }}</span>
-				<ion-text>PLN</ion-text>
-			</div>
 		</ion-card-content>
 	</ion-card>
-	<!-- <ion-card class="second-card">
-		<ion-card-header>
-			<ion-text>Second Card Header</ion-text>
-		</ion-card-header>
-		<ion-card-content>
-			<ion-text>Second card content </ion-text>
-			<ion-text>second card content </ion-text>
-			<ion-text>second card content </ion-text>
-			<ion-text>second card content </ion-text>
-			<ion-text>second card content </ion-text>
-		</ion-card-content>
-	</ion-card> -->
 </ion-content>
 
 <ion-footer>
