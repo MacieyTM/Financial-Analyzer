@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
 import { ChartConfiguration } from "chart.js";
-import { BehaviorSubject, Observable } from "rxjs";
 import { CHART_DATA_QUARTERS } from "src/app/models/chart.model";
 
 const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
@@ -55,7 +54,7 @@ export class HomePage {
 		};
 	}
 
-	protected onFeedbackImageUploaded(image: { imagePath: string; }): void {
+	protected onFeedbackImageUploaded(image: { imagePath: string }): void {
 		this.feedbackImagePath = image?.imagePath;
 	}
 }
