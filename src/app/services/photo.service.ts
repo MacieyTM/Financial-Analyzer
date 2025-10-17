@@ -6,7 +6,9 @@ import { Camera, CameraResultType, CameraSource, Photo } from "@capacitor/camera
 
 const IMAGE_QUALITY = 80;
 
-@Injectable()
+@Injectable({
+	providedIn: "root",
+})
 export class PhotoService {
 	public uploadProgress$: Observable<Progress>;
 	public cameraOrGalleryOpened$: Observable<boolean>;
@@ -20,7 +22,7 @@ export class PhotoService {
 
 	private currentPhoto: Photo = null;
 
-	constructor(private readonly fileUploadService: UploadService) {
+	constructor(private readonly uploadService: UploadService) {
 		this.uploadProgress$ = this.uploadProgressInternal$.asObservable();
 		this.cameraOrGalleryOpened$ = this.cameraOrGalleryOpenedInternal$.asObservable();
 		this.imageUrl$ = this.imageUrlInternal$.asObservable();
@@ -50,7 +52,7 @@ export class PhotoService {
 		this.uploadProgressInternal$.next(null);
 		this.imageModifiedInternal$.next(true);
 
-		return this.fileUploadService.uploadFile(blob, `mobile-${Date.now().toString()}.jpeg`).pipe(
+		return this.uploadService.uploadFile(blob, `mobile-${Date.now().toString()}.jpeg`).pipe(
 			tap((progress) => this.uploadProgressInternal$.next(progress)),
 			catchError((err) => {
 				console.log("Failed");
