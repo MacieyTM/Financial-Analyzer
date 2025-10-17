@@ -15,8 +15,8 @@ Chart.register(zoomPlugin);
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KpiTrendsPage implements OnInit {
-	protected chartData: ChartData;
-	protected chartOptions: ChartOptions;
+	protected chartData: ChartData<"line">;
+	protected chartOptions: ChartOptions<"line">;
 
 	private data: number[];
 	private borderColor: string;
@@ -40,12 +40,12 @@ export class KpiTrendsPage implements OnInit {
 					fill: true,
 					data: this.data,
 					borderColor: this.borderColor,
-					label: "Money Amount",
 				},
 			],
 		};
 
 		this.chartOptions = {
+			animation: false,
 			responsive: false,
 			// plugins: {
 			// 	zoom: {
