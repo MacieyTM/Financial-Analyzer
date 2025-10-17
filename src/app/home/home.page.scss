@@ -33,7 +33,6 @@ ion-content {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		gap: 1rem;
 		margin: 1rem;
 		border-radius: 0.75rem;
 		background-color: var(--ion-color-text-secondary);
@@ -53,7 +52,7 @@ ion-content {
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			gap: 2rem;
+			gap: 1rem;
 
 			.btns-container {
 				display: flex;
