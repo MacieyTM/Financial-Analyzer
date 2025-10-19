@@ -58,7 +58,7 @@
 	/>
 	} @if (!isDefault) {
 	<app-img-loadable
-		[src]="imageUrl$ | async"
+		[src]="storedImageFilename()"
 		[zoomInDialog]="isExpandPhotoModalOpen()"
 		(dismiss)="isExpandPhotoModalOpen.set(false)"
 		height="228px"

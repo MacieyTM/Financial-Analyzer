@@ -8,7 +8,7 @@ import {
 	Output,
 	signal,
 } from "@angular/core";
-import { BehaviorSubject, catchError, map, Observable, of, skip, Subscription, tap } from "rxjs";
+import { BehaviorSubject, catchError, map, of, skip, Subscription, tap } from "rxjs";
 import { PhotoService } from "src/app/services/photo.service";
 
 @Component({
@@ -26,15 +26,17 @@ export class TakePhotoComponent implements OnInit, OnDestroy {
 	@Input() defaultImageUrl: string;
 
 	public readonly isExpandPhotoModalOpen = signal(false);
+	public storedImageFilename = signal<string>("");
 	public imageModified$ = this.photoService.imageModified$;
 	public imageUrl$ = this.photoService.imageUrl$;
-	public isModalOpen$: Observable<boolean>;
 	public photoBlob = signal<Blob>(null);
 	public isError = signal(false);
+	public isModalOpen$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 	public uploadProgress$ = this.photoService.uploadProgress$.pipe(
 		tap((progress) => {
 			if (progress?.imagePath) {
+				this.storedImageFilename.set(progress.imagePath);
 				this.imageUploaded.emit({
 					imagePath: progress.imagePath,
 					isPhotoUploading: false,
@@ -44,12 +46,9 @@ export class TakePhotoComponent implements OnInit, OnDestroy {
 		map((progress) => (progress?.percentage != null ? progress.percentage / 100 : 0))
 	);
 
-	private readonly isModalOpenInternal$ = new BehaviorSubject<boolean>(false);
 	private subscription: Subscription;
 
-	constructor(private readonly photoService: PhotoService) {
-		this.isModalOpen$ = this.isModalOpenInternal$.asObservable();
-	}
+	constructor(private readonly photoService: PhotoService) {}
 
 	public onDismissExpandPhotoModal(): void {
 		this.isExpandPhotoModalOpen.set(false);
@@ -69,12 +68,10 @@ export class TakePhotoComponent implements OnInit, OnDestroy {
 	}
 
 	public ngOnInit(): void {
-		this.isModalOpenInternal$.next(false);
-
 		this.subscription = this.photoService.cameraOrGalleryOpened$
 			.pipe(
 				skip(1),
-				tap((opened) => this.isModalOpenInternal$.next(!opened))
+				tap((opened) => this.isModalOpen$.next(!opened))
 			)
 			.subscribe();
 	}
@@ -84,16 +81,17 @@ export class TakePhotoComponent implements OnInit, OnDestroy {
 	}
 
 	public onModalDismiss(): void {
-		this.isModalOpenInternal$.next(false);
+		this.isModalOpen$.next(false);
 	}
 
 	public openModal(): void {
-		this.isModalOpenInternal$.next(true);
+		this.isModalOpen$.next(true);
 	}
 
 	public removePhoto(): void {
 		this.photoService.discardPhoto();
 		this.isError.set(false);
+		this.storedImageFilename.set("");
 
 		this.imageUploaded.emit({
 			imagePath: "",
