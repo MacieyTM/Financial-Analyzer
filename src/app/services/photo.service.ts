@@ -52,7 +52,7 @@ export class PhotoService {
 		this.uploadProgressInternal$.next(null);
 		this.imageModifiedInternal$.next(true);
 
-		return this.uploadService.uploadFile(blob, `mobile-${Date.now().toString()}.jpeg`).pipe(
+		return this.uploadService.uploadFile(blob, "image.jpg").pipe(
 			tap((progress) => this.uploadProgressInternal$.next(progress)),
 			catchError((err) => {
 				console.log("Failed");

@@ -60,7 +60,7 @@ export class UploadService {
 						byteArrays[i] = byteCharacters.charCodeAt(i);
 					}
 
-					const blob = new Blob([byteArrays], { type: "image/jpeg" });
+					const blob = new Blob([byteArrays], { type: "image/jpg" });
 					observer.next(blob);
 					observer.complete();
 				} catch {
