@@ -19,7 +19,7 @@
 		} @if (uploadProgress$ | async; as uploadProgress) { @if (uploadProgress < 1) {
 		<div class="upload-progress-wrapper">
 			<div class="upper-part">
-				<ion-spinner color="primary" name="lines"></ion-spinner>
+				<ion-spinner color="primary" name="lines" />
 				<ion-text>{{ (uploadProgress * 100).toFixed() }}%</ion-text>
 			</div>
 			<div class="bottom-part">

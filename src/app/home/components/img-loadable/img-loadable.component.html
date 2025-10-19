@@ -7,7 +7,7 @@
 ></ion-img>
 } @else {
 <div class="spinner-container" [style.height]="height">
-	<ion-spinner color="primary"></ion-spinner>
+	<ion-spinner color="primary" />
 </div>
 }
 <ion-modal [isOpen]="zoomInDialog" (didDismiss)="dismiss.emit(false)">
