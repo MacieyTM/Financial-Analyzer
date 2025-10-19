@@ -42,9 +42,9 @@
 				</ion-button>
 			</div>
 
-			<!-- @if (isMobile()) { -->
+			@if (isMobile()) {
 			<app-take-photo (imageUploaded)="onImageUploaded($event)" />
-			<!-- } -->
+			}
 		</ion-card-content>
 	</ion-card>
 </ion-content>
