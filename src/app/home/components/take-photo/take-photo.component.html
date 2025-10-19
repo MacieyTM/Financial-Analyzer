@@ -4,13 +4,13 @@
 		<ng-container *ngTemplateOutlet="photoUploaded; context: { isDefault: true }"></ng-container>
 		} @else {
 		<div class="take-photo-btn" (click)="openModal()">
-			<ion-icon name="camera"></ion-icon>
+			<ion-icon name="camera" />
 			<ion-text>Add screenshot</ion-text>
 		</div>
 		<ion-img src="assets/shapes.svg" [style.opacity]="0.1"></ion-img>
 		} } @if (!defaultImageUrl && (imageUrl$ | async) === '') {
 		<div class="take-photo-btn" (click)="openModal()">
-			<ion-icon name="camera"></ion-icon>
+			<ion-icon name="camera" />
 			<ion-text>Add screenshot</ion-text>
 		</div>
 		<ion-img src="assets/shapes.svg" [style.opacity]="0.1"></ion-img>
@@ -45,7 +45,7 @@
 			[style.width]="'24px'"
 			[style.height]="'24px'"
 			name="expand-outline"
-		></ion-icon>
+		/>
 	</ion-button>
 	@if (isDefault) {
 	<app-img-loadable
@@ -75,13 +75,13 @@
 		[style.marginBottom]="'4px'"
 		class="discard-photo"
 	>
-		<ion-icon name="refresh-outline" slot="start"></ion-icon>
+		<ion-icon name="refresh-outline" slot="start" />
 		<ion-text slot="end">Retry Upload</ion-text>
 	</ion-button>
 	}
 	<ion-button (click)="removePhoto()" color="primary" [style.height]="'36px'" class="discard-photo">
-		<ion-text slot="start">Discard Photo</ion-text>
-		<ion-icon slot="end" name="trash-outline"></ion-icon>
+		<ion-icon slot="start" name="trash-outline" />
+		<ion-text slot="end">Discard Photo</ion-text>
 	</ion-button>
 </ng-template>
 
@@ -92,13 +92,13 @@
 			<div class="options-container">
 				<div class="option" (click)="upload()">
 					<div class="square-icon">
-						<ion-icon name="camera-outline"></ion-icon>
+						<ion-icon name="camera-outline" />
 					</div>
 					<ion-text>Camera</ion-text>
 				</div>
 				<div class="option" (click)="openPhotoLibrarySingle()">
 					<div class="square-icon">
-						<ion-icon name="image-outline"></ion-icon>
+						<ion-icon name="image-outline" />
 					</div>
 					<ion-text>Open photo library</ion-text>
 				</div>
