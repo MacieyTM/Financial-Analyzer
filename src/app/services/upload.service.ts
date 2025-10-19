@@ -27,7 +27,6 @@ export class UploadService {
 					reader.onloadend = () => {
 						const base64File = reader.result as string;
 
-						// Store in localStorage
 						try {
 							localStorage.setItem(filename, base64File);
 
@@ -38,7 +37,7 @@ export class UploadService {
 
 							observer.complete();
 						} catch (err) {
-							observer.error("Failed to save image in localStorage");
+							console.log("Error: ", err);
 						}
 					};
 					reader.readAsDataURL(blob);
@@ -64,10 +63,10 @@ export class UploadService {
 					observer.next(blob);
 					observer.complete();
 				} catch {
-					observer.error("Error decoding image from localStorage");
+					console.log("Error decoding image from localStorage");
 				}
 			} else {
-				observer.error("Image not found in localStorage");
+				console.log("Image not found in localStorage");
 			}
 
 			return () => {};
