@@ -27,26 +27,17 @@
 			<canvas baseChart type="doughnut" [options]="chartOptions" [datasets]="chartData.datasets">
 			</canvas>
 
-			<div class="btns-container">
-				<ion-button routerLink="/home/manage-account/language-settings">
-					<div class="btn-wrapper">
-						<ion-icon name="language" />
-						<span appTranslate="language_settings_header">Language Settings</span>
-					</div>
-				</ion-button>
-				<ion-button routerLink="/home/manage-account/user-settings">
-					<div class="btn-wrapper">
-						<ion-icon name="person" />
-						<span appTranslate="user_settings_header">User Settings</span>
-					</div>
-				</ion-button>
-			</div>
-
 			@if (isMobile()) {
 			<app-take-photo (imageUploaded)="onImageUploaded($event)" />
 			}
 		</ion-card-content>
 	</ion-card>
+
+	<ion-fab slot="fixed" horizontal="end" vertical="bottom">
+		<ion-fab-button routerLink="/home/manage-account/language-settings">
+			<ion-icon name="language" />
+		</ion-fab-button>
+	</ion-fab>
 </ion-content>
 
 <ion-footer>
