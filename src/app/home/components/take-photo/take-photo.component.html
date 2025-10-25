@@ -1,21 +1,21 @@
 <ion-card class="ion-no-margin">
 	<ion-card-content>
 		@if (defaultImageUrl && (imageUrl$ | async) === '') { @if ((imageModified$ | async) === false) {
-		<ng-container *ngTemplateOutlet="photoUploaded; context: { isDefault: true }"></ng-container>
+		<ng-container *ngTemplateOutlet="photoUploaded; context: { isDefault: true }" />
 		} @else {
 		<div class="take-photo-btn" (click)="openModal()">
 			<ion-icon name="camera" />
 			<ion-text>Add screenshot</ion-text>
 		</div>
-		<ion-img src="/assets/shapes.svg" [style.opacity]="0.1"></ion-img>
+		<ion-img src="/assets/shapes.svg" [style.opacity]="0.1" />
 		} } @if (!defaultImageUrl && (imageUrl$ | async) === '') {
 		<div class="take-photo-btn" (click)="openModal()">
 			<ion-icon name="camera" />
 			<ion-text>Add screenshot</ion-text>
 		</div>
-		<ion-img src="/assets/shapes.svg" [style.opacity]="0.1"></ion-img>
+		<ion-img src="/assets/shapes.svg" [style.opacity]="0.1" />
 		} @if ((imageUrl$ | async) !== '') {
-		<ng-container *ngTemplateOutlet="photoUploaded; context: { isDefault: false }"></ng-container>
+		<ng-container *ngTemplateOutlet="photoUploaded; context: { isDefault: false }" />
 		} @if (uploadProgress$ | async; as uploadProgress) { @if (uploadProgress < 1) {
 		<div class="upload-progress-wrapper">
 			<div class="upper-part">
