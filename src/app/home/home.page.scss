@@ -28,15 +28,20 @@ ion-header {
 ion-content {
 	--background: var(--ion-color-secondary);
 
-	ion-card.first-card {
+	ion-card {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 0.75rem;
 		margin: 1rem;
-		height: 20rem;
-		border-radius: 1rem;
+		border-radius: 0.75rem;
 		background-color: var(--ion-color-text-secondary);
 
 		ion-card-header {
+			margin-top: 1rem;
+
 			ion-text {
-				// width: 90vw;
 				font-weight: 400;
 				font-size: 1.5rem;
 				text-align: center;
@@ -45,90 +50,59 @@ ion-content {
 			}
 		}
 
-		ion-card-content {
-			.btns-container {
-				margin-top: 5rem;
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				align-items: center;
-				gap: 1rem;
+		.amount-wrapper {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			gap: 0.25rem;
+			padding: 0 0.5rem;
+			color: var(--ion-color-text-primary);
 
-				ion-button.left-btn {
-					color: var(--ion-color-text-primary);
-
-					.btn-wrapper {
-						display: flex;
-						flex-direction: row;
-						justify-content: center;
-						align-items: center;
-						gap: 0.5rem;
-
-						span {
-							font-weight: 700;
-							font-size: 0.5rem;
-							letter-spacing: 0.1rem;
-						}
-
-						ion-icon {
-							width: 1rem;
-							height: 1rem;
-							font-size: 1rem;
-						}
-					}
-				}
-
-				ion-button.right-btn {
-					display: flex;
-					flex-direction: row;
-					justify-content: center;
-					align-items: center;
-					gap: 0.5rem;
-					color: var(--ion-color-text-primary);
-
-					.btn-wrapper {
-						display: flex;
-						flex-direction: row;
-						justify-content: center;
-						align-items: center;
-						gap: 0.5rem;
-
-						span {
-							font-weight: 700;
-							font-size: 0.5rem;
-							letter-spacing: 0.1rem;
-						}
-
-						ion-icon {
-							width: 1rem;
-							height: 1rem;
-							font-size: 1rem;
-						}
-					}
-				}
+			span {
+				font-size: 1.5rem;
+				font-weight: 700;
 			}
+		}
 
-			.amount-wrapper {
-				margin-top: 5rem;
+		canvas {
+			width: 15rem !important;
+			height: 15rem !important;
+		}
+
+		ion-card-content {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			gap: 1rem;
+
+			.btns-container {
 				display: flex;
-				flex-direction: row;
+				flex-direction: column;
 				justify-content: center;
 				align-items: center;
-				gap: 0.25rem;
-				color: var(--ion-color-text-primary);
+				gap: 0.5rem;
 
-				span {
-					font-weight: 700;
+				ion-button {
+					color: var(--ion-color-text-primary);
+
+					.btn-wrapper {
+						display: flex;
+						flex-direction: row;
+						justify-content: center;
+						align-items: center;
+						gap: 0.5rem;
+
+						ion-icon {
+							width: 1.25rem;
+							height: 1.25rem;
+							font-size: 1.25rem;
+						}
+					}
 				}
 			}
 		}
-	}
-
-	ion-card.second-card {
-		margin: 1rem;
-		height: 10rem;
-		border-radius: 1rem;
-		background-color: var(--ion-color-text-secondary);
 	}
 }
 

@@ -17,14 +17,6 @@ const routes: Routes = [
 		loadChildren: () =>
 			import("./pages/kpi-trends/kpi-trends.module").then((m) => m.KpiTrendsPageModule),
 	},
-	{
-		path: "left",
-		loadChildren: () => import("./pages/left/left.module").then((m) => m.LeftPageModule),
-	},
-	{
-		path: "right",
-		loadChildren: () => import("./pages/right/right.module").then((m) => m.RightPageModule),
-	},
 ];
 
 @NgModule({

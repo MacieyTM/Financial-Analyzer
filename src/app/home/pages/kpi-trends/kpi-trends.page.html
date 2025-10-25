@@ -1,6 +1,6 @@
 <ion-header>
 	<ion-toolbar>
-		<ion-back-button slot="start" defaultHref="home"></ion-back-button>
+		<ion-back-button slot="start" defaultHref="home" />
 		<ion-title appTranslate="kpi_trends">KPI Trends</ion-title>
 	</ion-toolbar>
 </ion-header>
@@ -15,9 +15,18 @@
 			<canvas
 				baseChart
 				type="line"
-				[options]="chartOptions"
-				[labels]="chartData.labels"
-				[datasets]="chartData.datasets"
+				[options]="chartOptionsLine"
+				[labels]="chartDataLine.labels"
+				[datasets]="chartDataLine.datasets"
+			>
+			</canvas>
+			<mat-divider />
+			<canvas
+				baseChart
+				type="bar"
+				[options]="chartOptionsBar"
+				[labels]="chartDataBar.labels"
+				[datasets]="chartDataBar.datasets"
 			>
 			</canvas>
 		</ion-card-content>

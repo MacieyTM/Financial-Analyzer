@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { IonicModule } from "@ionic/angular";
 
-import { HomeLeftComponent } from "./home-left.component";
+import { TakePhotoComponent } from "./take-photo.component";
 
-describe("HomeLeftComponent", () => {
-	let component: HomeLeftComponent;
-	let fixture: ComponentFixture<HomeLeftComponent>;
+describe("TakePhotoComponent", () => {
+	let component: TakePhotoComponent;
+	let fixture: ComponentFixture<TakePhotoComponent>;
 
 	beforeEach(waitForAsync(() => {
 		TestBed.configureTestingModule({
-			declarations: [HomeLeftComponent],
+			declarations: [TakePhotoComponent],
 			imports: [IonicModule.forRoot()],
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(HomeLeftComponent);
+		fixture = TestBed.createComponent(TakePhotoComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	}));

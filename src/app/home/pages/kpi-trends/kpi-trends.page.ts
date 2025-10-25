@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { ChartOptions, ChartData, Chart } from "chart.js";
+import { Chart, ChartConfiguration } from "chart.js";
 import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
 import { Capacitor } from "@capacitor/core";
-import { DATA, LABEL_MONTHS } from "src/app/models/chart.model";
+import { CHART_DATA_MONTHS, CHART_LABEL_MONTHS } from "src/app/models/chart.model";
 
 import zoomPlugin from "chartjs-plugin-zoom";
 
@@ -15,8 +15,11 @@ Chart.register(zoomPlugin);
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KpiTrendsPage implements OnInit {
-	protected chartData: ChartData;
-	protected chartOptions: ChartOptions;
+	protected chartDataLine: ChartConfiguration<"line">["data"];
+	protected chartOptionsLine: ChartConfiguration<"line">["options"];
+
+	protected chartDataBar: ChartConfiguration<"bar">["data"];
+	protected chartOptionsBar: ChartConfiguration<"bar">["options"];
 
 	private data: number[];
 	private borderColor: string;
@@ -27,26 +30,41 @@ export class KpiTrendsPage implements OnInit {
 			ScreenOrientation.lock({ type: OrientationType.LANDSCAPE });
 		}
 
-		this.data = DATA;
-		this.labelMonths = LABEL_MONTHS;
+		this.data = CHART_DATA_MONTHS;
+		this.labelMonths = CHART_LABEL_MONTHS;
 		this.borderColor = getComputedStyle(document.documentElement).getPropertyValue(
 			"--ion-color-primary"
 		);
 
-		this.chartData = {
-			labels: LABEL_MONTHS,
+		this.chartDataLine = {
+			labels: this.labelMonths,
 			datasets: [
 				{
-					fill: true,
+					fill: false,
+					pointRadius: 0,
 					data: this.data,
-					borderColor: this.borderColor,
-					label: "Money Amount",
+					borderColor: "#00f",
+					backgroundColor: "#00f",
+					pointBorderColor: "#00f",
+					pointBackgroundColor: "#00f",
+					pointHoverBorderColor: "#00f",
+					pointHoverBackgroundColor: "#00f",
 				},
 			],
 		};
 
-		this.chartOptions = {
-			responsive: false,
+		this.chartOptionsLine = {
+			animation: false,
+			responsive: true,
+			maintainAspectRatio: false,
+			plugins: {
+				legend: {
+					display: false,
+				},
+				tooltip: {
+					enabled: false,
+				},
+			},
 			// plugins: {
 			// 	zoom: {
 			// 		zoom: {
@@ -70,6 +88,34 @@ export class KpiTrendsPage implements OnInit {
 			// 		},
 			// 	},
 			// },
+		};
+
+		this.chartDataBar = {
+			labels: this.labelMonths,
+			datasets: [
+				{
+					data: this.data,
+					borderColor: this.borderColor,
+					backgroundColor: "#00f",
+					hoverBackgroundColor: "#0f0",
+					hoverBorderColor: "#f00",
+					borderWidth: 2,
+				},
+			],
+		};
+
+		this.chartOptionsBar = {
+			animation: false,
+			responsive: true,
+			maintainAspectRatio: false,
+			plugins: {
+				legend: {
+					display: false,
+				},
+				tooltip: {
+					enabled: false,
+				},
+			},
 		};
 	}
 

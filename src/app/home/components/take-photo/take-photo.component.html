@@ -1,0 +1,108 @@
+<ion-card class="ion-no-margin">
+	<ion-card-content>
+		@if (defaultImageUrl && (imageUrl$ | async) === '') { @if ((imageModified$ | async) === false) {
+		<ng-container *ngTemplateOutlet="photoUploaded; context: { isDefault: true }" />
+		} @else {
+		<div class="take-photo-btn" (click)="openModal()">
+			<ion-icon name="camera" />
+			<ion-text>Add screenshot</ion-text>
+		</div>
+		<ion-img src="/assets/shapes.svg" [style.opacity]="0.1" />
+		} } @if (!defaultImageUrl && (imageUrl$ | async) === '') {
+		<div class="take-photo-btn" (click)="openModal()">
+			<ion-icon name="camera" />
+			<ion-text>Add screenshot</ion-text>
+		</div>
+		<ion-img src="/assets/shapes.svg" [style.opacity]="0.1" />
+		} @if ((imageUrl$ | async) !== '') {
+		<ng-container *ngTemplateOutlet="photoUploaded; context: { isDefault: false }" />
+		} @if (uploadProgress$ | async; as uploadProgress) { @if (uploadProgress < 1) {
+		<div class="upload-progress-wrapper">
+			<div class="upper-part">
+				<ion-spinner color="primary" name="lines" />
+				<ion-text>{{ (uploadProgress * 100).toFixed() }}%</ion-text>
+			</div>
+			<div class="bottom-part">
+				<ion-text>Uploading image...</ion-text>
+			</div>
+		</div>
+		} }
+	</ion-card-content>
+</ion-card>
+
+<ng-template #photoUploaded let-isDefault="isDefault">
+	<ion-button
+		(click)="isExpandPhotoModalOpen.set(true)"
+		color="primary"
+		[style.position]="'absolute'"
+		[style.width]="'36px'"
+		[style.height]="'36px'"
+		[style.top]="'12px'"
+		[style.right]="'12px'"
+	>
+		<ion-icon
+			slot="icon-only"
+			[style.width]="'24px'"
+			[style.height]="'24px'"
+			name="expand-outline"
+		/>
+	</ion-button>
+	@if (isDefault) {
+	<app-img-loadable
+		[src]="defaultImageUrl"
+		[zoomInDialog]="isExpandPhotoModalOpen()"
+		(dismiss)="isExpandPhotoModalOpen.set(false)"
+		height="228px"
+		width="100%"
+		fit="fill"
+	/>
+	} @if (!isDefault) {
+	<app-img-loadable
+		[src]="storedImageFilename()"
+		[zoomInDialog]="isExpandPhotoModalOpen()"
+		(dismiss)="isExpandPhotoModalOpen.set(false)"
+		height="228px"
+		width="100%"
+		fit="fill"
+		[ngStyle]="{ opacity: (uploadProgress$ | async) < 1 ? 0.1 : 1 }"
+	/>
+	} @if (isError()) {
+	<ion-button
+		(click)="reUpload()"
+		color="light"
+		[style.height]="'36px'"
+		[style.width]="'100%'"
+		[style.marginBottom]="'4px'"
+		class="discard-photo"
+	>
+		<ion-icon name="refresh-outline" slot="start" />
+		<ion-text slot="end">Retry Upload</ion-text>
+	</ion-button>
+	}
+	<ion-button (click)="removePhoto()" color="primary" [style.height]="'36px'" class="discard-photo">
+		<ion-icon slot="start" name="trash-outline" />
+		<ion-text slot="end">Discard Photo</ion-text>
+	</ion-button>
+</ng-template>
+
+<ion-modal [isOpen]="isModalOpen$ | async" initial-breakpoint="0.3" (didDismiss)="onModalDismiss()">
+	<ng-template>
+		<ion-content>
+			<ion-text class="modal-header">Add screenshot</ion-text>
+			<div class="options-container">
+				<div class="option" (click)="upload()">
+					<div class="square-icon">
+						<ion-icon name="camera-outline" />
+					</div>
+					<ion-text>Camera</ion-text>
+				</div>
+				<div class="option" (click)="openPhotoLibrarySingle()">
+					<div class="square-icon">
+						<ion-icon name="image-outline" />
+					</div>
+					<ion-text>Open photo library</ion-text>
+				</div>
+			</div>
+		</ion-content>
+	</ng-template>
+</ion-modal>

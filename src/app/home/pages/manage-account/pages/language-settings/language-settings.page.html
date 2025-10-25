@@ -1,6 +1,6 @@
 <ion-header>
 	<ion-toolbar>
-		<ion-back-button slot="start" defaultHref="manage-account"></ion-back-button>
+		<ion-back-button slot="start" defaultHref="manage-account" />
 		<ion-title appTranslate="language_settings_header">Language Settings</ion-title>
 	</ion-toolbar>
 </ion-header>
@@ -22,9 +22,7 @@
 					(selectionChange)="changeLanguage($event.value)"
 				>
 					<mat-select-trigger class="language-trigger">
-						<ng-container
-							*ngTemplateOutlet="flag; context: { language: selectedLanguage }"
-						></ng-container>
+						<ng-container *ngTemplateOutlet="flag; context: { language: selectedLanguage }" />
 						@if (getCurrentLanguageLabelKey(); as langKey) {
 						<ion-text>{{ langKey | appTranslate: langKey }}</ion-text>
 						}
@@ -33,9 +31,7 @@
 					@for (option of languageOptions; track $index) {
 					<mat-option [value]="option.value">
 						<div class="language-option">
-							<ng-container
-								*ngTemplateOutlet="flag; context: { language: option.value }"
-							></ng-container>
+							<ng-container *ngTemplateOutlet="flag; context: { language: option.value }" />
 							<ion-text>{{ option.label | appTranslate: option.label }}</ion-text>
 						</div>
 					</mat-option>
