@@ -5,7 +5,7 @@ import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
-import { TranslateModule, TranslateLoader, TranslateService } from "@ngx-translate/core";
+import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { AppTranslateService } from "./services/translate.service";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -13,7 +13,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { MatIconModule } from "@angular/material/icon";
 import { MatDividerModule } from "@angular/material/divider";
-import { NgOptimizedImage } from "@angular/common";
+import { IonicStorageModule } from "@ionic/storage-angular";
 
 export function createTranslateLoader(http: HttpClient) {
 	return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -34,7 +34,6 @@ const initializeApp = () => {
 		MatSelectModule,
 		MatIconModule,
 		MatDividerModule,
-		NgOptimizedImage,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
@@ -42,6 +41,7 @@ const initializeApp = () => {
 				deps: [HttpClient],
 			},
 		}),
+		IonicStorageModule.forRoot(),
 	],
 	providers: [
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

@@ -104,8 +104,8 @@ export class UserSettingsPage implements OnInit {
 	private async showSuccessToast(): Promise<void> {
 		const toast = await this.toastController.create({
 			message: this.translatePipe.transform(
-				"Language changed successfully!!",
-				"changes_saved_successfully"
+				"User details saved successfully!",
+				"user_details_saved_successfully"
 			),
 			duration: 3000,
 			color: "success",

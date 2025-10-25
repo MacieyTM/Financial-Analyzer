@@ -33,5 +33,6 @@
 	"your_nick": "Your nick",
 	"save": "Save",
 	"language_changed_successfully": "Language changed successfully!",
-	"changes_saved_successfully": "Changes saved successfully!"
+	"changes_saved_successfully": "Changes saved successfully!",
+	"user_details_saved_successfully": "User details saved successfully!"
 }
