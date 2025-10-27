@@ -28,6 +28,8 @@
 	"select_and_confirm_your_language": "言語を選択して確認してください。",
 	"user_settings_header": "ユーザー設定",
 	"user_settings": "ユーザー設定",
+	"theme_settings": "テーマ設定",
+	"global_settings": "グローバル設定",
 	"enter_and_confirm_your_name_and_surname": "氏名またはニックネームを入力して確認してください。",
 	"your_name": "あなたの名前",
 	"your_surname": "あなたの苗字",

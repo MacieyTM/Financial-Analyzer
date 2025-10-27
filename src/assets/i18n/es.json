@@ -28,6 +28,8 @@
 	"select_and_confirm_your_language": "Seleccione y confirme su idioma.",
 	"user_settings_header": "Configuración de usuario",
 	"user_settings": "Configuración de usuario",
+	"theme_settings": "Configuración de tema",
+	"global_settings": "Configuración global",
 	"enter_and_confirm_your_name_and_surname": "Introduzca y confirme su nombre y apellido o incluso su apodo.",
 	"your_name": "Su nombre",
 	"your_surname": "Su apellido",
