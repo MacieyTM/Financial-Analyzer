@@ -11,7 +11,21 @@
 			<ion-text>Add KPI Trends values</ion-text>
 		</ion-card-header>
 		<ion-card-content>
-			<ion-select />
+			<ion-select
+				interface="alert"
+				[cancelText]="'cancel' | appTranslate: 'cancel'"
+				mode="md"
+				fill="outline"
+				[value]="kpTypesOptions[0].value"
+				label="Set KPI type"
+				label-placement="floating"
+			>
+				<!-- (ionChange)="changeKpiType($event)" -->
+				<ion-icon slot="start" name="stats-chart" />
+				@for (option of kpTypesOptions; track option.value) {
+				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
+				}
+			</ion-select>
 		</ion-card-content>
 	</ion-card>
 </ion-content>
