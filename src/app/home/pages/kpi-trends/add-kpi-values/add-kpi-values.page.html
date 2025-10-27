@@ -17,7 +17,7 @@
 				mode="md"
 				fill="outline"
 				[value]="kpTypesOptions[0].value"
-				label="Set KPI type"
+				label="Set KPI chart type"
 				label-placement="floating"
 			>
 				<!-- (ionChange)="changeKpiType($event)" -->
@@ -26,6 +26,36 @@
 				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
 				}
 			</ion-select>
+			<ion-input
+				mode="md"
+				fill="outline"
+				type="text"
+				inputmode="text"
+				label-placement="floating"
+				label="Month value"
+				placeholder="Month value"
+				[clearInput]="true"
+				[maxlength]="20"
+			>
+				<!-- [(ngModel)]="userName" -->
+				<ion-icon slot="start" name="calendar" />
+			</ion-input>
+			<div class="date-btn">
+				<ion-datetime-button datetime="createDate" slot="date-target" />
+				<ion-icon name="calendar-outline" />
+			</div>
 		</ion-card-content>
 	</ion-card>
 </ion-content>
+
+<ion-modal [keepContentsMounted]="true">
+	<ng-template>
+		<ion-datetime id="createDate" presentation="date" displayFormat="MMMM YY" />
+		<!-- [locale]="datetimeLocale$ | async"
+						[firstDayOfWeek]="(datetimeLocale$ | async) === 'en-US' ? 7 : 1"
+						[min]="isEventCompleted ? undefined : defaultDate"
+						[max]="isEventCompleted ? defaultDate : undefined"
+						formControlName="date"
+						(ionChange)="transformDate()" -->
+	</ng-template>
+</ion-modal>
