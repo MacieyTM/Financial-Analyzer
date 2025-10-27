@@ -8,15 +8,31 @@ import { NavController } from "@ionic/angular";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddKpiValuesPage implements OnInit {
-	protected kpTypesOptions: any;
+	protected kpiTypesOptions: any;
+	protected monthsOptions: any;
 
 	constructor(private readonly navController: NavController) {}
 
 	ngOnInit() {
-		this.kpTypesOptions = [
-			{ value: "line", label: "line" },
-			{ value: "bar", label: "bar" },
-			{ value: "doughnut", label: "doughnut" },
+		this.kpiTypesOptions = [
+			{ value: "line", label: "Line" },
+			{ value: "bar", label: "Bar" },
+			{ value: "doughnut", label: "Doughnut" },
+		];
+
+		this.monthsOptions = [
+			{ value: "january", label: "January" },
+			{ value: "february", label: "February" },
+			{ value: "march", label: "March" },
+			{ value: "april", label: "April" },
+			{ value: "may", label: "May" },
+			{ value: "june", label: "June" },
+			{ value: "july", label: "July" },
+			{ value: "august", label: "August" },
+			{ value: "september", label: "September" },
+			{ value: "october", label: "October" },
+			{ value: "novemeber", label: "Novemeber" },
+			{ value: "december", label: "December" },
 		];
 	}
 

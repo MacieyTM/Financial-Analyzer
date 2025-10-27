@@ -16,13 +16,26 @@
 				[cancelText]="'cancel' | appTranslate: 'cancel'"
 				mode="md"
 				fill="outline"
-				[value]="kpTypesOptions[0].value"
+				[value]="kpiTypesOptions[0].value"
 				label="Set KPI chart type"
 				label-placement="floating"
 			>
 				<!-- (ionChange)="changeKpiType($event)" -->
 				<ion-icon slot="start" name="stats-chart" />
-				@for (option of kpTypesOptions; track option.value) {
+				@for (option of kpiTypesOptions; track option.value) {
+				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
+				}
+			</ion-select>
+			<ion-select
+				interface="popover"
+				[cancelText]="'cancel' | appTranslate: 'cancel'"
+				mode="md"
+				fill="outline"
+				label="Set month"
+				label-placement="floating"
+			>
+				<!-- (ionChange)="changeMonth($event)" -->
+				@for (option of monthsOptions; track option.value) {
 				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
 				}
 			</ion-select>
@@ -32,13 +45,12 @@
 				type="text"
 				inputmode="text"
 				label-placement="floating"
-				label="Month value"
-				placeholder="Month value"
+				label="Month money value"
+				placeholder="Month money value"
 				[clearInput]="true"
 				[maxlength]="20"
 			>
 				<!-- [(ngModel)]="userName" -->
-				<ion-icon slot="start" name="calendar" />
 			</ion-input>
 			<div class="teaxtarea-label">
 				<ion-text>Add note</ion-text>
