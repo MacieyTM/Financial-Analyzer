@@ -40,9 +40,18 @@
 				<!-- [(ngModel)]="userName" -->
 				<ion-icon slot="start" name="calendar" />
 			</ion-input>
-			<div class="date-btn">
-				<ion-datetime-button datetime="createDate" slot="date-target" />
-				<ion-icon name="calendar-outline" />
+			<div class="teaxtarea-label">
+				<ion-text>Add note</ion-text>
+				<ion-icon slot="start" name="pencil" />
+				<ion-text>(optionally)</ion-text>
+			</div>
+			<ion-textarea [rows]="3" [autoGrow]="true" type="text" maxlength="3000" />
+			<div class="date-wrapper">
+				<ion-text>Choose start date</ion-text>
+				<div class="date-btn">
+					<ion-datetime-button slot="date-target" datetime="dateFrom" />
+					<ion-icon name="calendar-outline" />
+				</div>
 			</div>
 		</ion-card-content>
 	</ion-card>
@@ -50,7 +59,7 @@
 
 <ion-modal [keepContentsMounted]="true">
 	<ng-template>
-		<ion-datetime id="createDate" presentation="date" displayFormat="MMMM YY" />
+		<ion-datetime id="dateFrom" presentation="date" displayFormat="MMMM YY" />
 		<!-- [locale]="datetimeLocale$ | async"
 						[firstDayOfWeek]="(datetimeLocale$ | async) === 'en-US' ? 7 : 1"
 						[min]="isEventCompleted ? undefined : defaultDate"

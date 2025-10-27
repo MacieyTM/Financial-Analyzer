@@ -18,7 +18,7 @@ ion-img::part(image) {
 }
 
 ion-content {
-	--background: #000;
+	--background: var(--ion-color-text-primary);
 
 	ion-button.close-btn {
 		position: absolute;

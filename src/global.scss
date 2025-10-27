@@ -122,3 +122,11 @@ ion-fab {
 	align-items: center;
 	gap: 0.5rem;
 }
+
+ion-textarea {
+	--background: var(--ion-color-light);
+	--color: var(--ion-color-text-primary);
+	--highlight-color-valid: var(--ion-color-primary);
+	border-radius: 0.25rem;
+	border: 1px solid var(--ion-color-text-primary);
+}
