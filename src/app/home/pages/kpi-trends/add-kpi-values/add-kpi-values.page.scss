@@ -67,9 +67,9 @@ ion-datetime-button::part(native) {
 }
 
 ion-datetime {
-	background-color: #fff;
+	background-color: var(--ion-color-text-secondary);
 
 	&:not(.datetime-placeholder) {
-		color: #000;
+		color: var(--ion-color-text-primary);
 	}
 }
