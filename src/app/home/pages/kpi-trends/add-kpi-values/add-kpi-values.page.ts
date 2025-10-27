@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { NavController } from "@ionic/angular";
 
 @Component({
 	selector: "app-add-kpi-values",
@@ -7,13 +8,19 @@ import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddKpiValuesPage implements OnInit {
-	protected readonly kpTypesOptions = [
-		{ value: "line", label: "line" },
-		{ value: "bar", label: "bar" },
-		{ value: "doughnut", label: "doughnut" },
-	];
+	protected kpTypesOptions: any;
 
-	constructor() {}
+	constructor(private readonly navController: NavController) {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.kpTypesOptions = [
+			{ value: "line", label: "line" },
+			{ value: "bar", label: "bar" },
+			{ value: "doughnut", label: "doughnut" },
+		];
+	}
+
+	protected cancel(): void {
+		this.navController.back();
+	}
 }

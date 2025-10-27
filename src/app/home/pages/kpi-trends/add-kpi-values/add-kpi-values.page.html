@@ -52,6 +52,11 @@
 					<ion-datetime-button slot="date-target" datetime="dateFrom" />
 					<ion-icon name="calendar-outline" />
 				</div>
+				<ion-icon id="date-question-trigger" name="help-circle" />
+			</div>
+			<div class="buttons-wrapper">
+				<ion-button fill="outline" (click)="cancel()" appTranslate="cancel">Cancel</ion-button>
+				<ion-button appTranslate="save">Save</ion-button>
 			</div>
 		</ion-card-content>
 	</ion-card>
@@ -68,3 +73,11 @@
 						(ionChange)="transformDate()" -->
 	</ng-template>
 </ion-modal>
+
+<ion-popover trigger="date-question-trigger" triggerAction="click">
+	<ng-template>
+		<ion-content class="ion-padding"
+			>Here you can set your date from what time the chart should display.</ion-content
+		>
+	</ng-template>
+</ion-popover>
