@@ -88,7 +88,6 @@ ion-content {
 				gap: 1rem;
 				width: 100%;
 
-				&:nth-of-type(3),
 				&:last-of-type {
 					opacity: 0.25;
 				}
@@ -122,12 +121,6 @@ ion-content {
 					margin-left: auto;
 					font-size: 1.25rem;
 					color: var(--ion-color-secondary);
-				}
-			}
-
-			mat-divider {
-				&:last-of-type {
-					opacity: 0.1;
 				}
 			}
 		}

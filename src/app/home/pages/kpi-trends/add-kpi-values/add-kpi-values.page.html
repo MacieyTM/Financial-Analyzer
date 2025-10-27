@@ -12,21 +12,6 @@
 		</ion-card-header>
 		<ion-card-content>
 			<ion-select
-				interface="alert"
-				[cancelText]="'cancel' | appTranslate: 'cancel'"
-				mode="md"
-				fill="outline"
-				[value]="kpiTypesOptions[0].value"
-				label="Set KPI chart type"
-				label-placement="floating"
-			>
-				<!-- (ionChange)="changeKpiType($event)" -->
-				<ion-icon slot="start" name="stats-chart" />
-				@for (option of kpiTypesOptions; track option.value) {
-				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
-				}
-			</ion-select>
-			<ion-select
 				interface="popover"
 				[cancelText]="'cancel' | appTranslate: 'cancel'"
 				mode="md"
@@ -58,6 +43,7 @@
 				<ion-text>(optionally)</ion-text>
 			</div>
 			<ion-textarea [rows]="3" [autoGrow]="true" type="text" maxlength="3000" />
+
 			<div class="buttons-wrapper">
 				<ion-button fill="outline" (click)="cancel()" appTranslate="cancel">Cancel</ion-button>
 				<ion-button appTranslate="save">Save</ion-button>

@@ -17,8 +17,13 @@ const routes: Routes = [
 	{
 		path: "user-settings",
 		loadChildren: () =>
-			import("./pages/user-settings/user-settings.module").then(
-				(m) => m.UserSettingsPageModule
+			import("./pages/user-settings/user-settings.module").then((m) => m.UserSettingsPageModule),
+	},
+	{
+		path: "global-settings",
+		loadChildren: () =>
+			import("./pages/global-settings/global-settings.module").then(
+				(m) => m.GlobalSettingsPageModule
 			),
 	},
 ];
