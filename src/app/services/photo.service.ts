@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, filter, first, Observable, of, tap } from "rxjs";
-import { Filesystem } from "@capacitor/filesystem";
-import { Progress, UploadService } from "./upload.service";
 import { Camera, CameraResultType, CameraSource, Photo } from "@capacitor/camera";
+import { Filesystem } from "@capacitor/filesystem";
+import { UploadService, Progress } from "./upload.service";
+import { Preferences } from "@capacitor/preferences";
 
 const IMAGE_QUALITY = 80;
 
@@ -27,6 +28,7 @@ export class PhotoService {
 		this.cameraOrGalleryOpened$ = this.cameraOrGalleryOpenedInternal$.asObservable();
 		this.imageUrl$ = this.imageUrlInternal$.asObservable();
 		this.imageModified$ = this.imageModifiedInternal$.asObservable();
+		this.loadSavedImage();
 	}
 
 	public async takePhoto(): Promise<Blob> {
@@ -37,30 +39,37 @@ export class PhotoService {
 		return this.getCameraPhoto(CameraSource.Photos);
 	}
 
-	public discardPhoto(): void {
+	public async discardPhoto(): Promise<void> {
 		this.imageUrlInternal$.next("");
 		this.imageModifiedInternal$.next(true);
 		this.uploadProgressInternal$.next(null);
 
-		if (this.currentPhoto) {
-			void Filesystem.deleteFile({ path: this.currentPhoto.path });
+		await Preferences.remove({ key: "last_uploaded_image" });
+
+		if (this.currentPhoto?.path) {
+			await Filesystem.deleteFile({ path: this.currentPhoto.path }).catch(() => {});
 			this.currentPhoto = null;
 		}
 	}
-
-	public uploadPhoto(blob: Blob) {
+	public uploadPhoto(blob: Blob): Observable<Progress> {
 		this.uploadProgressInternal$.next(null);
 		this.imageModifiedInternal$.next(true);
 
-		return this.uploadService.uploadFile(blob, "image").pipe(
+		// Generate a unique filename if needed
+		const filename = `image_${Date.now()}.jpg`;
+
+		return this.uploadService.uploadFile(blob, filename).pipe(
 			tap((progress) => this.uploadProgressInternal$.next(progress)),
 			catchError((err) => {
-				console.log("Failed");
+				console.error("Upload failed", err);
 				return of(err);
 			}),
 			filter((progress) => progress?.percentage === 100 && !!progress?.imagePath),
-			tap(() => {
-				console.log("Failed");
+			tap(async (progress) => {
+				const fileData = await this.uploadService.getFile(progress.imagePath);
+				if (fileData) {
+					this.imageUrlInternal$.next(fileData); // data URL string
+				}
 			}),
 			first()
 		);
@@ -68,8 +77,8 @@ export class PhotoService {
 
 	private async getCameraPhoto(source: CameraSource): Promise<Blob> {
 		await Camera.requestPermissions();
-
 		this.cameraOrGalleryOpenedInternal$.next(true);
+
 		const image = await Camera.getPhoto({
 			quality: IMAGE_QUALITY,
 			source,
@@ -77,10 +86,20 @@ export class PhotoService {
 			saveToGallery: true,
 		});
 
-		this.imageUrlInternal$.next(image.webPath);
 		this.currentPhoto = image;
+		this.imageUrlInternal$.next(image.webPath);
 
 		const response = await fetch(image.webPath);
 		return response.blob();
+	}
+
+	private async loadSavedImage(): Promise<void> {
+		const { value: savedFilename } = await Preferences.get({ key: "last_uploaded_image" });
+		if (savedFilename) {
+			const fileData = await this.uploadService.getFile(savedFilename);
+			if (fileData) {
+				this.imageUrlInternal$.next(fileData); // base64 data URL
+			}
+		}
 	}
 }

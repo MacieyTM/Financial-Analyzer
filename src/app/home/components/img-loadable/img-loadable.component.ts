@@ -7,7 +7,7 @@ import {
 	OnInit,
 	Output,
 } from "@angular/core";
-import { BehaviorSubject, finalize, map, Observable, Subscription, tap } from "rxjs";
+import { BehaviorSubject, finalize, from, Observable, Subscription, switchMap, tap } from "rxjs";
 import { UploadService } from "src/app/services/upload.service";
 
 @Component({
@@ -16,7 +16,7 @@ import { UploadService } from "src/app/services/upload.service";
 	styleUrls: ["./img-loadable.component.scss"],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ImgLoadableComponent implements OnInit {
+export class ImgLoadableComponent implements OnInit, OnDestroy {
 	@Input() fit: string;
 	@Input() width: string;
 	@Input() height: string;
@@ -27,10 +27,21 @@ export class ImgLoadableComponent implements OnInit {
 		if (value) {
 			this.imageLoadingInternal$.next(true);
 			const srcValue = Array.isArray(value) ? value[0] : value;
-			this.subscription = this.fileService
-				.getImage(srcValue)
+
+			// When the src is a path saved via Capacitor Filesystem, we need to read it back
+			this.subscription = from(this.fileService.getFile(srcValue))
 				.pipe(
-					map((blob) => URL.createObjectURL(blob)),
+					switchMap(async (fileData) => {
+						// If the fileData is base64 (as stored in Filesystem)
+						if (typeof fileData === "string" && fileData.startsWith("data:")) {
+							// Base64 → Blob → Object URL for <img> or <ion-img>
+							const response = await fetch(fileData);
+							const blob = await response.blob();
+							return URL.createObjectURL(blob);
+						}
+						// Otherwise, assume it's a blob URL already
+						return URL.createObjectURL(fileData as any);
+					}),
 					tap((url) => this.imageBlobUrlInternal$.next(url)),
 					finalize(() => this.imageLoadingInternal$.next(false))
 				)

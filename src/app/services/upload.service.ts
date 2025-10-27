@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { Filesystem, Directory } from "@capacitor/filesystem";
+import { Preferences } from "@capacitor/preferences";
 
 export interface Progress {
 	percentage: number;
@@ -12,64 +14,81 @@ export interface Progress {
 export class UploadService {
 	constructor() {}
 
+	/** Uploads file (simulated) and stores persistently using Capacitor Filesystem */
 	public uploadFile(blob: Blob, filename: string): Observable<Progress> {
 		return new Observable((observer) => {
 			let percentage = 0;
 
-			const progressInterval = setInterval(() => {
+			const progressInterval = setInterval(async () => {
 				percentage = Math.min(percentage + Math.random() * 30, 100);
 				observer.next({ percentage } as Progress);
 
 				if (percentage >= 100) {
 					clearInterval(progressInterval);
 
-					const reader = new FileReader();
-					reader.onloadend = () => {
-						const base64File = reader.result as string;
+					try {
+						const base64File = await this.blobToBase64(blob);
 
-						try {
-							localStorage.setItem(filename, base64File);
+						// Save the file persistently on the device
+						await Filesystem.writeFile({
+							path: filename,
+							data: base64File.split(",")[1], // remove "data:image/jpeg;base64,"
+							directory: Directory.Data,
+						});
 
-							observer.next({
-								percentage: 100,
-								imagePath: filename,
-							} as Progress);
+						await Preferences.set({
+							key: "last_uploaded_image",
+							value: filename,
+						});
 
-							observer.complete();
-						} catch (err) {
-							console.log("Error: ", err);
-						}
-					};
-					reader.readAsDataURL(blob);
+						observer.next({
+							percentage: 100,
+							imagePath: filename,
+						} as Progress);
+
+						observer.complete();
+					} catch (err) {
+						console.error("Error saving file:", err);
+					}
 				}
 			}, 500);
 		});
 	}
 
-	public getImage(filename: string): Observable<Blob> {
-		return new Observable((observer) => {
-			const base64Image = localStorage.getItem(filename);
+	/** Reads the file from Capacitor Filesystem and returns base64 data URL */
+	public async getFile(filename: string): Promise<string | null> {
+		try {
+			const result = await Filesystem.readFile({
+				path: filename,
+				directory: Directory.Data,
+			});
+			// Return the full data URL (so it can be used directly in <ion-img>)
+			return `data:image/jpeg;base64,${result.data}`;
+		} catch (err) {
+			console.error("Error reading file:", err);
+			return null;
+		}
+	}
 
-			if (base64Image) {
-				try {
-					const byteCharacters = atob(base64Image.split(",")[1]);
-					const byteArrays = new Uint8Array(byteCharacters.length);
+	/** Deletes a file from the Filesystem */
+	public async deleteFile(filename: string): Promise<void> {
+		try {
+			await Filesystem.deleteFile({
+				path: filename,
+				directory: Directory.Data,
+			});
+		} catch (err) {
+			console.error("Error deleting file:", err);
+		}
+	}
 
-					for (let i = 0; i < byteCharacters.length; i++) {
-						byteArrays[i] = byteCharacters.charCodeAt(i);
-					}
-
-					const blob = new Blob([byteArrays], { type: "image/jpg" });
-					observer.next(blob);
-					observer.complete();
-				} catch {
-					console.log("Error decoding image from localStorage");
-				}
-			} else {
-				console.log("Image not found in localStorage");
-			}
-
-			return () => {};
+	/** Converts a Blob to base64 */
+	private blobToBase64(blob: Blob): Promise<string> {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onloadend = () => resolve(reader.result as string);
+			reader.onerror = reject;
+			reader.readAsDataURL(blob);
 		});
 	}
 }
