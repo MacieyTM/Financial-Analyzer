@@ -8,8 +8,18 @@
 <ion-content>
 	<ion-card>
 		<ion-card-header>
-			<ion-icon name="stats-chart" />
-			<ion-text appTranslate="this_is_kpi_trends_page">This is KPI Trends page</ion-text>
+			<div class="text-icon-wrapper">
+				<ion-icon name="stats-chart" />
+				<ion-text appTranslate="this_is_kpi_trends_page">This is KPI Trends page</ion-text>
+			</div>
+			<div class="date-wrapper">
+				<ion-text>Choose start date</ion-text>
+				<div class="date-btn">
+					<ion-datetime-button slot="date-target" datetime="dateFrom" />
+					<ion-icon name="calendar-outline" />
+				</div>
+				<ion-icon id="date-question-trigger" name="help-circle" />
+			</div>
 		</ion-card-header>
 		<ion-card-content>
 			<canvas
@@ -38,3 +48,23 @@
 		</ion-fab-button>
 	</ion-fab>
 </ion-content>
+
+<ion-modal [keepContentsMounted]="true">
+	<ng-template>
+		<ion-datetime id="dateFrom" presentation="date" displayFormat="MMMM YY" />
+		<!-- [locale]="datetimeLocale$ | async"
+						[firstDayOfWeek]="(datetimeLocale$ | async) === 'en-US' ? 7 : 1"
+						[min]="isEventCompleted ? undefined : defaultDate"
+						[max]="isEventCompleted ? defaultDate : undefined"
+						formControlName="date"
+						(ionChange)="transformDate()" -->
+	</ng-template>
+</ion-modal>
+
+<ion-popover trigger="date-question-trigger" triggerAction="click">
+	<ng-template>
+		<ion-content class="ion-padding"
+			>Here you can set your date from what time the chart should display.</ion-content
+		>
+	</ng-template>
+</ion-popover>
