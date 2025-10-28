@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { AlertController } from "@ionic/angular";
 import { PhotoService, UserPhoto } from "src/app/services/photo.service";
 
 @Component({
@@ -13,7 +14,8 @@ export class ManageAccountPage implements OnInit {
 
 	constructor(
 		protected readonly photoService: PhotoService,
-		private readonly cdr: ChangeDetectorRef
+		private readonly cdr: ChangeDetectorRef,
+		private readonly alertController: AlertController
 	) {}
 
 	public async ngOnInit(): Promise<void> {
@@ -26,8 +28,26 @@ export class ManageAccountPage implements OnInit {
 	}
 
 	protected async deletePhoto(photo: UserPhoto, position: number): Promise<void> {
-		await this.photoService.deletePicture(photo, position);
-		this.cdr.detectChanges();
+		const alert = await this.alertController.create({
+			header: "Delete Photo",
+			message: "Are you sure you want to delete this photo?",
+			buttons: [
+				{
+					text: "Cancel",
+					role: "cancel",
+				},
+				{
+					text: "Delete",
+					role: "destructive",
+					handler: async () => {
+						await this.photoService.deletePicture(photo, position);
+						this.cdr.detectChanges();
+					},
+				},
+			],
+		});
+
+		await alert.present();
 	}
 
 	protected alert(): void {
