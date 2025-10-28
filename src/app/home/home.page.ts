@@ -9,7 +9,6 @@ const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
 	selector: "app-home",
 	templateUrl: "home.page.html",
 	styleUrls: ["home.page.scss"],
-	providers: [PhotoService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage {

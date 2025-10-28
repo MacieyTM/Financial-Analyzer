@@ -11,12 +11,17 @@ export class ManageAccountPage implements OnInit {
 	protected userFullName: string;
 	protected isLocalStorageUserFullName: boolean;
 
-	constructor(public photoService: PhotoService, private readonly cdr: ChangeDetectorRef) {}
+	constructor(
+		protected readonly photoService: PhotoService,
+		private readonly cdr: ChangeDetectorRef
+	) {}
 
 	public async ngOnInit(): Promise<void> {
 		await this.photoService.loadSaved();
-		this.isLocalStorageUserFullName = await !!localStorage.getItem("userFullName");
-		this.userFullName = (await localStorage.getItem("userFullName")) || "";
+
+		this.isLocalStorageUserFullName = !!localStorage.getItem("userFullName");
+		this.userFullName = localStorage.getItem("userFullName") || "";
+
 		this.cdr.detectChanges();
 	}
 
