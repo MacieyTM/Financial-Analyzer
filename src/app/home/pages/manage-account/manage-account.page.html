@@ -10,7 +10,7 @@
 		<ion-card-header>
 			<ion-grid>
 				<ion-row>
-					<ion-col size="4" *ngFor="let photo of photoService.photos; index as i">
+					<ion-col size="6" *ngFor="let photo of photoService.photos; index as i">
 						<ion-img [src]="photo.webviewPath" />
 						<div class="delete-btn" (click)="deletePhoto(photo, i)">
 							<ion-icon name="trash" />
