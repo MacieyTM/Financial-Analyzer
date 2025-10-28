@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { PhotoService } from "src/app/services/photo.service";
 
 @Component({
@@ -11,12 +11,13 @@ export class ManageAccountPage implements OnInit {
 	protected userFullName: string;
 	protected isLocalStorageUserFullName: boolean;
 
-	constructor(public photoService: PhotoService) {}
+	constructor(public photoService: PhotoService, private readonly cdr: ChangeDetectorRef) {}
 
 	public async ngOnInit(): Promise<void> {
 		await this.photoService.loadSaved();
 		this.isLocalStorageUserFullName = await !!localStorage.getItem("userFullName");
 		this.userFullName = (await localStorage.getItem("userFullName")) || "";
+		this.cdr.detectChanges();
 	}
 
 	protected alert(): void {
