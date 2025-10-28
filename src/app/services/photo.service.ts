@@ -1,9 +1,13 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, catchError, filter, first, Observable, of, tap } from "rxjs";
 import { Camera, CameraResultType, CameraSource, Photo } from "@capacitor/camera";
-import { Filesystem } from "@capacitor/filesystem";
-import { UploadService, Progress } from "./upload.service";
+import { Filesystem, Directory } from "@capacitor/filesystem";
 import { Preferences } from "@capacitor/preferences";
+import { Capacitor } from "@capacitor/core";
+
+export interface UserPhoto {
+	filepath: string;
+	webviewPath?: string;
+}
 
 const IMAGE_QUALITY = 80;
 
@@ -11,95 +15,93 @@ const IMAGE_QUALITY = 80;
 	providedIn: "root",
 })
 export class PhotoService {
-	public uploadProgress$: Observable<Progress>;
-	public cameraOrGalleryOpened$: Observable<boolean>;
-	public imageUrl$: Observable<string>;
-	public imageModified$: Observable<boolean>;
+	public photos: UserPhoto[] = [];
+	private PHOTO_STORAGE: string = "photos";
 
-	private readonly uploadProgressInternal$ = new BehaviorSubject<Progress>(null);
-	private readonly cameraOrGalleryOpenedInternal$ = new BehaviorSubject<boolean>(false);
-	private readonly imageUrlInternal$ = new BehaviorSubject<string>("");
-	private readonly imageModifiedInternal$ = new BehaviorSubject<boolean>(false);
-
-	private currentPhoto: Photo = null;
-
-	constructor(private readonly uploadService: UploadService) {
-		this.uploadProgress$ = this.uploadProgressInternal$.asObservable();
-		this.cameraOrGalleryOpened$ = this.cameraOrGalleryOpenedInternal$.asObservable();
-		this.imageUrl$ = this.imageUrlInternal$.asObservable();
-		this.imageModified$ = this.imageModifiedInternal$.asObservable();
-		this.loadSavedImage();
-	}
-
-	public async takePhoto(): Promise<Blob> {
-		return this.getCameraPhoto(CameraSource.Camera);
-	}
-
-	public async openPhotoLibrary(): Promise<Blob> {
-		return this.getCameraPhoto(CameraSource.Photos);
-	}
-
-	public async discardPhoto(): Promise<void> {
-		this.imageUrlInternal$.next("");
-		this.imageModifiedInternal$.next(true);
-		this.uploadProgressInternal$.next(null);
-
-		await Preferences.remove({ key: "last_uploaded_image" });
-
-		if (this.currentPhoto?.path) {
-			await Filesystem.deleteFile({ path: this.currentPhoto.path }).catch(() => {});
-			this.currentPhoto = null;
-		}
-	}
-	public uploadPhoto(blob: Blob): Observable<Progress> {
-		this.uploadProgressInternal$.next(null);
-		this.imageModifiedInternal$.next(true);
-
-		// Generate a unique filename if needed
-		const filename = `image_${Date.now()}.jpg`;
-
-		return this.uploadService.uploadFile(blob, filename).pipe(
-			tap((progress) => this.uploadProgressInternal$.next(progress)),
-			catchError((err) => {
-				console.error("Upload failed", err);
-				return of(err);
-			}),
-			filter((progress) => progress?.percentage === 100 && !!progress?.imagePath),
-			tap(async (progress) => {
-				const fileData = await this.uploadService.getFile(progress.imagePath);
-				if (fileData) {
-					this.imageUrlInternal$.next(fileData); // data URL string
-				}
-			}),
-			first()
-		);
-	}
-
-	private async getCameraPhoto(source: CameraSource): Promise<Blob> {
-		await Camera.requestPermissions();
-		this.cameraOrGalleryOpenedInternal$.next(true);
-
-		const image = await Camera.getPhoto({
-			quality: IMAGE_QUALITY,
-			source,
+	public async addNewToGallery(): Promise<void> {
+		const capturedPhoto = await Camera.getPhoto({
 			resultType: CameraResultType.Uri,
-			saveToGallery: true,
+			source: CameraSource.Camera,
+			quality: IMAGE_QUALITY,
 		});
 
-		this.currentPhoto = image;
-		this.imageUrlInternal$.next(image.webPath);
+		const savedImageFile = await this.savePicture(capturedPhoto);
+		this.photos.unshift(savedImageFile);
 
-		const response = await fetch(image.webPath);
-		return response.blob();
+		Preferences.set({
+			key: this.PHOTO_STORAGE,
+			value: JSON.stringify(this.photos),
+		});
 	}
 
-	private async loadSavedImage(): Promise<void> {
-		const { value: savedFilename } = await Preferences.get({ key: "last_uploaded_image" });
-		if (savedFilename) {
-			const fileData = await this.uploadService.getFile(savedFilename);
-			if (fileData) {
-				this.imageUrlInternal$.next(fileData); // base64 data URL
+	private async savePicture(photo: Photo): Promise<UserPhoto> {
+		const base64Data = await this.readAsBase64(photo);
+
+		const fileName = Date.now() + ".jpeg";
+		const savedFile = await Filesystem.writeFile({
+			path: fileName,
+			data: base64Data,
+			directory: Directory.Data,
+		});
+
+		if (this.isMobile()) {
+			return {
+				filepath: savedFile.uri,
+				webviewPath: Capacitor.convertFileSrc(savedFile.uri),
+			};
+		} else {
+			return {
+				filepath: fileName,
+				webviewPath: photo.webPath,
+			};
+		}
+	}
+
+	public async loadSaved(): Promise<void> {
+		const { value } = await Preferences.get({ key: this.PHOTO_STORAGE });
+		this.photos = (value ? JSON.parse(value) : []) as UserPhoto[];
+
+		if (!this.isMobile()) {
+			for (let photo of this.photos) {
+				const readFile = await Filesystem.readFile({
+					path: photo.filepath,
+					directory: Directory.Data,
+				});
+
+				photo.webviewPath = `data:image/jpeg;base64,${readFile.data}`;
 			}
 		}
+	}
+
+	private async readAsBase64(photo: Photo): Promise<string | Blob> {
+		if (this.isMobile()) {
+			const file = await Filesystem.readFile({
+				path: photo.path!,
+			});
+
+			return file.data;
+		} else {
+			const response = await fetch(photo.webPath!);
+			const blob = await response.blob();
+
+			return (await this.convertBlobToBase64(blob)) as string;
+		}
+	}
+
+	private convertBlobToBase64 = (blob: Blob) =>
+		new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onerror = reject;
+
+			reader.onload = () => {
+				resolve(reader.result);
+			};
+
+			reader.readAsDataURL(blob);
+		});
+
+	private isMobile(): boolean {
+		const currentPlatform = Capacitor.getPlatform();
+		return currentPlatform !== "web";
 	}
 }

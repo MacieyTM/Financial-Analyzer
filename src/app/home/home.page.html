@@ -18,18 +18,30 @@
 			>
 		</ion-card-header>
 		<mat-divider />
+		<div class="buttons-wrapper">
+			<ion-button fill="outline" (click)="addPhotoToStorage()">
+				<ion-icon name="camera" />
+				<ion-text>Add Photo</ion-text>
+			</ion-button>
+			<ion-button (click)="loadPhotoFromStorage()">Load Photo</ion-button>
+		</div>
 		<div class="amount-wrapper">
 			<ion-text appTranslate="current_bank_account_amount">Current bank account amount:</ion-text>
 			<span>{{ bankAccountAmount() }}</span>
 			<ion-text>PLN</ion-text>
 		</div>
+		<ion-grid>
+			<ion-row>
+				<ion-col size="3" />
+				<ion-col size="6" *ngFor="let photo of photoService.photos; index as position">
+					<ion-img [src]="photo.webviewPath" />
+				</ion-col>
+				<ion-col size="3" />
+			</ion-row>
+		</ion-grid>
 		<ion-card-content>
 			<canvas baseChart type="doughnut" [options]="chartOptions" [datasets]="chartData.datasets">
 			</canvas>
-
-			@if (isMobile()) {
-			<app-take-photo (imageUploaded)="onImageUploaded($event)" />
-			}
 		</ion-card-content>
 	</ion-card>
 

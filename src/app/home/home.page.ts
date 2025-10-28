@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
-import { Capacitor } from "@capacitor/core";
-import { ChartConfiguration } from "chart.js";
 import { CHART_DATA_QUARTERS } from "src/app/models/chart.model";
+import { PhotoService } from "../services/photo.service";
+import { ChartConfiguration } from "chart.js";
 
 const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
 
@@ -9,6 +9,7 @@ const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
 	selector: "app-home",
 	templateUrl: "home.page.html",
 	styleUrls: ["home.page.scss"],
+	providers: [PhotoService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage {
@@ -18,11 +19,10 @@ export class HomePage {
 
 	private data: number[];
 	private borderColor: string;
-	private imagePath: string;
+
+	constructor(protected readonly photoService: PhotoService) {}
 
 	public ngOnInit(): void {
-		this.imagePath = "";
-
 		this.data = CHART_DATA_QUARTERS;
 		this.borderColor = getComputedStyle(document.documentElement).getPropertyValue(
 			"--ion-color-primary"
@@ -55,12 +55,11 @@ export class HomePage {
 		};
 	}
 
-	protected onImageUploaded(image: { imagePath: string }): void {
-		this.imagePath = image?.imagePath;
+	protected addPhotoToStorage(): void {
+		this.photoService.addNewToGallery();
 	}
 
-	protected isMobile(): boolean {
-		const currentPlatform = Capacitor.getPlatform();
-		return currentPlatform !== "web";
+	protected async loadPhotoFromStorage(): Promise<void> {
+		await this.photoService.loadSaved();
 	}
 }
