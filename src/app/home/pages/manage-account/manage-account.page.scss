@@ -126,3 +126,17 @@ ion-content {
 		}
 	}
 }
+
+.photo-container {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.delete-btn {
+	position: absolute;
+	top: 0.25rem;
+	right: 0.25rem;
+	z-index: 10;
+}

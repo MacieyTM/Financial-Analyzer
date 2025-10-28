@@ -11,9 +11,23 @@
 			<ion-grid>
 				<ion-row>
 					<ion-col size="3" />
-					<ion-col size="6" *ngFor="let photo of photoService.photos; index as position">
-						<ion-img [src]="photo.webviewPath" />
+
+					<ion-col
+						size="6"
+						*ngFor="let photo of photoService.photos; index as position"
+						class="photo-container"
+					>
+						<ion-img [src]="photo.webviewPath"></ion-img>
+						<ion-button
+							fill="clear"
+							color="danger"
+							class="delete-btn"
+							(click)="deletePhoto(photo, position)"
+						>
+							<ion-icon name="trash"></ion-icon>
+						</ion-button>
 					</ion-col>
+
 					<ion-col size="3" />
 				</ion-row>
 			</ion-grid>

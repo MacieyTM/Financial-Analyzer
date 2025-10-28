@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
-import { PhotoService } from "src/app/services/photo.service";
+import { PhotoService, UserPhoto } from "src/app/services/photo.service";
 
 @Component({
 	selector: "app-manage-account",
@@ -22,6 +22,11 @@ export class ManageAccountPage implements OnInit {
 		this.isLocalStorageUserFullName = !!localStorage.getItem("userFullName");
 		this.userFullName = localStorage.getItem("userFullName") || "";
 
+		this.cdr.detectChanges();
+	}
+
+	protected async deletePhoto(photo: UserPhoto, position: number): Promise<void> {
+		await this.photoService.deletePicture(photo, position);
 		this.cdr.detectChanges();
 	}
 
