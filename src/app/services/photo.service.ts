@@ -74,17 +74,21 @@ export class PhotoService {
 	}
 
 	public async deletePicture(photo: UserPhoto, position: number): Promise<void> {
-		await Filesystem.deleteFile({
-			path: photo.filepath,
-			directory: Directory.Data,
-		});
+		try {
+			await Filesystem.deleteFile({
+				path: photo.filepath,
+				directory: Directory.Data,
+			});
 
-		this.photos.splice(position, 1);
+			this.photos.splice(position, 1);
 
-		await Preferences.set({
-			key: this.PHOTO_STORAGE,
-			value: JSON.stringify(this.photos),
-		});
+			await Preferences.set({
+				key: this.PHOTO_STORAGE,
+				value: JSON.stringify(this.photos),
+			});
+		} catch (error) {
+			console.log("Error deleting photo:", error);
+		}
 	}
 
 	private async readAsBase64(photo: Photo): Promise<string | Blob> {
