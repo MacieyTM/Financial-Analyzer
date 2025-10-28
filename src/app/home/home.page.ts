@@ -58,8 +58,4 @@ export class HomePage {
 	protected addPhotoToStorage(): void {
 		this.photoService.addNewToGallery();
 	}
-
-	protected async loadPhotoFromStorage(): Promise<void> {
-		await this.photoService.loadSaved();
-	}
 }
