@@ -3,6 +3,7 @@ import { Camera, CameraResultType, CameraSource, Photo } from "@capacitor/camera
 import { Filesystem, Directory } from "@capacitor/filesystem";
 import { Preferences } from "@capacitor/preferences";
 import { Capacitor } from "@capacitor/core";
+import { ActionSheetController } from "@ionic/angular";
 
 export interface UserPhoto {
 	filepath: string;
@@ -18,7 +19,38 @@ export class PhotoService {
 	public photos: UserPhoto[] = [];
 	private PHOTO_STORAGE: string = "photos";
 
+	constructor(private readonly actionSheetController: ActionSheetController) {}
+
 	public async addNewToGallery(): Promise<void> {
+		if (this.isMobile()) {
+			const actionSheet = await this.actionSheetController.create({
+				header: "Choose a source",
+				buttons: [
+					{
+						text: "Take a Photo",
+						handler: async () => {
+							await this.capturePhotoFromCamera();
+						},
+					},
+					{
+						text: "Choose from Gallery",
+						handler: async () => {
+							await this.capturePhotoFromGallery();
+						},
+					},
+					{
+						text: "Cancel",
+						role: "cancel",
+					},
+				],
+			});
+			await actionSheet.present();
+		} else {
+			await this.capturePhotoFromCamera();
+		}
+	}
+
+	private async capturePhotoFromCamera(): Promise<void> {
 		const capturedPhoto = await Camera.getPhoto({
 			resultType: CameraResultType.Uri,
 			source: CameraSource.Camera,
@@ -26,6 +58,22 @@ export class PhotoService {
 		});
 
 		const savedImageFile = await this.savePicture(capturedPhoto);
+		this.photos.unshift(savedImageFile);
+
+		Preferences.set({
+			key: this.PHOTO_STORAGE,
+			value: JSON.stringify(this.photos),
+		});
+	}
+
+	private async capturePhotoFromGallery(): Promise<void> {
+		const selectedPhoto = await Camera.getPhoto({
+			resultType: CameraResultType.Uri,
+			source: CameraSource.Photos,
+			quality: IMAGE_QUALITY,
+		});
+
+		const savedImageFile = await this.savePicture(selectedPhoto);
 		this.photos.unshift(savedImageFile);
 
 		Preferences.set({
