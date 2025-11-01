@@ -12,7 +12,7 @@ export class PhotoExpandModalComponent {
 
 	constructor(private modalController: ModalController) {}
 
-	protected close(): void {
+	protected closeExpandModal(): void {
 		this.modalController.dismiss();
 	}
 }
