@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
-import { AlertController } from "@ionic/angular";
+import { AlertController, ModalController } from "@ionic/angular";
 import { PhotoService, UserPhoto } from "src/app/services/photo.service";
+import { PhotoExpandModalComponent } from "./photo-expand-modal/photo-expand-modal.component";
 
 @Component({
 	selector: "app-manage-account",
@@ -15,7 +16,8 @@ export class ManageAccountPage implements OnInit {
 	constructor(
 		protected readonly photoService: PhotoService,
 		private readonly cdr: ChangeDetectorRef,
-		private readonly alertController: AlertController
+		private readonly alertController: AlertController,
+		private readonly modalController: ModalController
 	) {}
 
 	public async ngOnInit(): Promise<void> {
@@ -48,6 +50,17 @@ export class ManageAccountPage implements OnInit {
 		});
 
 		await alert.present();
+	}
+
+	protected async openExpandModal(photo: UserPhoto): Promise<void> {
+		const modal = await this.modalController.create({
+			component: PhotoExpandModalComponent,
+			componentProps: {
+				photoUrl: photo.webviewPath,
+			},
+		});
+
+		return await modal.present();
 	}
 
 	protected alert(): void {
