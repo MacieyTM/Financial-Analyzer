@@ -75,8 +75,11 @@ export class PhotoService {
 
 	public async deletePicture(photo: UserPhoto, position: number): Promise<void> {
 		try {
+			// const filePath = this.isMobile() ? this.getFileNameFromPath(photo.filepath) : photo.filepath;
+			const filePath = this.getFileNameFromPath(photo.filepath);
+
 			await Filesystem.deleteFile({
-				path: photo.filepath,
+				path: filePath,
 				directory: Directory.Data,
 			});
 
@@ -89,6 +92,11 @@ export class PhotoService {
 		} catch (error) {
 			console.log("Error deleting photo:", error);
 		}
+	}
+
+	private getFileNameFromPath(filePath: string): string {
+		const fileName = filePath.split("/").pop();
+		return fileName;
 	}
 
 	private async readAsBase64(photo: Photo): Promise<string | Blob> {
