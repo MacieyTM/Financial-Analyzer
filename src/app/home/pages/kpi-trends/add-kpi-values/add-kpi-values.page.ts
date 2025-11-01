@@ -12,7 +12,7 @@ export class AddKpiValuesPage implements OnInit {
 
 	constructor(private readonly navController: NavController) {}
 
-	ngOnInit() {
+	public ngOnInit() {
 		this.monthsOptions = [
 			{ value: "january", label: "January" },
 			{ value: "february", label: "February" },

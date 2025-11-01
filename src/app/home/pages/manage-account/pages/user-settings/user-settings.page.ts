@@ -59,7 +59,7 @@ export class UserSettingsPage implements OnInit {
 		};
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		if (this.userSettingsChanged) {
 			this.showSuccessToast();
 		}
