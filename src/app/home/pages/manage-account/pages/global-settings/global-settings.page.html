@@ -12,7 +12,7 @@
 				[cancelText]="'cancel' | appTranslate: 'cancel'"
 				mode="md"
 				fill="outline"
-				[value]="kpiTypesOptions[0].value"
+				[value]="selectedKpiType ?? kpiTypesOptions[0].value"
 				label="Set KPI chart type"
 				label-placement="floating"
 				(ionChange)="changeKpiType($event)"
@@ -25,7 +25,9 @@
 
 			<div class="buttons-wrapper">
 				<ion-button fill="outline" (click)="cancel()" appTranslate="cancel">Cancel</ion-button>
-				<ion-button appTranslate="save">Save</ion-button>
+				<ion-button [disabled]="selectedKpiType === ''" (click)="save()" appTranslate="save"
+					>Save</ion-button
+				>
 			</div>
 		</ion-card-content>
 	</ion-card>

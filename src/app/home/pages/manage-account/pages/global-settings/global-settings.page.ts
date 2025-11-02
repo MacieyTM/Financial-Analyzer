@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
 import { NavController, ToastController } from "@ionic/angular";
-import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
+import { CHART_TYPES } from "src/app/models/chart.model";
+
+const originalChartType = { chartType: "" };
 
 @Component({
 	selector: "app-global-settings",
@@ -11,21 +13,19 @@ import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
 export class GlobalSettingsPage implements OnInit, OnDestroy {
 	protected kpiTypesOptions: any;
 	protected selectedKpiType: string = "";
+
 	private chartTypeChanged: boolean;
+	private originalChartType = originalChartType;
 
 	constructor(
 		private readonly navController: NavController,
-		private readonly toastController: ToastController,
-		private readonly translatePipe: AppTranslatePipe
+		private readonly toastController: ToastController
 	) {}
 
 	ngOnInit() {
-		this.kpiTypesOptions = [
-			{ value: "line", label: "Line" },
-			{ value: "bar", label: "Bar" },
-			{ value: "doughnut", label: "Doughnut" },
-		];
-
+		const storedKpiType = localStorage.getItem("selectedKpiType");
+		this.kpiTypesOptions = CHART_TYPES;
+		this.selectedKpiType = storedKpiType ? storedKpiType : CHART_TYPES[0].value;
 		this.chartTypeChanged = false;
 	}
 
@@ -40,20 +40,26 @@ export class GlobalSettingsPage implements OnInit, OnDestroy {
 	}
 
 	protected changeKpiType(event: any): void {
+		const unchanged =
+			JSON.stringify({
+				changeType: this.selectedKpiType,
+			}) === JSON.stringify(this.originalChartType);
+		if (unchanged) {
+			this.selectedKpiType = "";
+			return;
+		}
 		this.selectedKpiType = event.detail.value;
 	}
 
 	protected save(): void {
 		localStorage.setItem("selectedKpiType", this.selectedKpiType);
+		this.chartTypeChanged = true;
 		this.navController.navigateBack("home");
 	}
 
 	private async showSuccessToast(): Promise<void> {
 		const toast = await this.toastController.create({
-			message: this.translatePipe.transform(
-				"Chart type changed successfully!",
-				"chart_type_changed_successfully"
-			),
+			message: "Chart type changed successfully!",
 			duration: 3000,
 			color: "success",
 			icon: "checkmark-circle",
