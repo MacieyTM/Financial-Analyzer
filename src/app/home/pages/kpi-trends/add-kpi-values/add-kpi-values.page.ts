@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { NavController } from "@ionic/angular";
+import { MONTHS_LABELS } from "src/app/models/months.model";
+import { MONEY_VALUES } from "src/app/models/money.model";
 
 @Component({
 	selector: "app-add-kpi-values",
@@ -9,27 +11,33 @@ import { NavController } from "@ionic/angular";
 })
 export class AddKpiValuesPage implements OnInit {
 	protected monthsOptions: any;
+	protected moneyOptions: any;
+
+	protected selectedMonth: string = "";
+	protected selectedMoney: string = "";
 
 	constructor(private readonly navController: NavController) {}
 
 	public ngOnInit() {
-		this.monthsOptions = [
-			{ value: "january", label: "January" },
-			{ value: "february", label: "February" },
-			{ value: "march", label: "March" },
-			{ value: "april", label: "April" },
-			{ value: "may", label: "May" },
-			{ value: "june", label: "June" },
-			{ value: "july", label: "July" },
-			{ value: "august", label: "August" },
-			{ value: "september", label: "September" },
-			{ value: "october", label: "October" },
-			{ value: "novemeber", label: "Novemeber" },
-			{ value: "december", label: "December" },
-		];
+		this.monthsOptions = MONTHS_LABELS;
+		this.moneyOptions = MONEY_VALUES;
+	}
+
+	protected changeMonth(event: any): void {
+		this.selectedMonth = event.detail.value;
+	}
+
+	protected changeMoney(event: any): void {
+		this.selectedMoney = event.detail.value;
 	}
 
 	protected cancel(): void {
+		this.navController.back();
+	}
+
+	protected save(): void {
+		localStorage.setItem("selectedMonth", this.selectedMonth);
+		localStorage.setItem("selectedMoney", this.selectedMoney);
 		this.navController.back();
 	}
 }

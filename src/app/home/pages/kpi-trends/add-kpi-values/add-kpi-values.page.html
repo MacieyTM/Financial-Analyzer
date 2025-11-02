@@ -14,25 +14,26 @@
 				fill="outline"
 				label="Set month"
 				label-placement="floating"
+				(ionChange)="changeMonth($event)"
 			>
-				<!-- (ionChange)="changeMonth($event)" -->
 				@for (option of monthsOptions; track option.value) {
 				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
 				}
 			</ion-select>
-			<ion-input
+			<ion-select
+				interface="popover"
+				[disabled]="selectedMonth.length === 0"
+				[cancelText]="'cancel' | appTranslate: 'cancel'"
 				mode="md"
 				fill="outline"
-				type="text"
-				inputmode="text"
+				label="Set money for selected month"
 				label-placement="floating"
-				label="Month money value"
-				placeholder="Month money value"
-				[clearInput]="true"
-				[maxlength]="20"
+				(ionChange)="changeMoney($event)"
 			>
-				<!-- [(ngModel)]="userName" -->
-			</ion-input>
+				@for (option of moneyOptions; track option.value) {
+				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
+				}
+			</ion-select>
 			<div class="teaxtarea-label">
 				<ion-text>Add note</ion-text>
 				<ion-icon slot="start" name="pencil" />
@@ -42,7 +43,12 @@
 
 			<div class="buttons-wrapper">
 				<ion-button fill="outline" (click)="cancel()" appTranslate="cancel">Cancel</ion-button>
-				<ion-button appTranslate="save">Save</ion-button>
+				<ion-button
+					[disabled]="selectedMonth.length === 0 || selectedMoney.length === 0"
+					(click)="save()"
+					appTranslate="save"
+					>Save</ion-button
+				>
 			</div>
 		</ion-card-content>
 	</ion-card>
