@@ -123,19 +123,6 @@ ion-content {
 	}
 }
 
-ion-footer {
-	ion-toolbar {
-		--background: var(--ion-color-tertiary);
-		text-align: center;
-		color: var(--ion-color-text-secondary);
-
-		ion-text {
-			font-weight: 400;
-			font-size: 0.75rem;
-		}
-	}
-}
-
 ::ng-deep .custom-action-sheet {
 	--button-border-radius: 0.75rem;
 	--background: var(--ion-color-light);

@@ -1,9 +1,7 @@
-<ion-header>
-	<ion-toolbar>
-		<ion-back-button slot="start" defaultHref="home" />
-		<ion-title appTranslate="manage_account">Manage Account</ion-title>
-	</ion-toolbar>
-</ion-header>
+<app-home-header
+	defaultHref="home"
+	[headerTitle]="'Manage Account' | appTranslate: 'manage_account'"
+/>
 
 <ion-content>
 	<ion-card class="first-card">

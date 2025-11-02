@@ -1,9 +1,7 @@
-<ion-header>
-	<ion-toolbar>
-		<ion-back-button slot="start" defaultHref="manage-account" />
-		<ion-title appTranslate="language_settings_header">Language Settings</ion-title>
-	</ion-toolbar>
-</ion-header>
+<app-home-header
+	defaultHref="manage-account"
+	[headerTitle]="'Language Settings' | appTranslate: 'language_settings_header'"
+/>
 
 <ion-content>
 	<ion-card>
