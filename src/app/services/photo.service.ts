@@ -25,6 +25,7 @@ export class PhotoService {
 		if (this.isMobile()) {
 			const actionSheet = await this.actionSheetController.create({
 				header: "Choose a source",
+				cssClass: "custom-action-sheet",
 				buttons: [
 					{
 						text: "Take a Photo",
@@ -37,10 +38,6 @@ export class PhotoService {
 						handler: async () => {
 							await this.capturePhotoFromGallery();
 						},
-					},
-					{
-						text: "Cancel",
-						role: "cancel",
 					},
 				],
 			});

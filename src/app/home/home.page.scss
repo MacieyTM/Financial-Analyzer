@@ -135,3 +135,20 @@ ion-footer {
 		}
 	}
 }
+
+::ng-deep .custom-action-sheet {
+	--button-border-radius: 0.75rem;
+	--background: var(--ion-color-light);
+	--color: var(--ion-color-text-primary);
+
+	.action-sheet-group {
+		padding: 1rem;
+	}
+
+	.action-sheet-button {
+		margin: 0.5rem;
+		border-radius: 0.75rem;
+		color: var(--ion-color-light);
+		background-color: var(--ion-color-secondary);
+	}
+}
