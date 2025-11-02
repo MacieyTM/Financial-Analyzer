@@ -41,6 +41,7 @@ export class ManageAccountPage implements OnInit {
 				{
 					text: "Delete",
 					role: "destructive",
+					cssClass: "danger-btn",
 					handler: async () => {
 						await this.photoService.deletePicture(photo, position);
 						this.cdr.detectChanges();
