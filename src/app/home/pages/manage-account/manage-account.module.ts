@@ -5,9 +5,10 @@ import { IonicModule } from "@ionic/angular";
 import { ManageAccountPageRoutingModule } from "./manage-account-routing.module";
 import { ManageAccountPage } from "./manage-account.page";
 import { UiModule } from "src/app/ui.module";
+import { PhotoExpandModalComponent } from "./photo-expand-modal/photo-expand-modal.component";
 
 @NgModule({
 	imports: [CommonModule, FormsModule, IonicModule, ManageAccountPageRoutingModule, UiModule],
-	declarations: [ManageAccountPage],
+	declarations: [ManageAccountPage, PhotoExpandModalComponent],
 })
 export class ManageAccountPageModule {}

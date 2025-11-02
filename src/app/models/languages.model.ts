@@ -12,6 +12,7 @@ export const SUPPORTED_LANGUAGES: string[] = [
 	"ja",
 	"ko",
 	"tr",
+	"nl",
 	"uk",
 ];
 
@@ -31,6 +32,7 @@ export const LANGUAGE_OPTIONS_DATA: any = [
 	{ value: "ja", label: "japanese" },
 	{ value: "ko", label: "korean" },
 	{ value: "tr", label: "turkish" },
+	{ value: "nl", label: "dutch" },
 	{ value: "uk", label: "ukrainian" },
 ];
 
@@ -48,5 +50,6 @@ export const FLAG_MAP_DATA: Record<SupportedLanguage, string> = {
 	ja: "JP",
 	ko: "KR",
 	tr: "TR",
+	nl: "NL",
 	uk: "UA",
 };

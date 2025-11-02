@@ -8,6 +8,19 @@
 <ion-content>
 	<ion-card class="first-card">
 		<ion-card-header>
+			<ion-grid>
+				<ion-row>
+					<ion-col size="6" *ngFor="let photo of photoService.photos; index as i">
+						<ion-img [src]="photo.webviewPath" />
+						<div class="delete-btn" (click)="deletePhoto(photo, i)">
+							<ion-icon name="trash" />
+						</div>
+						<div class="expand-btn" (click)="openExpandModal(photo)">
+							<ion-icon name="expand" />
+						</div>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
 			<div class="circle">
 				<ion-icon name="person" />
 			</div>
@@ -46,19 +59,19 @@
 				<ion-icon name="chevron-forward" class="second-icon" />
 			</div>
 			<mat-divider />
-			<div class="settings-item" (click)="alert()">
+			<div class="settings-item" routerLink="global-settings">
 				<div class="square">
-					<ion-icon name="contrast" class="first-icon" />
+					<ion-icon name="earth" class="first-icon" />
 				</div>
-				<ion-text>Theme settings</ion-text>
+				<ion-text appTranslate="global_settings">Global settings</ion-text>
 				<ion-icon name="chevron-forward" class="second-icon" />
 			</div>
 			<mat-divider />
 			<div class="settings-item" (click)="alert()">
 				<div class="square">
-					<ion-icon name="earth" class="first-icon" />
+					<ion-icon name="contrast" class="first-icon" />
 				</div>
-				<ion-text>Global settings</ion-text>
+				<ion-text appTranslate="theme_settings">Theme settings</ion-text>
 				<ion-icon name="chevron-forward" class="second-icon" />
 			</div>
 		</ion-card-content>

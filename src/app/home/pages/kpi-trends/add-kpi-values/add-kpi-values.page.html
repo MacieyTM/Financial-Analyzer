@@ -1,0 +1,53 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-back-button slot="start" defaultHref="kpi-trends" />
+		<ion-title>Add KPI values</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-card>
+		<ion-card-header>
+			<ion-text>Add KPI Trends values</ion-text>
+		</ion-card-header>
+		<ion-card-content>
+			<ion-select
+				interface="popover"
+				[cancelText]="'cancel' | appTranslate: 'cancel'"
+				mode="md"
+				fill="outline"
+				label="Set month"
+				label-placement="floating"
+			>
+				<!-- (ionChange)="changeMonth($event)" -->
+				@for (option of monthsOptions; track option.value) {
+				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
+				}
+			</ion-select>
+			<ion-input
+				mode="md"
+				fill="outline"
+				type="text"
+				inputmode="text"
+				label-placement="floating"
+				label="Month money value"
+				placeholder="Month money value"
+				[clearInput]="true"
+				[maxlength]="20"
+			>
+				<!-- [(ngModel)]="userName" -->
+			</ion-input>
+			<div class="teaxtarea-label">
+				<ion-text>Add note</ion-text>
+				<ion-icon slot="start" name="pencil" />
+				<ion-text>(optionally)</ion-text>
+			</div>
+			<ion-textarea [rows]="3" [autoGrow]="true" type="text" maxlength="3000" />
+
+			<div class="buttons-wrapper">
+				<ion-button fill="outline" (click)="cancel()" appTranslate="cancel">Cancel</ion-button>
+				<ion-button appTranslate="save">Save</ion-button>
+			</div>
+		</ion-card-content>
+	</ion-card>
+</ion-content>

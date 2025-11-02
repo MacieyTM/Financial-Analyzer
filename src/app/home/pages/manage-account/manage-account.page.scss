@@ -25,6 +25,34 @@ ion-content {
 			gap: 1rem;
 			text-align: center;
 
+			.delete-btn,
+			.expand-btn {
+				display: grid;
+				place-items: center;
+				position: absolute;
+				z-index: 10;
+				top: 10%;
+				left: 15%;
+				width: 2rem;
+				height: 2rem;
+				border-radius: 0.5rem;
+				color: var(--ion-color-danger);
+				transform: translate(-50%, -50%);
+				background-color: var(--ion-color-light);
+				border: 1px solid var(--ion-color-text-primary);
+
+				&.expand-btn {
+					left: 85%;
+					color: var(--ion-color-tertiary);
+				}
+
+				ion-icon {
+					width: 1.25rem;
+					height: 1.25rem;
+					font-size: 1.25rem;
+				}
+			}
+
 			.circle {
 				display: flex;
 				justify-content: center;
@@ -88,7 +116,6 @@ ion-content {
 				gap: 1rem;
 				width: 100%;
 
-				&:nth-of-type(3),
 				&:last-of-type {
 					opacity: 0.25;
 				}
@@ -124,12 +151,17 @@ ion-content {
 					color: var(--ion-color-secondary);
 				}
 			}
-
-			mat-divider {
-				&:last-of-type {
-					opacity: 0.1;
-				}
-			}
 		}
 	}
+}
+
+ion-row {
+	display: flex;
+	justify-content: center;
+}
+
+::ng-deep .danger-btn {
+	color: var(--ion-color-light) !important;
+	background: var(--ion-color-danger) !important;
+	border: 1px solid var(--ion-color-light) !important;
 }

@@ -1,0 +1,36 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-back-button slot="start" defaultHref="manage-account" />
+		<ion-title>Global Settings</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-card>
+		<ion-card-header>
+			<ion-text>Add chart type</ion-text>
+		</ion-card-header>
+		<ion-card-content>
+			<ion-select
+				interface="alert"
+				[cancelText]="'cancel' | appTranslate: 'cancel'"
+				mode="md"
+				fill="outline"
+				[value]="kpiTypesOptions[0].value"
+				label="Set KPI chart type"
+				label-placement="floating"
+			>
+				<!-- (ionChange)="changeKpiType($event)" -->
+				<ion-icon slot="start" name="stats-chart" />
+				@for (option of kpiTypesOptions; track option.value) {
+				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
+				}
+			</ion-select>
+
+			<div class="buttons-wrapper">
+				<ion-button fill="outline" (click)="cancel()" appTranslate="cancel">Cancel</ion-button>
+				<ion-button appTranslate="save">Save</ion-button>
+			</div>
+		</ion-card-content>
+	</ion-card>
+</ion-content>
