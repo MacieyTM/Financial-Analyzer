@@ -78,6 +78,48 @@ ion-content {
 			gap: 1rem;
 		}
 	}
+
+	ion-fab {
+		ion-fab-button {
+			--background: var(--ion-color-primary);
+			--ion-color-base: var(--ion-color-primary);
+
+			&:nth-child(2) {
+				--background: var(--ion-color-tertiary);
+				--ion-color-base: var(--ion-color-tertiary);
+			}
+
+			ion-icon {
+				width: 1.5rem;
+				height: 1.5rem;
+				font-size: 1.5rem;
+				color: var(--ion-color-text-primary);
+			}
+		}
+	}
+
+	.help-first,
+	.help-second,
+	.help-third {
+		position: absolute;
+		right: 4rem;
+		width: 1.25rem;
+		height: 1.25rem;
+		font-size: 1.25rem;
+		color: var(--ion-color-text-primary);
+
+		&.help-first {
+			bottom: 10.5rem;
+		}
+
+		&.help-second {
+			bottom: 6.5rem;
+		}
+
+		&.help-third {
+			bottom: 2.5rem;
+		}
+	}
 }
 
 ion-footer {
@@ -91,4 +133,8 @@ ion-footer {
 			font-size: 0.75rem;
 		}
 	}
+}
+
+.help-container {
+	display: none;
 }
