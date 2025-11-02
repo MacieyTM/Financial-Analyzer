@@ -160,7 +160,7 @@ ion-row {
 	justify-content: center;
 }
 
-ng-deep .danger-btn {
+::ng-deep .danger-btn {
 	color: var(--ion-color-light) !important;
 	background: var(--ion-color-danger) !important;
 	border: 1px solid var(--ion-color-light) !important;
