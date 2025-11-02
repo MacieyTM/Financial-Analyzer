@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { NavController } from "@ionic/angular";
-import { MONTHS_LABELS } from "src/app/models/months.model";
-import { MONEY_VALUES } from "src/app/models/money.model";
+import { MONTHS_LABELS } from "src/app/models/kpi.model";
+import { MONEY_VALUES } from "src/app/models/kpi.model";
 
 @Component({
 	selector: "app-add-kpi-values",

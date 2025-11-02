@@ -15,8 +15,8 @@
 				[value]="kpiTypesOptions[0].value"
 				label="Set KPI chart type"
 				label-placement="floating"
+				(ionChange)="changeKpiType($event)"
 			>
-				<!-- (ionChange)="changeKpiType($event)" -->
 				<ion-icon slot="start" name="stats-chart" />
 				@for (option of kpiTypesOptions; track option.value) {
 				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
