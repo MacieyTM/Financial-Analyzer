@@ -45,7 +45,7 @@ export class PhotoService {
 			});
 			await actionSheet.present();
 		} else {
-			await this.capturePhotoFromCamera();
+			await this.capturePhotoFromGallery();
 		}
 	}
 
