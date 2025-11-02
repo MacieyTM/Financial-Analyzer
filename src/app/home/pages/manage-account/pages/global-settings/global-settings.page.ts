@@ -2,8 +2,6 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/
 import { NavController, ToastController } from "@ionic/angular";
 import { CHART_TYPES } from "src/app/models/chart.model";
 
-const originalChartType = { chartType: "" };
-
 @Component({
 	selector: "app-global-settings",
 	templateUrl: "./global-settings.page.html",
@@ -12,10 +10,11 @@ const originalChartType = { chartType: "" };
 })
 export class GlobalSettingsPage implements OnInit, OnDestroy {
 	protected kpiTypesOptions: any;
-	protected selectedKpiType: string = "";
+	protected selectedKpiType = "";
+	protected hasChanges = false;
 
+	private originalChartType: string;
 	private chartTypeChanged: boolean;
-	private originalChartType = originalChartType;
 
 	constructor(
 		private readonly navController: NavController,
@@ -24,8 +23,11 @@ export class GlobalSettingsPage implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		const storedKpiType = localStorage.getItem("selectedKpiType");
+
 		this.kpiTypesOptions = CHART_TYPES;
-		this.selectedKpiType = storedKpiType ? storedKpiType : CHART_TYPES[0].value;
+		this.originalChartType = storedKpiType ?? this.kpiTypesOptions[0].value;
+		this.selectedKpiType = this.originalChartType;
+
 		this.chartTypeChanged = false;
 	}
 
@@ -40,15 +42,8 @@ export class GlobalSettingsPage implements OnInit, OnDestroy {
 	}
 
 	protected changeKpiType(event: any): void {
-		const unchanged =
-			JSON.stringify({
-				changeType: this.selectedKpiType,
-			}) === JSON.stringify(this.originalChartType);
-		if (unchanged) {
-			this.selectedKpiType = "";
-			return;
-		}
 		this.selectedKpiType = event.detail.value;
+		this.hasChanges = this.selectedKpiType !== this.originalChartType;
 	}
 
 	protected save(): void {
