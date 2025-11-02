@@ -31,7 +31,11 @@
 
 	<ion-fab slot="fixed" horizontal="start" vertical="bottom">
 		<ion-fab-button (click)="toggleHelp()">
-			<ion-icon name="help-outline" />
+			@if (!helpVisible()) {
+			<ion-icon name="help" />
+			} @else {
+			<ion-icon name="eye-off" />
+			}
 		</ion-fab-button>
 	</ion-fab>
 
