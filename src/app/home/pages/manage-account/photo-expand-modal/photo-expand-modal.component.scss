@@ -1,0 +1,30 @@
+ion-content {
+	--padding-start: 0.5rem;
+	--padding-top: 0.5rem;
+	--padding-end: 0.5rem;
+	--padding-bottom: 0.5rem;
+	// --background: var(--ion-color-secondary);
+	--background: var(--ion-color-backdrop);
+	position: relative;
+
+	ion-button {
+		--background: var(--ion-color-light);
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		z-index: 10;
+		color: var(--ion-color-tertiary);
+
+		ion-icon {
+			width: 2rem;
+			height: 2rem;
+			font-size: 2rem;
+		}
+	}
+
+	ion-img {
+		margin-top: 4rem;
+		width: 100%;
+		height: auto;
+	}
+}

@@ -26,28 +26,63 @@
 		<ion-card-content>
 			<canvas baseChart type="doughnut" [options]="chartOptions" [datasets]="chartData.datasets">
 			</canvas>
-
-			<div class="btns-container">
-				<ion-button routerLink="/home/manage-account/language-settings">
-					<div class="btn-wrapper">
-						<ion-icon name="language" />
-						<span appTranslate="language_settings_header">Language Settings</span>
-					</div>
-				</ion-button>
-				<ion-button routerLink="/home/manage-account/user-settings">
-					<div class="btn-wrapper">
-						<ion-icon name="person" />
-						<span appTranslate="user_settings_header">User Settings</span>
-					</div>
-				</ion-button>
-			</div>
-
-			@if (isMobile()) {
-			<app-take-photo (imageUploaded)="onImageUploaded($event)" />
-			}
 		</ion-card-content>
 	</ion-card>
+
+	<ion-fab slot="fixed" horizontal="start" vertical="bottom">
+		<ion-fab-button (click)="toggleHelp()">
+			@if (!helpVisible()) {
+			<ion-icon name="help" />
+			} @else {
+			<ion-icon name="eye-off" />
+			}
+		</ion-fab-button>
+	</ion-fab>
+
+	<ion-fab slot="fixed" horizontal="end" vertical="bottom">
+		<ion-fab-button routerLink="/home/kpi-trends/add-kpi-values">
+			<ion-icon name="add" />
+		</ion-fab-button>
+		<ion-fab-button (click)="addPhotoToStorage()">
+			<ion-icon name="camera" />
+		</ion-fab-button>
+		<ion-fab-button routerLink="/home/manage-account/language-settings">
+			<ion-icon name="language" />
+		</ion-fab-button>
+	</ion-fab>
+
+	<div [ngStyle]="{ display: helpVisible() ? 'block' : 'none' }">
+		<ion-icon id="add-kpi-values-trigger" name="help-circle" class="help-first" />
+		<ion-icon id="add-photo-trigger" name="help-circle" class="help-second" />
+		<ion-icon id="set-language-trigger" name="help-circle" class="help-third" />
+	</div>
 </ion-content>
+
+<ion-popover trigger="add-kpi-values-trigger" triggerAction="click">
+	<ng-template>
+		<ion-content class="ion-padding">
+			<ion-text
+				>Here you can add your KPI values to track your financial performance over time.</ion-text
+			>
+		</ion-content>
+	</ng-template>
+</ion-popover>
+
+<ion-popover trigger="add-photo-trigger" triggerAction="click">
+	<ng-template>
+		<ion-content class="ion-padding">
+			<ion-text>Here you can add photos such as bank logo or avatar account picture.</ion-text>
+		</ion-content>
+	</ng-template>
+</ion-popover>
+
+<ion-popover trigger="set-language-trigger" triggerAction="click">
+	<ng-template>
+		<ion-content class="ion-padding">
+			<ion-text>Here you can set your language which translation to use.</ion-text>
+		</ion-content>
+	</ng-template>
+</ion-popover>
 
 <ion-footer>
 	<ion-toolbar>

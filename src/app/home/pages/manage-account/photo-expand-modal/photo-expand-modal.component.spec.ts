@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { IonicModule } from "@ionic/angular";
+import { PhotoExpandModalComponent } from "./photo-expand-modal.component";
 
-import { TakePhotoComponent } from "./take-photo.component";
-
-describe("TakePhotoComponent", () => {
-	let component: TakePhotoComponent;
-	let fixture: ComponentFixture<TakePhotoComponent>;
+describe("PhotoExpandModalComponent", () => {
+	let component: PhotoExpandModalComponent;
+	let fixture: ComponentFixture<PhotoExpandModalComponent>;
 
 	beforeEach(waitForAsync(() => {
 		TestBed.configureTestingModule({
-			declarations: [TakePhotoComponent],
+			declarations: [PhotoExpandModalComponent],
 			imports: [IonicModule.forRoot()],
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(TakePhotoComponent);
+		fixture = TestBed.createComponent(PhotoExpandModalComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	}));

@@ -20,15 +20,65 @@ ion-content {
 		ion-card-header {
 			display: flex;
 			flex-direction: row;
-			justify-content: center;
+			justify-content: space-between;
 			align-items: center;
-			gap: 1rem;
 
-			ion-icon {
-				width: 1rem;
-				height: 1rem;
-				font-size: 1rem;
-				color: var(--ion-color-primary);
+			.text-icon-wrapper {
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+				gap: 1rem;
+
+				ion-icon {
+					width: 1.5rem;
+					height: 1.5rem;
+					font-size: 1.5rem;
+					color: var(--ion-color-tertiary);
+				}
+
+				ion-text {
+					font-size: 1rem;
+					font-weight: 700;
+				}
+			}
+
+			.date-wrapper {
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+				gap: 1rem;
+
+				.date-btn {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					width: fit-content;
+					height: 3rem;
+					padding: 0.3rem;
+					font-weight: 600;
+					font-size: 0.9rem;
+					border-radius: 0.3rem;
+					color: var(--ion-color-light);
+					border: 1px solid var(--ion-color-primary);
+					background-color: var(--ion-color-secondary);
+
+					ion-icon {
+						width: 1.3rem;
+						height: 1.3rem;
+						font-size: 1.3rem;
+						padding-right: 0.5rem;
+						color: var(--ion-color-tertiary);
+					}
+				}
+
+				ion-icon#date-question-trigger {
+					width: 1.25rem;
+					height: 1.25rem;
+					font-size: 1.25rem;
+					color: var(--ion-color-medium);
+				}
 			}
 		}
 
@@ -44,5 +94,17 @@ ion-content {
 			align-items: center;
 			gap: 1rem;
 		}
+	}
+}
+
+ion-datetime-button::part(native) {
+	background-color: transparent;
+}
+
+ion-datetime {
+	background-color: var(--ion-color-text-secondary);
+
+	&:not(.datetime-placeholder) {
+		color: var(--ion-color-text-primary);
 	}
 }
