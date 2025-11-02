@@ -30,7 +30,7 @@
 	</ion-card>
 
 	<ion-fab slot="fixed" horizontal="start" vertical="bottom">
-		<ion-fab-button>
+		<ion-fab-button (click)="toggleHelp()">
 			<ion-icon name="help-outline" />
 		</ion-fab-button>
 	</ion-fab>
@@ -46,11 +46,12 @@
 			<ion-icon name="language" />
 		</ion-fab-button>
 	</ion-fab>
-	<div class="help-container">
-		<ion-icon id="add-kpi-values-trigger" name="help-circle" class="help-first" />
-		<ion-icon id="add-photo-trigger" name="help-circle" class="help-second" />
-		<ion-icon id="set-language-trigger" name="help-circle" class="help-third" />
-	</div>
+
+	@if (helpVisible()) {
+	<ion-icon id="add-kpi-values-trigger" name="help-circle" class="help-first" />
+	<ion-icon id="add-photo-trigger" name="help-circle" class="help-second" />
+	<ion-icon id="set-language-trigger" name="help-circle" class="help-third" />
+	}
 </ion-content>
 
 <ion-popover trigger="add-kpi-values-trigger" triggerAction="click">

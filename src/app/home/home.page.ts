@@ -13,6 +13,7 @@ const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
 })
 export class HomePage {
 	protected readonly bankAccountAmount = signal<string>(BANK_ACCOUNT_AMOUNT.toLocaleString());
+	protected readonly helpVisible = signal<boolean>(false);
 	protected chartData: ChartConfiguration<"doughnut">["data"];
 	protected chartOptions: ChartConfiguration<"doughnut">["options"];
 
@@ -56,5 +57,9 @@ export class HomePage {
 
 	protected addPhotoToStorage(): void {
 		this.photoService.addNewToGallery();
+	}
+
+	protected toggleHelp(): void {
+		this.helpVisible.update((prev) => !prev);
 	}
 }
