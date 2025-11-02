@@ -54,7 +54,7 @@ export class GlobalSettingsPage implements OnInit, OnDestroy {
 
 	private async showSuccessToast(): Promise<void> {
 		const toast = await this.toastController.create({
-			message: "Chart type changed successfully!",
+			message: "KPI values changed successfully!",
 			duration: 3000,
 			color: "success",
 			icon: "checkmark-circle",
