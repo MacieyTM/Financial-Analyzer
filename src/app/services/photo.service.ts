@@ -28,12 +28,14 @@ export class PhotoService {
 				cssClass: "custom-action-sheet",
 				buttons: [
 					{
+						icon: "camera",
 						text: "Take a Photo",
 						handler: async () => {
 							await this.capturePhotoFromCamera();
 						},
 					},
 					{
+						icon: "images",
 						text: "Choose from Gallery",
 						handler: async () => {
 							await this.capturePhotoFromGallery();
