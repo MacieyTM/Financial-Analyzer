@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
 import { NavController, ToastController } from "@ionic/angular";
 import { CHART_TYPES } from "src/app/models/chart.model";
+import { SelectOption } from "src/app/models/kpi.model";
 
 @Component({
 	selector: "app-global-settings",
@@ -9,12 +10,12 @@ import { CHART_TYPES } from "src/app/models/chart.model";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GlobalSettingsPage implements OnInit, OnDestroy {
-	protected kpiTypesOptions: any;
-	protected selectedKpiType = "";
 	protected hasChanges = false;
+	protected kpiTypesOptions: SelectOption[];
+	protected selectedKpiType: string | number | boolean;
 
-	private originalChartType: string;
 	private chartTypeChanged: boolean;
+	private originalChartType: string | number | boolean;
 
 	constructor(
 		private readonly navController: NavController,
@@ -41,13 +42,13 @@ export class GlobalSettingsPage implements OnInit, OnDestroy {
 		this.navController.back();
 	}
 
-	protected changeKpiType(event: any): void {
+	protected changeKpiType(event): void {
 		this.selectedKpiType = event.detail.value;
 		this.hasChanges = this.selectedKpiType !== this.originalChartType;
 	}
 
 	protected save(): void {
-		localStorage.setItem("selectedKpiType", this.selectedKpiType);
+		localStorage.setItem("selectedKpiType", this.selectedKpiType.toString());
 		this.chartTypeChanged = true;
 		this.navController.navigateBack("home");
 	}

@@ -3,7 +3,8 @@ import { CHART_DATA_QUARTERS, CHART_LABEL_QUARTERS } from "src/app/models/chart.
 import { PhotoService } from "../services/photo.service";
 import { ChartConfiguration } from "chart.js";
 
-const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
+// const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
+const BANK_ACCOUNT_AMOUNT: number = +localStorage.getItem("selectedMoney");
 
 @Component({
 	selector: "app-home",

@@ -1,3 +1,5 @@
+import { SelectOption } from "./kpi.model";
+
 export const SUPPORTED_LANGUAGES: string[] = [
 	"en",
 	"pl",
@@ -18,7 +20,7 @@ export const SUPPORTED_LANGUAGES: string[] = [
 
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 
-export const LANGUAGE_OPTIONS_DATA: any = [
+export const LANGUAGE_OPTIONS_DATA: SelectOption[] = [
 	{ value: "en", label: "english" },
 	{ value: "pl", label: "polish" },
 	{ value: "de", label: "german" },

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
 import { NavController, ToastController } from "@ionic/angular";
-import { MONTHS_LABELS } from "src/app/models/kpi.model";
+import { MONTHS_LABELS, SelectOption } from "src/app/models/kpi.model";
 import { MONEY_VALUES } from "src/app/models/kpi.model";
 
 @Component({
@@ -10,8 +10,8 @@ import { MONEY_VALUES } from "src/app/models/kpi.model";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddKpiValuesPage implements OnInit, OnDestroy {
-	protected monthsOptions: any;
-	protected moneyOptions: any;
+	protected monthsOptions: SelectOption[];
+	protected moneyOptions: SelectOption[];
 
 	protected selectedMonth: string = "";
 	protected selectedMoney: string = "";
@@ -36,11 +36,11 @@ export class AddKpiValuesPage implements OnInit, OnDestroy {
 		}
 	}
 
-	protected changeMonth(event: any): void {
+	protected changeMonth(event): void {
 		this.selectedMonth = event.detail.value;
 	}
 
-	protected changeMoney(event: any): void {
+	protected changeMoney(event): void {
 		this.selectedMoney = event.detail.value;
 	}
 
