@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit, signal } from "@angular/core";
 import { CHART_DATA_QUARTERS, CHART_LABEL_QUARTERS } from "src/app/models/chart.model";
 import { PhotoService } from "../services/photo.service";
 import { ChartConfiguration } from "chart.js";
@@ -12,7 +12,7 @@ const BANK_ACCOUNT_AMOUNT: number = +localStorage.getItem("selectedMoney");
 	styleUrls: ["home.page.scss"],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePage {
+export class HomePage implements OnInit {
 	protected readonly bankAccountAmount = signal<string>(BANK_ACCOUNT_AMOUNT.toLocaleString());
 	protected readonly helpVisible = signal<boolean>(false);
 	protected chartData: ChartConfiguration<"doughnut">["data"];
