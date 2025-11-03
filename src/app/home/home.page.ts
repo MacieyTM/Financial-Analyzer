@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
-import { CHART_DATA_QUARTERS } from "src/app/models/chart.model";
+import { CHART_DATA_QUARTERS, CHART_LABEL_QUARTERS } from "src/app/models/chart.model";
 import { PhotoService } from "../services/photo.service";
 import { ChartConfiguration } from "chart.js";
 
@@ -29,6 +29,7 @@ export class HomePage {
 		);
 
 		this.chartData = {
+			labels: CHART_LABEL_QUARTERS,
 			datasets: [
 				{
 					data: this.data,
@@ -46,7 +47,7 @@ export class HomePage {
 			maintainAspectRatio: false,
 			plugins: {
 				legend: {
-					display: false,
+					display: true,
 				},
 				tooltip: {
 					enabled: false,

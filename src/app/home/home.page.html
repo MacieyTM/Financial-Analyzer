@@ -24,7 +24,13 @@
 			<ion-text>PLN</ion-text>
 		</div>
 		<ion-card-content>
-			<canvas baseChart type="doughnut" [options]="chartOptions" [datasets]="chartData.datasets">
+			<canvas
+				baseChart
+				type="doughnut"
+				[datasets]="chartData.datasets"
+				[options]="chartOptions"
+				[labels]="chartData.labels"
+			>
 			</canvas>
 		</ion-card-content>
 	</ion-card>
