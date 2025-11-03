@@ -50,6 +50,7 @@ export class KpiTrendsPage implements OnInit {
 					fill: false,
 					pointRadius: 0,
 					data: this.data,
+
 					borderColor: "#00f",
 					backgroundColor: "#00f",
 					pointBorderColor: "#00f",
@@ -103,9 +104,11 @@ export class KpiTrendsPage implements OnInit {
 				{
 					data: this.data,
 					borderColor: this.borderColor,
+
 					backgroundColor: "#00f",
 					hoverBackgroundColor: "#0f0",
 					hoverBorderColor: "#f00",
+
 					borderWidth: 2,
 				},
 			],
@@ -131,6 +134,7 @@ export class KpiTrendsPage implements OnInit {
 				{
 					data: this.data,
 					borderColor: this.borderColor,
+
 					backgroundColor: [
 						"#f00",
 						"#ff0",

@@ -35,9 +35,14 @@ export class HomePage {
 				{
 					data: this.data,
 					borderColor: this.borderColor,
+
 					backgroundColor: ["#f00", "#ff0", "#0f0", "#00f"],
 					hoverBackgroundColor: ["#f00", "#ff0", "#0f0", "#00f"],
 					hoverBorderColor: ["#f00", "#ff0", "#0f0", "#00f"],
+
+					spacing: 4,
+					borderWidth: 4,
+					borderRadius: 8,
 				},
 			],
 		};
