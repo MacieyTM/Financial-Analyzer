@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
-import { CHART_DATA_QUARTERS } from "src/app/models/chart.model";
+import { ChangeDetectionStrategy, Component, OnInit, signal } from "@angular/core";
+import { CHART_DATA_QUARTERS, CHART_LABEL_QUARTERS } from "src/app/models/chart.model";
 import { PhotoService } from "../services/photo.service";
 import { ChartConfiguration } from "chart.js";
 
-const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
+// const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
+const BANK_ACCOUNT_AMOUNT: number = +localStorage.getItem("selectedMoney");
 
 @Component({
 	selector: "app-home",
@@ -11,7 +12,7 @@ const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
 	styleUrls: ["home.page.scss"],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePage {
+export class HomePage implements OnInit {
 	protected readonly bankAccountAmount = signal<string>(BANK_ACCOUNT_AMOUNT.toLocaleString());
 	protected readonly helpVisible = signal<boolean>(false);
 	protected chartData: ChartConfiguration<"doughnut">["data"];
@@ -29,13 +30,19 @@ export class HomePage {
 		);
 
 		this.chartData = {
+			labels: CHART_LABEL_QUARTERS,
 			datasets: [
 				{
 					data: this.data,
 					borderColor: this.borderColor,
+
 					backgroundColor: ["#f00", "#ff0", "#0f0", "#00f"],
 					hoverBackgroundColor: ["#f00", "#ff0", "#0f0", "#00f"],
 					hoverBorderColor: ["#f00", "#ff0", "#0f0", "#00f"],
+
+					spacing: 4,
+					borderWidth: 4,
+					borderRadius: 8,
 				},
 			],
 		};
@@ -46,7 +53,7 @@ export class HomePage {
 			maintainAspectRatio: false,
 			plugins: {
 				legend: {
-					display: false,
+					display: true,
 				},
 				tooltip: {
 					enabled: false,

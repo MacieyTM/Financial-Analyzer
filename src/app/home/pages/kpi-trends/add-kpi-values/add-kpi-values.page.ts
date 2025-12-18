@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { NavController } from "@ionic/angular";
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
+import { NavController, ToastController } from "@ionic/angular";
+import { MONTHS_LABELS, SelectOption } from "src/app/models/kpi.model";
+import { MONEY_VALUES } from "src/app/models/kpi.model";
 
 @Component({
 	selector: "app-add-kpi-values",
@@ -7,29 +9,59 @@ import { NavController } from "@ionic/angular";
 	styleUrls: ["./add-kpi-values.page.scss"],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddKpiValuesPage implements OnInit {
-	protected monthsOptions: any;
+export class AddKpiValuesPage implements OnInit, OnDestroy {
+	protected monthsOptions: SelectOption[];
+	protected moneyOptions: SelectOption[];
 
-	constructor(private readonly navController: NavController) {}
+	protected selectedMonth: string = "";
+	protected selectedMoney: string = "";
+
+	private kpiChanged: boolean;
+
+	constructor(
+		private readonly navController: NavController,
+		private toastController: ToastController
+	) {}
 
 	public ngOnInit() {
-		this.monthsOptions = [
-			{ value: "january", label: "January" },
-			{ value: "february", label: "February" },
-			{ value: "march", label: "March" },
-			{ value: "april", label: "April" },
-			{ value: "may", label: "May" },
-			{ value: "june", label: "June" },
-			{ value: "july", label: "July" },
-			{ value: "august", label: "August" },
-			{ value: "september", label: "September" },
-			{ value: "october", label: "October" },
-			{ value: "novemeber", label: "Novemeber" },
-			{ value: "december", label: "December" },
-		];
+		this.monthsOptions = MONTHS_LABELS;
+		this.moneyOptions = MONEY_VALUES;
+
+		this.kpiChanged = false;
+	}
+
+	public ngOnDestroy(): void {
+		if (this.kpiChanged) {
+			this.showSuccessToast();
+		}
+	}
+
+	protected changeMonth(event): void {
+		this.selectedMonth = event.detail.value;
+	}
+
+	protected changeMoney(event): void {
+		this.selectedMoney = event.detail.value;
 	}
 
 	protected cancel(): void {
 		this.navController.back();
+	}
+
+	protected save(): void {
+		localStorage.setItem("selectedMonth", this.selectedMonth);
+		localStorage.setItem("selectedMoney", this.selectedMoney);
+		this.kpiChanged = true;
+		this.navController.back();
+	}
+
+	private async showSuccessToast(): Promise<void> {
+		const toast = await this.toastController.create({
+			message: "Chart type changed successfully!",
+			duration: 3000,
+			color: "success",
+			icon: "checkmark-circle",
+		});
+		toast.present();
 	}
 }

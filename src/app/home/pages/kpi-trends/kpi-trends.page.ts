@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit, signal } from "@angular/core";
 import { Chart, ChartConfiguration } from "chart.js";
 import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
 import { Capacitor } from "@capacitor/core";
@@ -20,6 +20,13 @@ export class KpiTrendsPage implements OnInit {
 
 	protected chartDataBar: ChartConfiguration<"bar">["data"];
 	protected chartOptionsBar: ChartConfiguration<"bar">["options"];
+
+	protected chartDataDoughnut: ChartConfiguration<"doughnut">["data"];
+	protected chartOptionsDoughnut: ChartConfiguration<"doughnut">["options"];
+
+	protected readonly selectedChartType = signal<string>(
+		localStorage.getItem("selectedKpiType") || "line"
+	);
 
 	private data: number[];
 	private borderColor: string;
@@ -43,6 +50,7 @@ export class KpiTrendsPage implements OnInit {
 					fill: false,
 					pointRadius: 0,
 					data: this.data,
+
 					borderColor: "#00f",
 					backgroundColor: "#00f",
 					pointBorderColor: "#00f",
@@ -96,9 +104,11 @@ export class KpiTrendsPage implements OnInit {
 				{
 					data: this.data,
 					borderColor: this.borderColor,
+
 					backgroundColor: "#00f",
 					hoverBackgroundColor: "#0f0",
 					hoverBorderColor: "#f00",
+
 					borderWidth: 2,
 				},
 			],
@@ -110,7 +120,74 @@ export class KpiTrendsPage implements OnInit {
 			maintainAspectRatio: false,
 			plugins: {
 				legend: {
-					display: false,
+					display: true,
+				},
+				tooltip: {
+					enabled: false,
+				},
+			},
+		};
+
+		this.chartDataDoughnut = {
+			labels: this.labelMonths,
+			datasets: [
+				{
+					data: this.data,
+					borderColor: this.borderColor,
+
+					backgroundColor: [
+						"#f00",
+						"#ff0",
+						"#0f0",
+						"#00f",
+						"#f00",
+						"#ff0",
+						"#0f0",
+						"#00f",
+						"#f00",
+						"#ff0",
+						"#0f0",
+						"#00f",
+					],
+					hoverBackgroundColor: [
+						"#f00",
+						"#ff0",
+						"#0f0",
+						"#00f",
+						"#f00",
+						"#ff0",
+						"#0f0",
+						"#00f",
+						"#f00",
+						"#ff0",
+						"#0f0",
+						"#00f",
+					],
+					hoverBorderColor: [
+						"#f00",
+						"#ff0",
+						"#0f0",
+						"#00f",
+						"#f00",
+						"#ff0",
+						"#0f0",
+						"#00f",
+						"#f00",
+						"#ff0",
+						"#0f0",
+						"#00f",
+					],
+				},
+			],
+		};
+
+		this.chartOptionsDoughnut = {
+			cutout: "50%",
+			responsive: false,
+			maintainAspectRatio: false,
+			plugins: {
+				legend: {
+					display: true,
 				},
 				tooltip: {
 					enabled: false,

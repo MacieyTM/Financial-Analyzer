@@ -12,11 +12,11 @@
 				[cancelText]="'cancel' | appTranslate: 'cancel'"
 				mode="md"
 				fill="outline"
-				[value]="kpiTypesOptions[0].value"
+				[value]="selectedKpiType"
 				label="Set KPI chart type"
 				label-placement="floating"
+				(ionChange)="changeKpiType($event)"
 			>
-				<!-- (ionChange)="changeKpiType($event)" -->
 				<ion-icon slot="start" name="stats-chart" />
 				@for (option of kpiTypesOptions; track option.value) {
 				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
@@ -25,7 +25,7 @@
 
 			<div class="buttons-wrapper">
 				<ion-button fill="outline" (click)="cancel()" appTranslate="cancel">Cancel</ion-button>
-				<ion-button appTranslate="save">Save</ion-button>
+				<ion-button [disabled]="!hasChanges" (click)="save()" appTranslate="save">Save</ion-button>
 			</div>
 		</ion-card-content>
 	</ion-card>
