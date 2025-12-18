@@ -31,6 +31,7 @@ export class KpiTrendsPage implements OnInit {
 	private data: number[];
 	private borderColor: string;
 	private labelMonths: string[];
+	private x: string;
 
 	public ngOnInit(): void {
 		if (Capacitor.getPlatform() !== "web") {
