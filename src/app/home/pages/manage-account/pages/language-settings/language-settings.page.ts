@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from "@angular/core";
+import { PluginListenerHandle } from "@capacitor/core";
 import { Network } from "@capacitor/network";
 import { NavController, ToastController } from "@ionic/angular";
+import { SelectOption } from "src/app/models/kpi.model";
 import {
 	FLAG_MAP_DATA,
 	LANGUAGE_OPTIONS_DATA,
@@ -16,8 +18,8 @@ import { AppTranslateService } from "src/app/services/translate.service";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguageSettingsPage implements OnInit, OnDestroy {
-	protected networkListener: any;
-	protected languageOptions: any;
+	protected networkListener: PluginListenerHandle;
+	protected languageOptions: SelectOption[];
 	protected readonly isOnline = signal(true);
 	protected selectedLanguage: SupportedLanguage;
 	protected flagMap: Record<SupportedLanguage, string>;
@@ -56,7 +58,7 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 		}
 	}
 
-	protected changeLanguage(chosenLanguage: any): void {
+	protected changeLanguage(chosenLanguage: string): void {
 		const language = chosenLanguage;
 		this.translateService.changeLanguage(language);
 		this.languageChanged = true;

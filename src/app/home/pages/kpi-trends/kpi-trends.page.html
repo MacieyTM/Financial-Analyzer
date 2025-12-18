@@ -1,9 +1,4 @@
-<ion-header>
-	<ion-toolbar>
-		<ion-back-button slot="start" defaultHref="home" />
-		<ion-title appTranslate="kpi_trends">KPI Trends</ion-title>
-	</ion-toolbar>
-</ion-header>
+<app-home-header defaultHref="home" [headerTitle]="'KPI Trends' | appTranslate: 'kpi_trends'" />
 
 <ion-content>
 	<ion-card>
@@ -22,23 +17,39 @@
 			</div>
 		</ion-card-header>
 		<ion-card-content>
+			@switch (selectedChartType()) { @case ("line") {
 			<canvas
 				baseChart
 				type="line"
+				[datasets]="chartDataLine.datasets"
 				[options]="chartOptionsLine"
 				[labels]="chartDataLine.labels"
-				[datasets]="chartDataLine.datasets"
 			>
 			</canvas>
-			<mat-divider />
+			} @case ("bar") {
 			<canvas
 				baseChart
 				type="bar"
+				[datasets]="chartDataBar.datasets"
 				[options]="chartOptionsBar"
 				[labels]="chartDataBar.labels"
-				[datasets]="chartDataBar.datasets"
 			>
 			</canvas>
+			} @case ("doughnut") {
+			<canvas
+				baseChart
+				type="doughnut"
+				[datasets]="chartDataBar.datasets"
+				[options]="chartOptionsBar"
+				[labels]="chartDataBar.labels"
+			>
+			</canvas>
+			} @default {
+			<ion-text
+				>Something went wrong! Please clear cache, restart the application and select chart type in
+				settings.</ion-text
+			>
+			}}
 		</ion-card-content>
 	</ion-card>
 </ion-content>

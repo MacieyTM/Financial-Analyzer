@@ -3,7 +3,7 @@ import { Camera, CameraResultType, CameraSource, Photo } from "@capacitor/camera
 import { Filesystem, Directory } from "@capacitor/filesystem";
 import { Preferences } from "@capacitor/preferences";
 import { Capacitor } from "@capacitor/core";
-import { ActionSheetController } from "@ionic/angular";
+import { ActionSheetController, ToastController } from "@ionic/angular";
 
 export interface UserPhoto {
 	filepath: string;
@@ -19,7 +19,10 @@ export class PhotoService {
 	public photos: UserPhoto[] = [];
 	private PHOTO_STORAGE: string = "photos";
 
-	constructor(private readonly actionSheetController: ActionSheetController) {}
+	constructor(
+		private readonly actionSheetController: ActionSheetController,
+		private readonly toastController: ToastController
+	) {}
 
 	public async addNewToGallery(): Promise<void> {
 		if (this.isMobile()) {
@@ -82,25 +85,35 @@ export class PhotoService {
 	}
 
 	private async savePicture(photo: Photo): Promise<UserPhoto> {
-		const base64Data = await this.readAsBase64(photo);
+		try {
+			const base64Data = await this.readAsBase64(photo);
 
-		const fileName = Date.now() + ".jpeg";
-		const savedFile = await Filesystem.writeFile({
-			path: fileName,
-			data: base64Data,
-			directory: Directory.Data,
-		});
+			const fileName = Date.now() + ".jpeg";
+			const savedFile = await Filesystem.writeFile({
+				path: fileName,
+				data: base64Data,
+				directory: Directory.Data,
+			});
 
-		if (this.isMobile()) {
-			return {
-				filepath: savedFile.uri,
-				webviewPath: Capacitor.convertFileSrc(savedFile.uri),
-			};
-		} else {
-			return {
-				filepath: fileName,
-				webviewPath: photo.webPath,
-			};
+			let result: UserPhoto;
+
+			if (this.isMobile()) {
+				result = {
+					filepath: savedFile.uri,
+					webviewPath: Capacitor.convertFileSrc(savedFile.uri),
+				};
+			} else {
+				result = {
+					filepath: fileName,
+					webviewPath: photo.webPath,
+				};
+			}
+
+			this.showSuccessToastUpload();
+			return result;
+		} catch (error) {
+			this.showErrorToastUpload();
+			throw error;
 		}
 	}
 
@@ -122,7 +135,6 @@ export class PhotoService {
 
 	public async deletePicture(photo: UserPhoto, position: number): Promise<void> {
 		try {
-			// const filePath = this.isMobile() ? this.getFileNameFromPath(photo.filepath) : photo.filepath;
 			const filePath = this.getFileNameFromPath(photo.filepath);
 
 			await Filesystem.deleteFile({
@@ -136,8 +148,11 @@ export class PhotoService {
 				key: this.PHOTO_STORAGE,
 				value: JSON.stringify(this.photos),
 			});
+
+			this.showSuccessToastDelete();
 		} catch (error) {
-			console.log("Error deleting photo:", error);
+			this.showErrorToastDelete();
+			throw error;
 		}
 	}
 
@@ -176,5 +191,45 @@ export class PhotoService {
 	private isMobile(): boolean {
 		const currentPlatform = Capacitor.getPlatform();
 		return currentPlatform !== "web";
+	}
+
+	private async showSuccessToastUpload(): Promise<void> {
+		const toast = await this.toastController.create({
+			message: "Photo uploaded successfully!",
+			duration: 3000,
+			color: "success",
+			icon: "checkmark-circle",
+		});
+		toast.present();
+	}
+
+	private async showSuccessToastDelete(): Promise<void> {
+		const toast = await this.toastController.create({
+			message: "Photo deleted successfully!",
+			duration: 3000,
+			color: "success",
+			icon: "checkmark-circle",
+		});
+		toast.present();
+	}
+
+	private async showErrorToastUpload(): Promise<void> {
+		const toast = await this.toastController.create({
+			message: "Failed to upload a photo!",
+			duration: 3000,
+			color: "danger",
+			icon: "close-circle",
+		});
+		toast.present();
+	}
+
+	private async showErrorToastDelete(): Promise<void> {
+		const toast = await this.toastController.create({
+			message: "Failed to delete a photo!",
+			duration: 3000,
+			color: "danger",
+			icon: "close-circle",
+		});
+		toast.present();
 	}
 }

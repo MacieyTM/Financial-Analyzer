@@ -9,18 +9,22 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { MatIconModule } from "@angular/material/icon";
 import { MatDividerModule } from "@angular/material/divider";
+import { HomeHeaderComponent } from "./components/home-header/home-header.component";
+import { HomeFooterComponent } from "./components/home-footer/home-footer.component";
 
 const PIPES = [AppTranslatePipe];
 const DIRECTIVES = [TranslateDirective];
 
 @NgModule({
-	declarations: [...PIPES, ...DIRECTIVES],
+	declarations: [HomeHeaderComponent, HomeFooterComponent, ...PIPES, ...DIRECTIVES],
 	exports: [
 		MatFormFieldModule,
 		MatSelectModule,
 		MatIconModule,
 		MatDividerModule,
 		NgOptimizedImage,
+		HomeHeaderComponent,
+		HomeFooterComponent,
 		...PIPES,
 		...DIRECTIVES,
 	],

@@ -24,7 +24,13 @@
 			<ion-text>PLN</ion-text>
 		</div>
 		<ion-card-content>
-			<canvas baseChart type="doughnut" [options]="chartOptions" [datasets]="chartData.datasets">
+			<canvas
+				baseChart
+				type="doughnut"
+				[datasets]="chartData.datasets"
+				[options]="chartOptions"
+				[labels]="chartData.labels"
+			>
 			</canvas>
 		</ion-card-content>
 	</ion-card>
@@ -84,8 +90,4 @@
 	</ng-template>
 </ion-popover>
 
-<ion-footer>
-	<ion-toolbar>
-		<ion-text>Maciej Grochowski | Copyright &copy; 2024-2026</ion-text>
-	</ion-toolbar>
-</ion-footer>
+<app-home-footer />
