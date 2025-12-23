@@ -1,4 +1,3 @@
-export const CHART_DATA_QUARTERS: number[] = [32, 98, 53, 74];
 export const CHART_LABEL_QUARTERS: string[] = ["Q1", "Q2", "Q3", "Q4"];
 
 export const CHART_TYPES = [
