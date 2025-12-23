@@ -45,6 +45,12 @@ export class KpiTrendsPage implements OnInit {
 		this.initializeChart();
 	}
 
+	public ngOnDestroy(): void {
+		if (Capacitor.getPlatform() !== "web") {
+			ScreenOrientation.lock({ type: OrientationType.PORTRAIT });
+		}
+	}
+
 	private initializeChart(): void {
 		this.borderColor = getComputedStyle(document.documentElement).getPropertyValue(
 			"--ion-color-primary"
@@ -198,11 +204,5 @@ export class KpiTrendsPage implements OnInit {
 				},
 			},
 		};
-	}
-
-	public ngOnDestroy(): void {
-		if (Capacitor.getPlatform() !== "web") {
-			ScreenOrientation.lock({ type: OrientationType.PORTRAIT });
-		}
 	}
 }

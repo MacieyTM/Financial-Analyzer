@@ -49,10 +49,18 @@ export class AddKpiValuesPage implements OnInit, OnDestroy {
 	}
 
 	protected save(): void {
+		const selectedMonth = this.selectedMonth;
+		const selectedMoney = parseInt(this.selectedMoney);
 		const storedKpiData = JSON.parse(localStorage.getItem("kpiData")) || [];
-		const newKpiData = { month: this.selectedMonth, money: this.selectedMoney };
+		const existingMonthIndex = storedKpiData.findIndex(
+			(item: { month: string; money: number }) => item.month === selectedMonth
+		);
 
-		storedKpiData.push(newKpiData);
+		if (existingMonthIndex >= 0) {
+			storedKpiData[existingMonthIndex].money += selectedMoney;
+		} else {
+			storedKpiData.push({ month: selectedMonth, money: selectedMoney });
+		}
 
 		localStorage.setItem("kpiData", JSON.stringify(storedKpiData));
 
