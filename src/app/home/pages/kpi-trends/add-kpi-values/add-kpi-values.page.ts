@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
 import { NavController, ToastController } from "@ionic/angular";
+import { CHART_LABEL_MONTHS } from "src/app/models/chart.model";
 import { MONTHS_LABELS, SelectOption } from "src/app/models/kpi.model";
 import { MONEY_VALUES } from "src/app/models/kpi.model";
+import { KpiEntry } from "../kpi-trends.page";
 
 @Component({
 	selector: "app-add-kpi-values",
@@ -13,8 +15,9 @@ export class AddKpiValuesPage implements OnInit, OnDestroy {
 	protected monthsOptions: SelectOption[];
 	protected moneyOptions: SelectOption[];
 
-	protected selectedMonth: string = "";
+	// !important to keep as string here for ion-select
 	protected selectedMoney: string = "";
+	protected selectedMonth: string = "";
 
 	private kpiChanged: boolean;
 
@@ -49,15 +52,38 @@ export class AddKpiValuesPage implements OnInit, OnDestroy {
 	}
 
 	protected save(): void {
-		localStorage.setItem("selectedMonth", this.selectedMonth);
-		localStorage.setItem("selectedMoney", this.selectedMoney);
+		const selectedMonth = this.selectedMonth;
+		const selectedMoney = parseInt(this.selectedMoney);
+		const storedKpiData = JSON.parse(localStorage.getItem("kpiData")) || [];
+		const existingMonthIndex = storedKpiData.findIndex(
+			(item: KpiEntry) => item.month === selectedMonth
+		);
+
+		if (existingMonthIndex >= 0) {
+			storedKpiData[existingMonthIndex].money += selectedMoney;
+		} else {
+			storedKpiData.push({ month: selectedMonth, money: selectedMoney });
+		}
+
+		const monthOrder: Record<string, number> = {};
+		CHART_LABEL_MONTHS.forEach((month, i) => (monthOrder[month.toLowerCase()] = i));
+
+		storedKpiData.sort((a: KpiEntry, b: KpiEntry) => {
+			const aIndex = monthOrder[a.month.toLowerCase()] ?? 12;
+			const bIndex = monthOrder[b.month.toLowerCase()] ?? 12;
+
+			return aIndex - bIndex;
+		});
+
+		localStorage.setItem("kpiData", JSON.stringify(storedKpiData));
+
 		this.kpiChanged = true;
 		this.navController.back();
 	}
 
 	private async showSuccessToast(): Promise<void> {
 		const toast = await this.toastController.create({
-			message: "Chart type changed successfully!",
+			message: "KPI values saved successfully!",
 			duration: 3000,
 			color: "success",
 			icon: "checkmark-circle",

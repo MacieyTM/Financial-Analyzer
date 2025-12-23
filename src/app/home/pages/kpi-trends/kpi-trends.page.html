@@ -7,6 +7,8 @@
 				<ion-icon name="stats-chart" />
 				<ion-text appTranslate="this_is_kpi_trends_page">This is KPI Trends page</ion-text>
 			</div>
+
+			@if (hasKpiData) {
 			<div class="date-wrapper">
 				<ion-text>Choose start date</ion-text>
 				<div class="date-btn">
@@ -15,9 +17,11 @@
 				</div>
 				<ion-icon id="date-question-trigger" name="help-circle" />
 			</div>
+			}
 		</ion-card-header>
+
 		<ion-card-content>
-			@switch (selectedChartType()) { @case ("line") {
+			@if (hasKpiData) { @switch (selectedChartType()) { @case ("line") {
 			<canvas
 				baseChart
 				type="line"
@@ -49,7 +53,9 @@
 				>Something went wrong! Please clear cache, restart the application and select chart type in
 				settings.</ion-text
 			>
-			}}
+			}} } @else {
+			<ion-text>No data available</ion-text>
+			}
 		</ion-card-content>
 	</ion-card>
 </ion-content>

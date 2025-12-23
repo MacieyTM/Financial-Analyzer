@@ -24,6 +24,7 @@
 			<ion-text>PLN</ion-text>
 		</div>
 		<ion-card-content>
+			@if (chartHasData()) {
 			<canvas
 				baseChart
 				type="doughnut"
@@ -32,6 +33,13 @@
 				[labels]="chartData.labels"
 			>
 			</canvas>
+			<ion-button routerLink="/home/kpi-trends" color="secondary">See your KPI</ion-button>
+			} @else {
+			<ion-text>No data available</ion-text>
+			<ion-button routerLink="/home/kpi-trends/add-kpi-values" color="tertiary"
+				>Add KPI Values</ion-button
+			>
+			}
 		</ion-card-content>
 	</ion-card>
 

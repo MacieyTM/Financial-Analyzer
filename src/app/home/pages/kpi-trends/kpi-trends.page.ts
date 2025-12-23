@@ -2,11 +2,19 @@ import { ChangeDetectionStrategy, Component, OnInit, signal } from "@angular/cor
 import { Chart, ChartConfiguration } from "chart.js";
 import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
 import { Capacitor } from "@capacitor/core";
-import { CHART_DATA_MONTHS, CHART_LABEL_MONTHS } from "src/app/models/chart.model";
-
+import { CHART_LABEL_MONTHS } from "src/app/models/chart.model";
 import zoomPlugin from "chartjs-plugin-zoom";
 
 Chart.register(zoomPlugin);
+
+export type KpiEntry = {
+	month: string;
+	money: number;
+};
+
+const BORDER_COLOR = getComputedStyle(document.documentElement).getPropertyValue(
+	"--ion-color-primary"
+);
 
 @Component({
 	selector: "app-kpi-trends",
@@ -28,8 +36,9 @@ export class KpiTrendsPage implements OnInit {
 		localStorage.getItem("selectedKpiType") || "line"
 	);
 
+	protected hasKpiData = false;
+
 	private data: number[];
-	private borderColor: string;
 	private labelMonths: string[];
 
 	public ngOnInit(): void {
@@ -37,12 +46,25 @@ export class KpiTrendsPage implements OnInit {
 			ScreenOrientation.lock({ type: OrientationType.LANDSCAPE });
 		}
 
-		this.data = CHART_DATA_MONTHS;
-		this.labelMonths = CHART_LABEL_MONTHS;
-		this.borderColor = getComputedStyle(document.documentElement).getPropertyValue(
-			"--ion-color-primary"
-		);
+		const storedKpiData = JSON.parse(localStorage.getItem("kpiData")) || [];
 
+		this.hasKpiData = storedKpiData.length > 0;
+
+		this.labelMonths = storedKpiData.map((item: KpiEntry) => item.month) || CHART_LABEL_MONTHS;
+		this.data = storedKpiData.map((item: KpiEntry) => item.money) || [];
+
+		if (this.hasKpiData) {
+			this.initializeChart();
+		}
+	}
+
+	public ngOnDestroy(): void {
+		if (Capacitor.getPlatform() !== "web") {
+			ScreenOrientation.lock({ type: OrientationType.PORTRAIT });
+		}
+	}
+
+	private initializeChart(): void {
 		this.chartDataLine = {
 			labels: this.labelMonths,
 			datasets: [
@@ -72,30 +94,28 @@ export class KpiTrendsPage implements OnInit {
 				tooltip: {
 					enabled: false,
 				},
+				// zoom: {
+				// 	zoom: {
+				// 		wheel: {
+				// 			enabled: true,
+				// 			speed: 0.3,
+				// 		},
+				// 		pinch: {
+				// 			enabled: true,
+				// 		},
+				// 		drag: {
+				// 			enabled: false,
+				// 		},
+				// 		mode: "x",
+				// 	},
+				// 	pan: {
+				// 		enabled: true,
+				// 		threshold: 10,
+				// 		modifierKey: null,
+				// 		mode: "x",
+				// 	},
+				// },
 			},
-			// plugins: {
-			// 	zoom: {
-			// 		zoom: {
-			// 			wheel: {
-			// 				enabled: true,
-			// 				speed: 0.3,
-			// 			},
-			// 			pinch: {
-			// 				enabled: true,
-			// 			},
-			// 			drag: {
-			// 				enabled: false,
-			// 			},
-			// 			mode: "x",
-			// 		},
-			// 		pan: {
-			// 			enabled: true,
-			// 			threshold: 10,
-			// 			modifierKey: null,
-			// 			mode: "x",
-			// 		},
-			// 	},
-			// },
 		};
 
 		this.chartDataBar = {
@@ -103,7 +123,7 @@ export class KpiTrendsPage implements OnInit {
 			datasets: [
 				{
 					data: this.data,
-					borderColor: this.borderColor,
+					borderColor: BORDER_COLOR,
 
 					backgroundColor: "#00f",
 					hoverBackgroundColor: "#0f0",
@@ -133,8 +153,7 @@ export class KpiTrendsPage implements OnInit {
 			datasets: [
 				{
 					data: this.data,
-					borderColor: this.borderColor,
-
+					borderColor: BORDER_COLOR,
 					backgroundColor: [
 						"#f00",
 						"#ff0",
@@ -194,11 +213,5 @@ export class KpiTrendsPage implements OnInit {
 				},
 			},
 		};
-	}
-
-	public ngOnDestroy(): void {
-		if (Capacitor.getPlatform() !== "web") {
-			ScreenOrientation.lock({ type: OrientationType.PORTRAIT });
-		}
 	}
 }
