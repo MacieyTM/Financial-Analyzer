@@ -42,6 +42,8 @@
 	"choose_a_source": "Вибрати джерело",
 	"take_a_photo": "Зробити фото",
 	"choose_from_gallery": "Вибрати з галереї",
+	"choose_start_date": "Вибрати дату початку",
+	"no_data_available": "Дані недоступні",
 	"language_changed_successfully": "Мову успішно змінено!",
 	"changes_saved_successfully": "Зміни успішно збережено!",
 	"user_details_saved_successfully": "Деталі користувача успішно збережено!",

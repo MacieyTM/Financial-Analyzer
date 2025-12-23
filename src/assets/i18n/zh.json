@@ -42,6 +42,8 @@
 	"choose_a_source": "选择一个来源",
 	"take_a_photo": "拍照",
 	"choose_from_gallery": "从图库中选择",
+	"choose_start_date": "选择开始日期",
+	"no_data_available": "无可用数据",
 	"language_changed_successfully": "语言已成功更改！",
 	"changes_saved_successfully": "更改已成功保存！",
 	"user_details_saved_successfully": "用户详细信息已成功保存！",

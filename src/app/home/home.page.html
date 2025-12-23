@@ -33,11 +33,19 @@
 				[labels]="chartData.labels"
 			>
 			</canvas>
-			<ion-button routerLink="/home/kpi-trends" color="secondary" appTranslate="see_your_kpi"
-				>See your KPI</ion-button
-			>
+			<div class="buttons-wrapper">
+				<ion-button routerLink="/home/kpi-trends" color="secondary" appTranslate="see_your_kpi"
+					>See your KPI</ion-button
+				>
+				<ion-button
+					routerLink="/home/kpi-trends/add-kpi-values"
+					color="tertiary"
+					appTranslate="add_kpi_values"
+					>Add KPI values</ion-button
+				>
+			</div>
 			} @else {
-			<ion-text>No data available</ion-text>
+			<ion-text appTranslate="no_data_available">No data available</ion-text>
 			<ion-button
 				routerLink="/home/kpi-trends/add-kpi-values"
 				color="tertiary"

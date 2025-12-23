@@ -42,6 +42,8 @@
 	"choose_a_source": "Bir kaynak seçin",
 	"take_a_photo": "Fotoğraf çek",
 	"choose_from_gallery": "Galeriden seç",
+	"choose_start_date": "Başlangıç tarihini seçin",
+	"no_data_available": "Mevcut veri yok",
 	"language_changed_successfully": "Dil başarıyla değiştirildi!",
 	"changes_saved_successfully": "Değişiklikler başarıyla kaydedildi!",
 	"user_details_saved_successfully": "Kullanıcı detayları başarıyla kaydedildi!",

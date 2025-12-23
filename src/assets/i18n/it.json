@@ -42,6 +42,8 @@
 	"choose_a_source": "Scegli una fonte",
 	"take_a_photo": "Scatta una foto",
 	"choose_from_gallery": "Scegli dalla galleria",
+	"choose_start_date": "Scegli data di inizio",
+	"no_data_available": "Nessun dato disponibile",
 	"language_changed_successfully": "Lingua cambiata con successo!",
 	"changes_saved_successfully": "Modifiche salvate con successo!",
 	"user_details_saved_successfully": "Dettagli utente salvati con successo!",

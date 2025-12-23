@@ -4,9 +4,12 @@ import { PhotoService } from "../services/photo.service";
 import { ChartConfiguration } from "chart.js";
 import { KpiEntry } from "./pages/kpi-trends/kpi-trends.page";
 
-export const BORDER_COLOR = getComputedStyle(document.documentElement).getPropertyValue(
-	"--ion-color-primary"
-);
+export type SupportedChartTypes = "bar" | "line" | "doughnut";
+
+export const DEFAULT_CHART_TYPE: SupportedChartTypes = "bar";
+export const CHART_BORDER_COLOR: string = getComputedStyle(
+	document.documentElement
+).getPropertyValue("--ion-color-primary");
 
 // const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
 const BANK_ACCOUNT_AMOUNT: number = +localStorage.getItem("selectedMoney");
@@ -92,7 +95,7 @@ export class HomePage {
 			datasets: [
 				{
 					data: this.data,
-					borderColor: BORDER_COLOR,
+					borderColor: CHART_BORDER_COLOR,
 					backgroundColor: ["#f00", "#ff0", "#0f0", "#00f"],
 					hoverBackgroundColor: ["#f00", "#ff0", "#0f0", "#00f"],
 					hoverBorderColor: ["#f00", "#ff0", "#0f0", "#00f"],

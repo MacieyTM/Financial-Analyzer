@@ -42,6 +42,8 @@
 	"choose_a_source": "Выбрать источник",
 	"take_a_photo": "Сделать фото",
 	"choose_from_gallery": "Выбрать из галереи",
+	"choose_start_date": "Выбрать дату начала",
+	"no_data_available": "Данные недоступны",
 	"language_changed_successfully": "Язык успешно изменён!",
 	"changes_saved_successfully": "Изменения успешно сохранены!",
 	"user_details_saved_successfully": "Данные пользователя успешно сохранены!",

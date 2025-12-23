@@ -50,6 +50,8 @@
 	"choose_a_source": "Wybierz źródło",
 	"take_a_photo": "Zrób zdjęcie",
 	"choose_from_gallery": "Wybierz z galerii",
+	"choose_start_date": "Wybierz datę rozpoczęcia",
+	"no_data_available": "Brak dostępnych danych",
 	"language_changed_successfully": "Język został pomyślnie zmieniony!",
 	"changes_saved_successfully": "Zmiany pomyślnie zapisane!",
 	"user_details_saved_successfully": "Szczegóły użytkownika pomyślnie zapisane!",
