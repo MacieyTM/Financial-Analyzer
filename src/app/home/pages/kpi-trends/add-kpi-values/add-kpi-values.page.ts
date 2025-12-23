@@ -85,6 +85,7 @@ export class AddKpiValuesPage implements OnInit, OnDestroy {
 
 	private async showSuccessToast(): Promise<void> {
 		const toast = await this.toastController.create({
+			// header: 'Success',
 			message: this.translatePipe.transform(
 				"KPI values saved successfully!",
 				"kpi_values_saved_successfully"

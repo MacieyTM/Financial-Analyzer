@@ -103,6 +103,7 @@ export class UserSettingsPage implements OnInit {
 
 	private async showSuccessToast(): Promise<void> {
 		const toast = await this.toastController.create({
+			// header: 'Success',
 			message: this.translatePipe.transform(
 				"User details saved successfully!",
 				"user_details_saved_successfully"
