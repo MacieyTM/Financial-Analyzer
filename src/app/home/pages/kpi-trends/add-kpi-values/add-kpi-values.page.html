@@ -19,7 +19,9 @@
 				(ionChange)="changeMonth($event)"
 			>
 				@for (option of monthsOptions; track option.value) {
-				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
+				<ion-select-option [value]="option.value"
+					>{{ translateLabel(option.label) }}</ion-select-option
+				>
 				}
 			</ion-select>
 			<ion-select
@@ -36,12 +38,12 @@
 				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
 				}
 			</ion-select>
-			<div class="teaxtarea-label">
+			<!-- <div class="textarea-label">
 				<ion-text appTranslate="add_note">Add note</ion-text>
 				<ion-icon slot="start" name="pencil" />
 				<ion-text appTranslate="optionally">(optionally)</ion-text>
 			</div>
-			<ion-textarea [rows]="3" [autoGrow]="true" type="text" maxlength="3000" />
+			<ion-textarea [rows]="3" [autoGrow]="true" type="text" maxlength="3000" /> -->
 
 			<div class="buttons-wrapper">
 				<ion-button fill="outline" (click)="cancel()" appTranslate="cancel">Cancel</ion-button>

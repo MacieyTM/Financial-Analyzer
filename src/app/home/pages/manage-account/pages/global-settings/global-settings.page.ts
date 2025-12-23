@@ -56,6 +56,15 @@ export class GlobalSettingsPage implements OnInit, OnDestroy {
 		this.navController.navigateBack("home");
 	}
 
+	protected translateLabel(label: string): string {
+		const translated = this.translatePipe.transform(
+			label,
+			label.toLowerCase() as SupportedChartTypes
+		);
+
+		return translated;
+	}
+
 	private async showSuccessToast(): Promise<void> {
 		const toast = await this.toastController.create({
 			// header: 'Success',
@@ -68,14 +77,5 @@ export class GlobalSettingsPage implements OnInit, OnDestroy {
 			icon: "checkmark-circle",
 		});
 		toast.present();
-	}
-
-	protected translateLabel(label: string): string {
-		const translated = this.translatePipe.transform(
-			label,
-			label.toLowerCase() as SupportedChartTypes
-		);
-
-		return translated;
 	}
 }

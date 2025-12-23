@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
 import { NavController, ToastController } from "@ionic/angular";
 import { CHART_LABEL_MONTHS } from "src/app/models/chart.model";
-import { MONTHS_LABELS, SelectOption } from "src/app/models/kpi.model";
+import { MONTHS_LABELS, SelectOption, SupportedLabelMonths } from "src/app/models/kpi.model";
 import { MONEY_VALUES } from "src/app/models/kpi.model";
 import { KpiEntry } from "../kpi-trends.page";
 import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
@@ -81,6 +81,15 @@ export class AddKpiValuesPage implements OnInit, OnDestroy {
 
 		this.kpiChanged = true;
 		this.navController.back();
+	}
+
+	protected translateLabel(label: string): string {
+		const translated = this.translatePipe.transform(
+			label,
+			label.toLowerCase() as SupportedLabelMonths
+		);
+
+		return translated;
 	}
 
 	private async showSuccessToast(): Promise<void> {
