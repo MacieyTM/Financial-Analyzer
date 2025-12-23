@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
 import { NavController, ToastController } from "@ionic/angular";
 import { DEFAULT_CHART_TYPE } from "src/app/home/home.page";
-import { CHART_TYPES } from "src/app/models/chart.model";
+import { CHART_TYPES, SupportedChartTypes } from "src/app/models/chart.model";
 import { SelectOption } from "src/app/models/kpi.model";
 import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
 
@@ -68,5 +68,14 @@ export class GlobalSettingsPage implements OnInit, OnDestroy {
 			icon: "checkmark-circle",
 		});
 		toast.present();
+	}
+
+	protected translateLabel(label: string): string {
+		const translated = this.translatePipe.transform(
+			label,
+			label.toLowerCase() as SupportedChartTypes
+		);
+
+		return translated;
 	}
 }

@@ -62,6 +62,9 @@
 	"failed_to_delete_a_photo": "Nie udało się usunąć zdjęcia!",
 	"chart_data_type_changed_successfully": "Typ danych wykresu został pomyślnie zmieniony!",
 	"are_you_sure_you_want_to_delete_this_photo": "Czy na pewno chcesz usunąć to zdjęcie?",
+	"bar": "Słupkowy",
+	"line": "Liniowy",
+	"doughnut": "Kołowy",
 	"cancel": "Anuluj",
 	"save": "Zapisz",
 	"delete": "Usuń"

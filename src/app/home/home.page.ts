@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, signal } from "@angular/core";
-import { CHART_LABEL_MONTHS, CHART_LABEL_QUARTERS } from "src/app/models/chart.model";
+import { CHART_LABEL_MONTHS, CHART_LABEL_QUARTERS, SupportedChartTypes } from "src/app/models/chart.model";
 import { PhotoService } from "../services/photo.service";
 import { ChartConfiguration } from "chart.js";
 import { KpiEntry } from "./pages/kpi-trends/kpi-trends.page";
-
-export type SupportedChartTypes = "bar" | "line" | "doughnut";
 
 export const DEFAULT_CHART_TYPE: SupportedChartTypes = "bar";
 export const CHART_BORDER_COLOR: string = getComputedStyle(

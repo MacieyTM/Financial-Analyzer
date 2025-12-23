@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, OnInit, signal } from "@angular/cor
 import { Chart, ChartConfiguration } from "chart.js";
 import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
 import { Capacitor } from "@capacitor/core";
-import { CHART_LABEL_MONTHS } from "src/app/models/chart.model";
+import { CHART_LABEL_MONTHS, SupportedChartTypes } from "src/app/models/chart.model";
 import zoomPlugin from "chartjs-plugin-zoom";
-import { CHART_BORDER_COLOR, SupportedChartTypes } from "../../home.page";
+import { CHART_BORDER_COLOR } from "../../home.page";
 
 Chart.register(zoomPlugin);
 
