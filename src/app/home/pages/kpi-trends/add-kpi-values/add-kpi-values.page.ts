@@ -3,11 +3,7 @@ import { NavController, ToastController } from "@ionic/angular";
 import { CHART_LABEL_MONTHS } from "src/app/models/chart.model";
 import { MONTHS_LABELS, SelectOption } from "src/app/models/kpi.model";
 import { MONEY_VALUES } from "src/app/models/kpi.model";
-
-type KpiEntry = {
-	month: string;
-	money: number;
-};
+import { KpiEntry } from "../kpi-trends.page";
 
 @Component({
 	selector: "app-add-kpi-values",

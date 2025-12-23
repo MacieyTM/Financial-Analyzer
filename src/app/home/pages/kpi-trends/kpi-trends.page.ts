@@ -7,6 +7,15 @@ import zoomPlugin from "chartjs-plugin-zoom";
 
 Chart.register(zoomPlugin);
 
+export type KpiEntry = {
+	month: string;
+	money: number;
+};
+
+const BORDER_COLOR = getComputedStyle(document.documentElement).getPropertyValue(
+	"--ion-color-primary"
+);
+
 @Component({
 	selector: "app-kpi-trends",
 	templateUrl: "./kpi-trends.page.html",
@@ -27,8 +36,9 @@ export class KpiTrendsPage implements OnInit {
 		localStorage.getItem("selectedKpiType") || "line"
 	);
 
+	protected hasKpiData = false;
+
 	private data: number[];
-	private borderColor: string;
 	private labelMonths: string[];
 
 	public ngOnInit(): void {
@@ -37,12 +47,15 @@ export class KpiTrendsPage implements OnInit {
 		}
 
 		const storedKpiData = JSON.parse(localStorage.getItem("kpiData")) || [];
-		const labelMonths = CHART_LABEL_MONTHS;
 
-		this.labelMonths = storedKpiData.map((item) => item.month) || labelMonths;
-		this.data = storedKpiData.map((item) => parseFloat(item.money)) || [];
+		this.hasKpiData = storedKpiData.length > 0;
 
-		this.initializeChart();
+		this.labelMonths = storedKpiData.map((item: KpiEntry) => item.month) || CHART_LABEL_MONTHS;
+		this.data = storedKpiData.map((item: KpiEntry) => item.money) || [];
+
+		if (this.hasKpiData) {
+			this.initializeChart();
+		}
 	}
 
 	public ngOnDestroy(): void {
@@ -52,10 +65,6 @@ export class KpiTrendsPage implements OnInit {
 	}
 
 	private initializeChart(): void {
-		this.borderColor = getComputedStyle(document.documentElement).getPropertyValue(
-			"--ion-color-primary"
-		);
-
 		this.chartDataLine = {
 			labels: this.labelMonths,
 			datasets: [
@@ -114,7 +123,7 @@ export class KpiTrendsPage implements OnInit {
 			datasets: [
 				{
 					data: this.data,
-					borderColor: this.borderColor,
+					borderColor: BORDER_COLOR,
 
 					backgroundColor: "#00f",
 					hoverBackgroundColor: "#0f0",
@@ -144,7 +153,7 @@ export class KpiTrendsPage implements OnInit {
 			datasets: [
 				{
 					data: this.data,
-					borderColor: this.borderColor,
+					borderColor: BORDER_COLOR,
 					backgroundColor: [
 						"#f00",
 						"#ff0",
