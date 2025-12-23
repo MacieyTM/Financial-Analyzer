@@ -3,7 +3,21 @@ export interface SelectOption<T = string | number | boolean> {
 	label: string;
 }
 
-export const MONTHS_LABELS: SelectOption[] = [
+export type SupportedLabelMonths =
+	| "january"
+	| "february"
+	| "march"
+	| "april"
+	| "may"
+	| "june"
+	| "july"
+	| "august"
+	| "september"
+	| "october"
+	| "november"
+	| "december";
+
+export const MONTHS_LABELS: SelectOption<SupportedLabelMonths>[] = [
 	{ value: "january", label: "January" },
 	{ value: "february", label: "February" },
 	{ value: "march", label: "March" },
@@ -14,7 +28,7 @@ export const MONTHS_LABELS: SelectOption[] = [
 	{ value: "august", label: "August" },
 	{ value: "september", label: "September" },
 	{ value: "october", label: "October" },
-	{ value: "novemeber", label: "Novemeber" },
+	{ value: "november", label: "November" },
 	{ value: "december", label: "December" },
 ];
 

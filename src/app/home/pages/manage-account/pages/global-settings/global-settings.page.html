@@ -1,10 +1,12 @@
-<app-home-header defaultHref="manage-account" headerTitle="Global Settings" />
-<!-- [headerTitle]="'Global Settings' | appTranslate: 'global-settings-header'" -->
+<app-home-header
+	defaultHref="manage-account"
+	[headerTitle]="'Global Settings' | appTranslate: 'global_settings_header'"
+/>
 
 <ion-content>
 	<ion-card>
 		<ion-card-header>
-			<ion-text>Add chart type</ion-text>
+			<ion-text appTranslate="add_chart_type">Add chart type</ion-text>
 		</ion-card-header>
 		<ion-card-content>
 			<ion-select
@@ -13,13 +15,15 @@
 				mode="md"
 				fill="outline"
 				[value]="selectedKpiType"
-				label="Set KPI chart type"
+				[label]="'Set KPI chart type' | appTranslate: 'set_kpi_chart_type'"
 				label-placement="floating"
 				(ionChange)="changeKpiType($event)"
 			>
 				<ion-icon slot="start" name="stats-chart" />
 				@for (option of kpiTypesOptions; track option.value) {
-				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
+				<ion-select-option [value]="option.value"
+					>{{ translateLabel(option.label) }}</ion-select-option
+				>
 				}
 			</ion-select>
 

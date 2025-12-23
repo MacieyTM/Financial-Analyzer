@@ -70,6 +70,14 @@ ion-content {
 			height: 15rem !important;
 		}
 
+		.buttons-wrapper {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			gap: 1rem;
+		}
+
 		ion-card-content {
 			display: flex;
 			flex-direction: column;

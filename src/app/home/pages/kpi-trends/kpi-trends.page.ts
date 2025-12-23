@@ -2,19 +2,16 @@ import { ChangeDetectionStrategy, Component, OnInit, signal } from "@angular/cor
 import { Chart, ChartConfiguration } from "chart.js";
 import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
 import { Capacitor } from "@capacitor/core";
-import { CHART_LABEL_MONTHS } from "src/app/models/chart.model";
+import { CHART_LABEL_MONTHS, SupportedChartTypes } from "src/app/models/chart.model";
 import zoomPlugin from "chartjs-plugin-zoom";
+import { CHART_BORDER_COLOR } from "../../home.page";
 
 Chart.register(zoomPlugin);
 
-export type KpiEntry = {
+export interface KpiEntry {
 	month: string;
 	money: number;
-};
-
-const BORDER_COLOR = getComputedStyle(document.documentElement).getPropertyValue(
-	"--ion-color-primary"
-);
+}
 
 @Component({
 	selector: "app-kpi-trends",
@@ -32,8 +29,8 @@ export class KpiTrendsPage implements OnInit {
 	protected chartDataDoughnut: ChartConfiguration<"doughnut">["data"];
 	protected chartOptionsDoughnut: ChartConfiguration<"doughnut">["options"];
 
-	protected readonly selectedChartType = signal<string>(
-		localStorage.getItem("selectedKpiType") || "line"
+	protected readonly selectedChartType = signal<SupportedChartTypes>(
+		(localStorage.getItem("selectedKpiType") as SupportedChartTypes) || "bar"
 	);
 
 	protected hasKpiData = false;
@@ -123,7 +120,7 @@ export class KpiTrendsPage implements OnInit {
 			datasets: [
 				{
 					data: this.data,
-					borderColor: BORDER_COLOR,
+					borderColor: CHART_BORDER_COLOR,
 
 					backgroundColor: "#00f",
 					hoverBackgroundColor: "#0f0",
@@ -153,7 +150,7 @@ export class KpiTrendsPage implements OnInit {
 			datasets: [
 				{
 					data: this.data,
-					borderColor: BORDER_COLOR,
+					borderColor: CHART_BORDER_COLOR,
 					backgroundColor: [
 						"#f00",
 						"#ff0",

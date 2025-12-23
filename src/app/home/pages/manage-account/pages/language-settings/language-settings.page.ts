@@ -72,6 +72,7 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 
 	private async showSuccessToast(): Promise<void> {
 		const toast = await this.toastController.create({
+			// header: 'Success',
 			message: this.translatePipe.transform(
 				"Language changed successfully!",
 				"language_changed_successfully"
