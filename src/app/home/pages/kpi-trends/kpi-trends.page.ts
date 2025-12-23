@@ -2,8 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, signal } from "@angular/cor
 import { Chart, ChartConfiguration } from "chart.js";
 import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
 import { Capacitor } from "@capacitor/core";
-import { CHART_DATA_MONTHS, CHART_LABEL_MONTHS } from "src/app/models/chart.model";
-
+import { CHART_LABEL_MONTHS } from "src/app/models/chart.model";
 import zoomPlugin from "chartjs-plugin-zoom";
 
 Chart.register(zoomPlugin);
@@ -37,8 +36,16 @@ export class KpiTrendsPage implements OnInit {
 			ScreenOrientation.lock({ type: OrientationType.LANDSCAPE });
 		}
 
-		this.data = CHART_DATA_MONTHS;
-		this.labelMonths = CHART_LABEL_MONTHS;
+		const storedKpiData = JSON.parse(localStorage.getItem("kpiData")) || [];
+		const labelMonths = CHART_LABEL_MONTHS;
+
+		this.labelMonths = storedKpiData.map((item) => item.month) || labelMonths;
+		this.data = storedKpiData.map((item) => parseFloat(item.money)) || [];
+
+		this.initializeChart();
+	}
+
+	private initializeChart(): void {
 		this.borderColor = getComputedStyle(document.documentElement).getPropertyValue(
 			"--ion-color-primary"
 		);
@@ -72,30 +79,28 @@ export class KpiTrendsPage implements OnInit {
 				tooltip: {
 					enabled: false,
 				},
+				// zoom: {
+				// 	zoom: {
+				// 		wheel: {
+				// 			enabled: true,
+				// 			speed: 0.3,
+				// 		},
+				// 		pinch: {
+				// 			enabled: true,
+				// 		},
+				// 		drag: {
+				// 			enabled: false,
+				// 		},
+				// 		mode: "x",
+				// 	},
+				// 	pan: {
+				// 		enabled: true,
+				// 		threshold: 10,
+				// 		modifierKey: null,
+				// 		mode: "x",
+				// 	},
+				// },
 			},
-			// plugins: {
-			// 	zoom: {
-			// 		zoom: {
-			// 			wheel: {
-			// 				enabled: true,
-			// 				speed: 0.3,
-			// 			},
-			// 			pinch: {
-			// 				enabled: true,
-			// 			},
-			// 			drag: {
-			// 				enabled: false,
-			// 			},
-			// 			mode: "x",
-			// 		},
-			// 		pan: {
-			// 			enabled: true,
-			// 			threshold: 10,
-			// 			modifierKey: null,
-			// 			mode: "x",
-			// 		},
-			// 	},
-			// },
 		};
 
 		this.chartDataBar = {
@@ -134,7 +139,6 @@ export class KpiTrendsPage implements OnInit {
 				{
 					data: this.data,
 					borderColor: this.borderColor,
-
 					backgroundColor: [
 						"#f00",
 						"#ff0",

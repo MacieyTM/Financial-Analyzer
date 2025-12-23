@@ -49,15 +49,20 @@ export class AddKpiValuesPage implements OnInit, OnDestroy {
 	}
 
 	protected save(): void {
-		localStorage.setItem("selectedMonth", this.selectedMonth);
-		localStorage.setItem("selectedMoney", this.selectedMoney);
+		const storedKpiData = JSON.parse(localStorage.getItem("kpiData")) || [];
+		const newKpiData = { month: this.selectedMonth, money: this.selectedMoney };
+
+		storedKpiData.push(newKpiData);
+
+		localStorage.setItem("kpiData", JSON.stringify(storedKpiData));
+
 		this.kpiChanged = true;
 		this.navController.back();
 	}
 
 	private async showSuccessToast(): Promise<void> {
 		const toast = await this.toastController.create({
-			message: "Chart type changed successfully!",
+			message: "KPI values saved successfully!",
 			duration: 3000,
 			color: "success",
 			icon: "checkmark-circle",
