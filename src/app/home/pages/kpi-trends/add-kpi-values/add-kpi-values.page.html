@@ -1,10 +1,12 @@
-<app-home-header defaultHref="kpi-trends" headerTitle="Add KPI values" />
-<!-- [headerTitle]="'Add KPI values' | appTranslate: 'add-kpi-values'" -->
+<app-home-header
+	defaultHref="kpi-trends"
+	[headerTitle]="'Add KPI values' | appTranslate: 'add_kpi_values'"
+/>
 
 <ion-content>
 	<ion-card>
 		<ion-card-header>
-			<ion-text>Add KPI Trends values</ion-text>
+			<ion-text appTranslate="add_kpi_trends_values">Add KPI Trends values</ion-text>
 		</ion-card-header>
 		<ion-card-content>
 			<ion-select
@@ -12,7 +14,7 @@
 				[cancelText]="'cancel' | appTranslate: 'cancel'"
 				mode="md"
 				fill="outline"
-				label="Set month"
+				[label]="'Set month' | appTranslate: 'set_month'"
 				label-placement="floating"
 				(ionChange)="changeMonth($event)"
 			>
@@ -26,7 +28,7 @@
 				[cancelText]="'cancel' | appTranslate: 'cancel'"
 				mode="md"
 				fill="outline"
-				label="Set money for selected month"
+				[label]="'Set money for month' | appTranslate: 'set_money_for_month'"
 				label-placement="floating"
 				(ionChange)="changeMoney($event)"
 			>
@@ -35,9 +37,9 @@
 				}
 			</ion-select>
 			<div class="teaxtarea-label">
-				<ion-text>Add note</ion-text>
+				<ion-text appTranslate="add_note">Add note</ion-text>
 				<ion-icon slot="start" name="pencil" />
-				<ion-text>(optionally)</ion-text>
+				<ion-text appTranslate="optionally">(optionally)</ion-text>
 			</div>
 			<ion-textarea [rows]="3" [autoGrow]="true" type="text" maxlength="3000" />
 

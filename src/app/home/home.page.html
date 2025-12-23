@@ -33,11 +33,16 @@
 				[labels]="chartData.labels"
 			>
 			</canvas>
-			<ion-button routerLink="/home/kpi-trends" color="secondary">See your KPI</ion-button>
+			<ion-button routerLink="/home/kpi-trends" color="secondary" appTranslate="see_your_kpi"
+				>See your KPI</ion-button
+			>
 			} @else {
 			<ion-text>No data available</ion-text>
-			<ion-button routerLink="/home/kpi-trends/add-kpi-values" color="tertiary"
-				>Add KPI Values</ion-button
+			<ion-button
+				routerLink="/home/kpi-trends/add-kpi-values"
+				color="tertiary"
+				appTranslate="add_kpi_values"
+				>Add KPI values</ion-button
 			>
 			}
 		</ion-card-content>
@@ -75,7 +80,7 @@
 <ion-popover trigger="add-kpi-values-trigger" triggerAction="click">
 	<ng-template>
 		<ion-content class="ion-padding">
-			<ion-text
+			<ion-text appTranslate="here_you_can_add_your_kpi"
 				>Here you can add your KPI values to track your financial performance over time.</ion-text
 			>
 		</ion-content>
@@ -85,7 +90,9 @@
 <ion-popover trigger="add-photo-trigger" triggerAction="click">
 	<ng-template>
 		<ion-content class="ion-padding">
-			<ion-text>Here you can add photos such as bank logo or avatar account picture.</ion-text>
+			<ion-text appTranslate="here_you_can_add_photos"
+				>Here you can add photos such as bank logo or avatar account picture.</ion-text
+			>
 		</ion-content>
 	</ng-template>
 </ion-popover>
@@ -93,7 +100,9 @@
 <ion-popover trigger="set-language-trigger" triggerAction="click">
 	<ng-template>
 		<ion-content class="ion-padding">
-			<ion-text>Here you can set your language which translation to use.</ion-text>
+			<ion-text appTranslate="here_you_can_set_your_language"
+				>Here you can set your language which translation to use.</ion-text
+			>
 		</ion-content>
 	</ng-template>
 </ion-popover>

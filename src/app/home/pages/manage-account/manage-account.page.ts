@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@
 import { AlertController, ModalController } from "@ionic/angular";
 import { PhotoService, UserPhoto } from "src/app/services/photo.service";
 import { PhotoExpandModalComponent } from "./photo-expand-modal/photo-expand-modal.component";
+import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
 
 @Component({
 	selector: "app-manage-account",
@@ -17,7 +18,8 @@ export class ManageAccountPage implements OnInit {
 		protected readonly photoService: PhotoService,
 		private readonly cdr: ChangeDetectorRef,
 		private readonly alertController: AlertController,
-		private readonly modalController: ModalController
+		private readonly modalController: ModalController,
+		private readonly translatePipe: AppTranslatePipe
 	) {}
 
 	public async ngOnInit(): Promise<void> {
@@ -32,14 +34,17 @@ export class ManageAccountPage implements OnInit {
 	protected async deletePhoto(photo: UserPhoto, position: number): Promise<void> {
 		const alert = await this.alertController.create({
 			header: "Delete Photo",
-			message: "Are you sure you want to delete this photo?",
+			message: this.translatePipe.transform(
+				"Are you sure you want to delete this photo?",
+				"are_you_sure_you_want_to_delete_this_photo"
+			),
 			buttons: [
 				{
-					text: "Cancel",
+					text: this.translatePipe.transform("Cancel", "cancel"),
 					role: "cancel",
 				},
 				{
-					text: "Delete",
+					text: this.translatePipe.transform("Delete", "delete"),
 					role: "destructive",
 					cssClass: "danger-btn",
 					handler: async () => {

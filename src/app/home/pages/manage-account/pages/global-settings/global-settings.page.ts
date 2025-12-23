@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/
 import { NavController, ToastController } from "@ionic/angular";
 import { CHART_TYPES } from "src/app/models/chart.model";
 import { SelectOption } from "src/app/models/kpi.model";
+import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
 
 @Component({
 	selector: "app-global-settings",
@@ -19,7 +20,8 @@ export class GlobalSettingsPage implements OnInit, OnDestroy {
 
 	constructor(
 		private readonly navController: NavController,
-		private readonly toastController: ToastController
+		private readonly toastController: ToastController,
+		private readonly translatePipe: AppTranslatePipe
 	) {}
 
 	ngOnInit() {
@@ -55,7 +57,10 @@ export class GlobalSettingsPage implements OnInit, OnDestroy {
 
 	private async showSuccessToast(): Promise<void> {
 		const toast = await this.toastController.create({
-			message: "Chart data type changed successfully!",
+			message: this.translatePipe.transform(
+				"Chart data type changed successfully!",
+				"chart_data_type_changed_successfully"
+			),
 			duration: 3000,
 			color: "success",
 			icon: "checkmark-circle",

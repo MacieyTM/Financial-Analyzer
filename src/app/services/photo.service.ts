@@ -4,6 +4,7 @@ import { Filesystem, Directory } from "@capacitor/filesystem";
 import { Preferences } from "@capacitor/preferences";
 import { Capacitor } from "@capacitor/core";
 import { ActionSheetController, ToastController } from "@ionic/angular";
+// import { AppTranslatePipe } from "../pipes/translate.pipe";
 
 export interface UserPhoto {
 	filepath: string;
@@ -21,7 +22,7 @@ export class PhotoService {
 
 	constructor(
 		private readonly actionSheetController: ActionSheetController,
-		private readonly toastController: ToastController
+		private readonly toastController: ToastController // private readonly translatePipe: AppTranslatePipe
 	) {}
 
 	public async addNewToGallery(): Promise<void> {
@@ -32,6 +33,7 @@ export class PhotoService {
 				buttons: [
 					{
 						icon: "camera",
+						// text: this.translatePipe.transform("Take a Photo", "take_a_photo"),
 						text: "Take a Photo",
 						handler: async () => {
 							await this.capturePhotoFromCamera();
@@ -39,6 +41,7 @@ export class PhotoService {
 					},
 					{
 						icon: "images",
+						// text: this.translatePipe.transform("Choose from Gallery", "choose_from_gallery"),
 						text: "Choose from Gallery",
 						handler: async () => {
 							await this.capturePhotoFromGallery();
@@ -195,6 +198,10 @@ export class PhotoService {
 
 	private async showSuccessToastUpload(): Promise<void> {
 		const toast = await this.toastController.create({
+			// message: this.translatePipe.transform(
+			// 	"Photo uploaded successfully!",
+			// 	"photo_uploaded_successfully"
+			// ),
 			message: "Photo uploaded successfully!",
 			duration: 3000,
 			color: "success",
@@ -205,6 +212,10 @@ export class PhotoService {
 
 	private async showSuccessToastDelete(): Promise<void> {
 		const toast = await this.toastController.create({
+			// message: this.translatePipe.transform(
+			// 	"Photo deleted successfully!",
+			// 	"photo_deleted_successfully"
+			// ),
 			message: "Photo deleted successfully!",
 			duration: 3000,
 			color: "success",
@@ -215,6 +226,10 @@ export class PhotoService {
 
 	private async showErrorToastUpload(): Promise<void> {
 		const toast = await this.toastController.create({
+			// message: this.translatePipe.transform(
+			// 	"Failed to upload a photo!",
+			// 	"failed_to_upload_a_photo"
+			// ),
 			message: "Failed to upload a photo!",
 			duration: 3000,
 			color: "danger",
@@ -225,7 +240,11 @@ export class PhotoService {
 
 	private async showErrorToastDelete(): Promise<void> {
 		const toast = await this.toastController.create({
-			message: "Failed to delete a photo!",
+			// message: this.translatePipe.transform(
+			// 	"Failed to delete a photo!",
+			// 	"failed_to_delete_a_photo"
+			// ),
+			message: "Failed to delete a photo",
 			duration: 3000,
 			color: "danger",
 			icon: "close-circle",

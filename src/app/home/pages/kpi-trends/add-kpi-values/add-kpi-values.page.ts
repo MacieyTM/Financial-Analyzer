@@ -4,6 +4,7 @@ import { CHART_LABEL_MONTHS } from "src/app/models/chart.model";
 import { MONTHS_LABELS, SelectOption } from "src/app/models/kpi.model";
 import { MONEY_VALUES } from "src/app/models/kpi.model";
 import { KpiEntry } from "../kpi-trends.page";
+import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
 
 @Component({
 	selector: "app-add-kpi-values",
@@ -23,7 +24,8 @@ export class AddKpiValuesPage implements OnInit, OnDestroy {
 
 	constructor(
 		private readonly navController: NavController,
-		private toastController: ToastController
+		private readonly toastController: ToastController,
+		private readonly translatePipe: AppTranslatePipe
 	) {}
 
 	public ngOnInit() {
@@ -83,7 +85,10 @@ export class AddKpiValuesPage implements OnInit, OnDestroy {
 
 	private async showSuccessToast(): Promise<void> {
 		const toast = await this.toastController.create({
-			message: "KPI values saved successfully!",
+			message: this.translatePipe.transform(
+				"KPI values saved successfully!",
+				"kpi_values_saved_successfully"
+			),
 			duration: 3000,
 			color: "success",
 			icon: "checkmark-circle",
