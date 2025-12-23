@@ -1,7 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
 import { NavController, ToastController } from "@ionic/angular";
+import { CHART_LABEL_MONTHS } from "src/app/models/chart.model";
 import { MONTHS_LABELS, SelectOption } from "src/app/models/kpi.model";
 import { MONEY_VALUES } from "src/app/models/kpi.model";
+
+type KpiEntry = {
+	month: string;
+	money: number;
+};
 
 @Component({
 	selector: "app-add-kpi-values",
@@ -13,8 +19,9 @@ export class AddKpiValuesPage implements OnInit, OnDestroy {
 	protected monthsOptions: SelectOption[];
 	protected moneyOptions: SelectOption[];
 
-	protected selectedMonth: string = "";
+	// !important to keep as string here for ion-select
 	protected selectedMoney: string = "";
+	protected selectedMonth: string = "";
 
 	private kpiChanged: boolean;
 
@@ -53,7 +60,7 @@ export class AddKpiValuesPage implements OnInit, OnDestroy {
 		const selectedMoney = parseInt(this.selectedMoney);
 		const storedKpiData = JSON.parse(localStorage.getItem("kpiData")) || [];
 		const existingMonthIndex = storedKpiData.findIndex(
-			(item: { month: string; money: number }) => item.month === selectedMonth
+			(item: KpiEntry) => item.month === selectedMonth
 		);
 
 		if (existingMonthIndex >= 0) {
@@ -61,6 +68,16 @@ export class AddKpiValuesPage implements OnInit, OnDestroy {
 		} else {
 			storedKpiData.push({ month: selectedMonth, money: selectedMoney });
 		}
+
+		const monthOrder: Record<string, number> = {};
+		CHART_LABEL_MONTHS.forEach((month, i) => (monthOrder[month.toLowerCase()] = i));
+
+		storedKpiData.sort((a: KpiEntry, b: KpiEntry) => {
+			const aIndex = monthOrder[a.month.toLowerCase()] ?? 12;
+			const bIndex = monthOrder[b.month.toLowerCase()] ?? 12;
+
+			return aIndex - bIndex;
+		});
 
 		localStorage.setItem("kpiData", JSON.stringify(storedKpiData));
 
