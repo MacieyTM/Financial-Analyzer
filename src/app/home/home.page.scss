@@ -29,6 +29,7 @@ ion-content {
 	--background: var(--ion-color-secondary);
 
 	ion-card {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -36,9 +37,18 @@ ion-content {
 		gap: 0.75rem;
 
 		ion-card-header {
-			margin-top: 1rem;
+			padding: 0.25rem;
+
+			ion-text.welcome-text {
+				font-weight: 400;
+				font-size: 1.5rem;
+				text-align: center;
+				letter-spacing: 0.1rem;
+				color: var(--ion-color-text-primary);
+			}
 
 			.amount-wrapper {
+				margin-top: 0.75rem;
 				display: flex;
 				flex-direction: row;
 				justify-content: center;
@@ -52,14 +62,6 @@ ion-content {
 					font-weight: 700;
 				}
 			}
-
-			// ion-text {
-			// 	font-weight: 400;
-			// 	font-size: 1.5rem;
-			// 	text-align: center;
-			// 	letter-spacing: 0.1rem;
-			// 	color: var(--ion-color-text-primary);
-			// }
 		}
 
 		canvas {
@@ -75,7 +77,7 @@ ion-content {
 			justify-content: center;
 			align-items: center;
 			gap: 1rem;
-			margin-bottom: 0.5rem;
+			padding-bottom: 0.5rem;
 		}
 
 		ion-card-content {
@@ -84,6 +86,12 @@ ion-content {
 			justify-content: center;
 			align-items: center;
 			gap: 1rem;
+		}
+
+		.help-fab {
+			position: absolute;
+			left: 0.5rem;
+			bottom: 0.5rem;
 		}
 	}
 

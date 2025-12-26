@@ -28,6 +28,8 @@ export class HomePage {
 	protected readonly bankAccountAmount = signal<string>(BANK_ACCOUNT_AMOUNT.toLocaleString());
 
 	protected data: number[];
+	protected userName: string;
+	protected userNick: string;
 	protected chartData: ChartConfiguration<"doughnut">["data"];
 	protected chartOptions: ChartConfiguration<"doughnut">["options"];
 
@@ -46,7 +48,7 @@ export class HomePage {
 	}
 
 	public ngOnInit(): void {
-		this.refreshQuarterData();
+		this.refreshData();
 
 		this.chartOptions = {
 			cutout: "50%",
@@ -64,7 +66,7 @@ export class HomePage {
 	}
 
 	public ionViewWillEnter(): void {
-		this.refreshQuarterData();
+		this.refreshData();
 	}
 
 	protected addPhotoToStorage(): void {
@@ -119,7 +121,10 @@ export class HomePage {
 		};
 	}
 
-	private refreshQuarterData(): void {
+	private refreshData(): void {
+		this.userName = localStorage.getItem("userName") || "";
+		this.userNick = localStorage.getItem("userNick") || "";
+
 		this.chartData = this.calculateChartData();
 		this.cdr.detectChanges();
 	}
