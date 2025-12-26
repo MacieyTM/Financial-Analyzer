@@ -1,19 +1,22 @@
 :root {
 	--ion-color-primary: orange;
-	--ion-color-secondary: darkgrey;
+	--ion-color-secondary: darkgray;
 	--ion-color-tertiary: chocolate;
 
 	--ion-color-text-primary: black;
 	--ion-color-text-secondary: whitesmoke;
+
 	--ion-color-light: #fff;
+	--ion-color-dark: #000;
 }
 
 body.dark {
 	--ion-color-primary: orange;
-	--ion-color-secondary: darkgrey;
+	--ion-color-secondary: darkgray;
 	--ion-color-tertiary: chocolate;
 
 	--ion-color-text-primary: whitesmoke;
 	--ion-color-text-secondary: black;
-	--ion-color-light: #222;
+
+	--ion-color-light: gray;
 }
