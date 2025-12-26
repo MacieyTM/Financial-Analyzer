@@ -13,16 +13,17 @@
 <ion-content>
 	<ion-card>
 		<ion-card-header>
-			<ion-text appTranslate="mobile_application_for_financial_management"
+			<div class="amount-wrapper">
+				<ion-text appTranslate="current_bank_account_amount">Current bank account amount:</ion-text>
+				<span>{{ bankAccountAmount() }}</span>
+				<ion-text>PLN</ion-text>
+			</div>
+			<!-- <ion-text>Welcome Maciej!</ion-text> -->
+			<!-- <ion-text appTranslate="mobile_application_for_financial_management"
 				>Mobile application for financial management</ion-text
-			>
+			> -->
 		</ion-card-header>
 		<mat-divider />
-		<div class="amount-wrapper">
-			<ion-text appTranslate="current_bank_account_amount">Current bank account amount:</ion-text>
-			<span>{{ bankAccountAmount() }}</span>
-			<ion-text>PLN</ion-text>
-		</div>
 		<ion-card-content>
 			@if (chartHasData()) {
 			<canvas
@@ -57,7 +58,8 @@
 	</ion-card>
 
 	<ion-item lines="none" class="dark-mode-container">
-		<ion-icon name="contrast" />
+		<!-- <ion-icon name="contrast" /> -->
+		<ion-icon name="moon" />
 		<ion-label appTranslate="dark_mode">Dark mode</ion-label>
 		<ion-text appTranslate="off">Off</ion-text>
 		<div class="toggle-wrapper">
