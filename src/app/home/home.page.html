@@ -56,6 +56,16 @@
 		</ion-card-content>
 	</ion-card>
 
+	<ion-item lines="none" class="dark-mode-container">
+		<ion-icon name="contrast" />
+		<ion-label appTranslate="dark_mode">Dark mode</ion-label>
+		<ion-text appTranslate="off">Off</ion-text>
+		<div class="toggle-wrapper">
+			<ion-toggle [checked]="isDarkMode()" (ionChange)="toggleDarkMode($event)" />
+		</div>
+		<ion-text appTranslate="on">On</ion-text>
+	</ion-item>
+
 	<ion-fab slot="fixed" horizontal="start" vertical="bottom">
 		<ion-fab-button (click)="toggleHelp()">
 			@if (!helpVisible()) {

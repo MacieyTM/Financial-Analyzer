@@ -1,5 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, signal } from "@angular/core";
-import { CHART_LABEL_MONTHS, CHART_LABEL_QUARTERS, SupportedChartTypes } from "src/app/models/chart.model";
+import {
+	CHART_LABEL_MONTHS,
+	CHART_LABEL_QUARTERS,
+	SupportedChartTypes,
+} from "src/app/models/chart.model";
 import { PhotoService } from "../services/photo.service";
 import { ChartConfiguration } from "chart.js";
 import { KpiEntry } from "./pages/kpi-trends/kpi-trends.page";
@@ -9,8 +13,8 @@ export const CHART_BORDER_COLOR: string = getComputedStyle(
 	document.documentElement
 ).getPropertyValue("--ion-color-primary");
 
-// const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
-const BANK_ACCOUNT_AMOUNT: number = +localStorage.getItem("selectedMoney");
+const BANK_ACCOUNT_AMOUNT: number = 107800.22;
+// const BANK_ACCOUNT_AMOUNT: number = +localStorage.getItem("selectedMoney");
 
 @Component({
 	selector: "app-home",
@@ -20,6 +24,7 @@ const BANK_ACCOUNT_AMOUNT: number = +localStorage.getItem("selectedMoney");
 })
 export class HomePage {
 	protected readonly helpVisible = signal<boolean>(false);
+	protected readonly isDarkMode = signal(document.body.classList.contains("dark"));
 	protected readonly bankAccountAmount = signal<string>(BANK_ACCOUNT_AMOUNT.toLocaleString());
 
 	protected data: number[];
@@ -30,6 +35,15 @@ export class HomePage {
 		private readonly cdr: ChangeDetectorRef,
 		private readonly photoService: PhotoService
 	) {}
+
+	protected toggleDarkMode(event: CustomEvent): void {
+		const enabled = event.detail.checked;
+
+		document.body.classList.toggle("dark", enabled);
+		this.isDarkMode.set(enabled);
+
+		localStorage.setItem("darkMode", String(enabled));
+	}
 
 	public ngOnInit(): void {
 		this.refreshQuarterData();

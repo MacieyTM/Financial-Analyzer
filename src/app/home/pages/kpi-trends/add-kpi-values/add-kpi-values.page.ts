@@ -41,11 +41,11 @@ export class AddKpiValuesPage implements OnInit, OnDestroy {
 		}
 	}
 
-	protected changeMonth(event): void {
+	protected changeMonth(event: CustomEvent): void {
 		this.selectedMonth = event.detail.value;
 	}
 
-	protected changeMoney(event): void {
+	protected changeMoney(event: CustomEvent): void {
 		this.selectedMoney = event.detail.value;
 	}
 

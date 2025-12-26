@@ -7,3 +7,13 @@
 	--ion-color-text-secondary: whitesmoke;
 	--ion-color-light: #fff;
 }
+
+body.dark {
+	--ion-color-primary: orange;
+	--ion-color-secondary: darkgrey;
+	--ion-color-tertiary: chocolate;
+
+	--ion-color-text-primary: whitesmoke;
+	--ion-color-text-secondary: black;
+	--ion-color-light: #222;
+}
