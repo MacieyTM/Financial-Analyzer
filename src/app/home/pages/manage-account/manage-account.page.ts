@@ -69,7 +69,7 @@ export class ManageAccountPage implements OnInit {
 		return await modal.present();
 	}
 
-	protected alert(): void {
-		alert("Not implemented yet!");
-	}
+	// protected alert(): void {
+	// 	alert("Not implemented yet!");
+	// }
 }

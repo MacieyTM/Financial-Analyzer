@@ -45,7 +45,7 @@ export class GlobalSettingsPage implements OnInit, OnDestroy {
 		this.navController.back();
 	}
 
-	protected changeKpiType(event): void {
+	protected changeKpiType(event: CustomEvent): void {
 		this.selectedKpiType = event.detail.value;
 		this.hasChanges = this.selectedKpiType !== this.originalChartType;
 	}

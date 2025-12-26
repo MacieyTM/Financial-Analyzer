@@ -42,6 +42,13 @@ html {
 	--mat-form-field-filled-focus-active-indicator-color: var(--ion-color-primary);
 }
 
+ion-card {
+	margin: 1rem;
+	box-shadow: none;
+	border-radius: 0.75rem;
+	background-color: var(--ion-color-text-secondary);
+}
+
 ion-select {
 	--highlight-color-valid: var(--ion-color-primary);
 	color: var(--ion-color-text-primary);

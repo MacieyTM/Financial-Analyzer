@@ -9,7 +9,10 @@ import { Capacitor } from "@capacitor/core";
 	styleUrls: ["app.component.scss"],
 })
 export class AppComponent {
-	constructor(private readonly platform: Platform) {}
+	constructor(private readonly platform: Platform) {
+		const dark = localStorage.getItem("darkMode") === "true";
+		document.body.classList.toggle("dark", dark);
+	}
 
 	public async ngOnInit(): Promise<void> {
 		await this.platform.ready();
