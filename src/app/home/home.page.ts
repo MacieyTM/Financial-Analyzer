@@ -13,7 +13,7 @@ export const CHART_BORDER_COLOR: string = getComputedStyle(
 	document.documentElement
 ).getPropertyValue("--ion-color-primary");
 
-const BANK_ACCOUNT_AMOUNT: number = 107800.22;
+// const BANK_ACCOUNT_AMOUNT: number = 107800.22;
 // const BANK_ACCOUNT_AMOUNT: number = +localStorage.getItem("selectedMoney");
 
 @Component({
@@ -25,7 +25,7 @@ const BANK_ACCOUNT_AMOUNT: number = 107800.22;
 export class HomePage {
 	protected readonly helpVisible = signal<boolean>(false);
 	protected readonly isDarkMode = signal(document.body.classList.contains("dark"));
-	protected readonly bankAccountAmount = signal<string>(BANK_ACCOUNT_AMOUNT.toLocaleString());
+	// protected readonly bankAccountAmount = signal<string>(BANK_ACCOUNT_AMOUNT.toLocaleString());
 
 	protected data: number[];
 	protected userName: string;

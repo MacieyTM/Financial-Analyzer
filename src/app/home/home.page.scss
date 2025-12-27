@@ -40,6 +40,7 @@ ion-content {
 			padding: 0.25rem;
 
 			ion-text.welcome-text {
+				padding-top: 0.25rem;
 				font-weight: 400;
 				font-size: 1.5rem;
 				text-align: center;
@@ -47,21 +48,21 @@ ion-content {
 				color: var(--ion-color-text-primary);
 			}
 
-			.amount-wrapper {
-				margin-top: 0.75rem;
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				align-items: center;
-				gap: 0.25rem;
-				padding: 0 0.5rem;
-				color: var(--ion-color-text-primary);
+			// .amount-wrapper {
+			// 	margin-top: 0.75rem;
+			// 	display: flex;
+			// 	flex-direction: row;
+			// 	justify-content: center;
+			// 	align-items: center;
+			// 	gap: 0.25rem;
+			// 	padding: 0 0.5rem;
+			// 	color: var(--ion-color-text-primary);
 
-				span {
-					font-size: 1.5rem;
-					font-weight: 700;
-				}
-			}
+			// 	span {
+			// 		font-size: 1.5rem;
+			// 		font-weight: 700;
+			// 	}
+			// }
 		}
 
 		canvas {
@@ -170,6 +171,10 @@ ion-item.dark-mode-container {
 	margin-left: 1rem;
 	border-radius: 0.75rem;
 	width: calc(100% - 5rem);
+
+	@media screen and (min-width: 25rem) {
+		width: 20rem;
+	}
 
 	ion-icon {
 		width: 1.25rem;
