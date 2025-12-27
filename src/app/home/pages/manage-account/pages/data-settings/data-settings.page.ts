@@ -9,7 +9,7 @@ import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataSettingsPage implements OnInit, OnDestroy {
-	private chartTypeChanged: boolean;
+	private isDataCleared: boolean;
 
 	constructor(
 		private readonly navController: NavController,
@@ -19,11 +19,11 @@ export class DataSettingsPage implements OnInit, OnDestroy {
 	) {}
 
 	public ngOnInit(): void {
-		this.chartTypeChanged = false;
+		this.isDataCleared = false;
 	}
 
 	public ngOnDestroy(): void {
-		if (this.chartTypeChanged) {
+		if (this.isDataCleared) {
 			this.showSuccessToast();
 		}
 	}
@@ -66,7 +66,7 @@ export class DataSettingsPage implements OnInit, OnDestroy {
 
 	private clear(): void {
 		localStorage.clear();
-		this.chartTypeChanged = true;
+		this.isDataCleared = true;
 		this.navController.navigateBack("/home");
 	}
 
