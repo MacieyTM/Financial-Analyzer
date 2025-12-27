@@ -39,6 +39,7 @@
 		"@ngx-translate/core": "^16.0.4",
 		"@ngx-translate/http-loader": "^16.0.1",
 		"chart.js": "^4.5.1",
+		"chartjs-plugin-datalabels": "^2.2.0",
 		"chartjs-plugin-zoom": "^2.2.0",
 		"flag-icons": "^7.5.0",
 		"ionicons": "^7.0.0",

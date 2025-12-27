@@ -3,10 +3,10 @@ import { Chart, ChartConfiguration } from "chart.js";
 import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
 import { Capacitor } from "@capacitor/core";
 import { SupportedChartTypes } from "src/app/models/chart.model";
-import zoomPlugin from "chartjs-plugin-zoom";
 import { CHART_BORDER_COLOR } from "../../home.page";
+// import zoomPlugin from "chartjs-plugin-zoom";
 
-Chart.register(zoomPlugin);
+// Chart.register(zoomPlugin);
 
 export interface KpiEntry {
 	month: string;
@@ -30,8 +30,8 @@ export class KpiTrendsPage implements OnInit {
 	protected chartDataBar: ChartConfiguration<"bar">["data"];
 	protected chartOptionsBar: ChartConfiguration<"bar">["options"];
 
-	protected chartDataDoughnut: ChartConfiguration<"doughnut">["data"];
-	protected chartOptionsDoughnut: ChartConfiguration<"doughnut">["options"];
+	// protected chartDataDoughnut: ChartConfiguration<"doughnut">["data"];
+	// protected chartOptionsDoughnut: ChartConfiguration<"doughnut">["options"];
 
 	protected hasKpiData = false;
 
@@ -122,7 +122,7 @@ export class KpiTrendsPage implements OnInit {
 		} else {
 			this.chartDataLine = { labels: [], datasets: [{ data: [] }] };
 			this.chartDataBar = { labels: [], datasets: [{ data: [] }] };
-			this.chartDataDoughnut = { labels: [], datasets: [{ data: [] }] };
+			// this.chartDataDoughnut = { labels: [], datasets: [{ data: [] }] };
 		}
 	}
 
@@ -165,6 +165,11 @@ export class KpiTrendsPage implements OnInit {
 				},
 				tooltip: {
 					enabled: false,
+				},
+				datalabels: {
+					font: {
+						size: 0,
+					},
 				},
 				// zoom: {
 				// 	zoom: {
@@ -217,73 +222,78 @@ export class KpiTrendsPage implements OnInit {
 				tooltip: {
 					enabled: false,
 				},
-			},
-		};
-
-		this.chartDataDoughnut = {
-			labels: this.labelMonths,
-			datasets: [
-				{
-					data: this.data,
-					borderColor: CHART_BORDER_COLOR,
-					backgroundColor: [
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-					],
-					hoverBackgroundColor: [
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-					],
-					hoverBorderColor: [
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-					],
-				},
-			],
-		};
-
-		this.chartOptionsDoughnut = {
-			cutout: "50%",
-			responsive: false,
-			maintainAspectRatio: false,
-			plugins: {
-				legend: {
-					display: false,
-				},
-				tooltip: {
-					enabled: false,
+				datalabels: {
+					font: {
+						size: 0,
+					},
 				},
 			},
 		};
+
+		// this.chartDataDoughnut = {
+		// 	labels: this.labelMonths,
+		// 	datasets: [
+		// 		{
+		// 			data: this.data,
+		// 			borderColor: CHART_BORDER_COLOR,
+		// 			backgroundColor: [
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 			],
+		// 			hoverBackgroundColor: [
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 			],
+		// 			hoverBorderColor: [
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 			],
+		// 		},
+		// 	],
+		// };
+
+		// this.chartOptionsDoughnut = {
+		// 	cutout: "50%",
+		// 	responsive: false,
+		// 	maintainAspectRatio: false,
+		// 	plugins: {
+		// 		legend: {
+		// 			display: false,
+		// 		},
+		// 		tooltip: {
+		// 			enabled: false,
+		// 		},
+		// 	},
+		// };
 	}
 }
