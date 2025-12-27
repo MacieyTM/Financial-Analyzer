@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef } from "@angular/material/dialog";
+import { Capacitor } from "@capacitor/core";
+
+const EXIT_URL: string = "https://www.google.com";
 
 @Component({
 	selector: "app-terms-and-conditions",
@@ -12,8 +15,8 @@ export class TermsAndConditionsComponent {
 	form: FormGroup;
 
 	constructor(
-		private dialogRef: MatDialogRef<TermsAndConditionsComponent>,
-		private fb: FormBuilder
+		private fb: FormBuilder,
+		private dialogRef: MatDialogRef<TermsAndConditionsComponent>
 	) {
 		this.form = this.fb.group({
 			acceptTerms: [false, Validators.requiredTrue],
@@ -23,7 +26,11 @@ export class TermsAndConditionsComponent {
 
 	protected declineAndExit(): void {
 		this.dialogRef.close();
-		navigator["app"].exitApp();
+		if (Capacitor.getPlatform() !== "web") {
+			navigator["app"].exitApp();
+		} else {
+			window.location.href = EXIT_URL;
+		}
 	}
 
 	protected acceptAndContinue(): void {
