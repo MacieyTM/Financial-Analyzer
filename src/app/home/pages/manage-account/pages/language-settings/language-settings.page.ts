@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from "@
 import { PluginListenerHandle } from "@capacitor/core";
 import { Network } from "@capacitor/network";
 import { NavController, ToastController } from "@ionic/angular";
+import { TranslateService } from "@ngx-translate/core";
 import { SelectOption } from "src/app/models/kpi.model";
 import {
 	FLAG_MAP_DATA,
@@ -18,23 +19,35 @@ import { AppTranslateService } from "src/app/services/translate.service";
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguageSettingsPage implements OnInit, OnDestroy {
-	protected networkListener: PluginListenerHandle;
 	protected languageOptions: SelectOption[];
-	protected readonly isOnline = signal(true);
 	protected selectedLanguage: SupportedLanguage;
+	protected networkListener: PluginListenerHandle;
 	protected flagMap: Record<SupportedLanguage, string>;
+
+	protected readonly isOnline = signal(true);
 
 	private languageChanged: boolean;
 
 	public constructor(
-		private readonly translateService: AppTranslateService,
+		private readonly translate: TranslateService,
 		private readonly navController: NavController,
+		private readonly translatePipe: AppTranslatePipe,
 		private readonly toastController: ToastController,
-		private readonly translatePipe: AppTranslatePipe
+		private readonly translateService: AppTranslateService
 	) {}
 
 	public async ngOnInit(): Promise<void> {
-		this.selectedLanguage = localStorage.getItem("selectedLang") || "en";
+		this.selectedLanguage =
+			localStorage.getItem("selectedLang") ||
+			localStorage.getItem("deviceLanguage") ||
+			localStorage.getItem("browserLanguage") ||
+			this.translateService.getSystemLanguage() ||
+			"en";
+
+		if (!this.translate.getLangs().includes(this.selectedLanguage)) {
+			this.selectedLanguage = "en";
+		}
+
 		this.languageOptions = LANGUAGE_OPTIONS_DATA;
 		this.flagMap = FLAG_MAP_DATA;
 

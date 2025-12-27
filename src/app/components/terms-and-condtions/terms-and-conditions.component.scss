@@ -87,42 +87,50 @@
 	}
 }
 
-ion-button {
-	&.decline-btn {
-		&::part(native) {
-			border-color: var(--ion-color-danger);
-		}
-	}
+.buttons-container {
+	display: flex;
+	flex-direction: row;
+	gap: 0.5rem;
+	width: 100%;
+	padding: 0.25rem;
 
-	&.accept-btn {
-		&::part(native) {
-			border-color: var(--ion-color-success);
-		}
-	}
-
-	.icon-text-wrapper {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 0.5rem;
-
-		ion-icon {
-			width: 1.25rem;
-			height: 1.25rem;
-			font-size: 1.25rem;
-
-			&.sad-icon {
-				color: var(--ion-color-danger);
-			}
-
-			&.happy-icon {
-				color: var(--ion-color-success);
+	ion-button {
+		&.decline-btn {
+			&::part(native) {
+				border-color: var(--ion-color-danger);
 			}
 		}
 
-		span {
-			font-size: 0.9rem;
-			color: var(--ion-color-text-primary);
+		&.accept-btn {
+			&::part(native) {
+				border-color: var(--ion-color-success);
+			}
+		}
+
+		.icon-text-wrapper {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 0.5rem;
+
+			ion-icon {
+				width: 1.25rem;
+				height: 1.25rem;
+				font-size: 1.25rem;
+
+				&.sad-icon {
+					color: var(--ion-color-danger);
+				}
+
+				&.happy-icon {
+					color: var(--ion-color-success);
+				}
+			}
+
+			span {
+				font-size: 0.9rem;
+				color: var(--ion-color-text-primary);
+			}
 		}
 	}
 }

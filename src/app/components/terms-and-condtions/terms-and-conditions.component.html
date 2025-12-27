@@ -1,38 +1,51 @@
-<ion-text mat-dialog-title class="dialog-title">Welcome!</ion-text>
+<ion-text mat-dialog-title class="dialog-title" appTranslate="welcome">Welcome!</ion-text>
 
 <mat-dialog-content class="dialog-content">
-	<ion-text class="please-read">Please read and accept our policies before continuing:</ion-text>
+	<ion-text class="please-read" appTranslate="please_read"
+		>Please read and accept our policies before continuing:</ion-text
+	>
 	<div class="terms-text">
 		<ion-text class="header">
-			<span>Terms & Conditions</span>
+			<span appTranslate="terms_and_conditions_header">Terms & Conditions</span>
 			<mat-icon fontIcon="gavel" />
 		</ion-text>
-		<ion-text class="description">
+		<ion-text class="description" appTranslate="terms_and_conditions_description">
 			By using this application, you agree to comply with our terms and conditions.
 		</ion-text>
 		<ion-text class="header">
-			<span>Cookies Policy</span>
+			<span appTranslate="cookies_policy_header">Cookies Policy</span>
 			<mat-icon fontIcon="cookie" />
 		</ion-text>
-		<ion-text class="description">
+		<ion-text class="description" appTranslate="cookies_policy_description">
 			We use cookies to improve your experience. By using this app, you agree to our use of cookies.
 		</ion-text>
 	</div>
 	<mat-divider />
 	<form [formGroup]="form">
-		<ion-checkbox formControlName="acceptTerms">I agree to the Terms & Conditions</ion-checkbox>
-		<ion-checkbox formControlName="acceptCookies">I agree to the Cookies Policy</ion-checkbox>
+		<ion-checkbox formControlName="acceptTerms" appTranslate="accept_terms"
+			>I agree to the Terms & Conditions</ion-checkbox
+		>
+		<ion-checkbox formControlName="acceptCookies" appTranslate="accept_cookies"
+			>I agree to the Cookies Policy</ion-checkbox
+		>
 	</form>
 </mat-dialog-content>
-<ion-button fill="outline" class="decline-btn" (click)="declineAndExit()">
-	<div class="icon-text-wrapper">
-		<ion-icon class="sad-icon" slot="start" name="sad" />
-		<span>Decline</span>
-	</div>
-</ion-button>
-<ion-button fill="outline" class="accept-btn" [disabled]="!form.valid" (click)="acceptAndContinue()">
-	<div class="icon-text-wrapper">
-		<ion-icon class="happy-icon" slot="start" name="happy" />
-		<span>Accept</span>
-	</div>
-</ion-button>
+<div class="buttons-container">
+	<ion-button fill="outline" class="decline-btn" (click)="declineAndExit()">
+		<div class="icon-text-wrapper">
+			<ion-icon class="sad-icon" slot="start" name="sad" />
+			<span appTranslate="decline">Decline</span>
+		</div>
+	</ion-button>
+	<ion-button
+		fill="outline"
+		class="accept-btn"
+		[disabled]="!form.valid"
+		(click)="acceptAndContinue()"
+	>
+		<div class="icon-text-wrapper">
+			<ion-icon class="happy-icon" slot="start" name="happy" />
+			<span appTranslate="accept">Accept</span>
+		</div>
+	</ion-button>
+</div>
