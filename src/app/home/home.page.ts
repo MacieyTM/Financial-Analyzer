@@ -8,9 +8,10 @@ import { PhotoService } from "../services/photo.service";
 import { Chart, ChartConfiguration } from "chart.js";
 import { KpiEntry } from "./pages/kpi-trends/kpi-trends.page";
 import ChartDataLabels from "chartjs-plugin-datalabels";
-import zoomPlugin from "chartjs-plugin-zoom";
+// import zoomPlugin from "chartjs-plugin-zoom";
 
-Chart.register(zoomPlugin, ChartDataLabels);
+// Chart.register(zoomPlugin);
+Chart.register(ChartDataLabels);
 
 export const DEFAULT_CHART_TYPE: SupportedChartTypes = "bar";
 export const CHART_BORDER_COLOR: string = getComputedStyle(
