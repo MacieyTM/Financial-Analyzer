@@ -1,0 +1,56 @@
+<app-home-header defaultHref="kpi-trends" headerTitle="Edit KPI values" />
+
+<ion-content>
+	<ion-card>
+		<ion-card-header>
+			<ion-text>Edit KPI Trends values</ion-text>
+		</ion-card-header>
+		<ion-card-content>
+			<ion-select
+				interface="popover"
+				[cancelText]="'cancel' | appTranslate: 'cancel'"
+				mode="md"
+				fill="outline"
+				[label]="'Set month' | appTranslate: 'set_month'"
+				label-placement="floating"
+				(ionChange)="changeMonth($event)"
+			>
+				@for (option of monthsOptions; track option.value) {
+				<ion-select-option [value]="option.value"
+					>{{ translateLabel(option.label) }}</ion-select-option
+				>
+				}
+			</ion-select>
+			<ion-select
+				interface="popover"
+				[disabled]="selectedMonth.length === 0"
+				[cancelText]="'cancel' | appTranslate: 'cancel'"
+				mode="md"
+				fill="outline"
+				[label]="'Set money for month' | appTranslate: 'set_money_for_month'"
+				label-placement="floating"
+				(ionChange)="changeMoney($event)"
+			>
+				@for (option of moneyOptions; track option.value) {
+				<ion-select-option [value]="option.value">{{ option.label }}</ion-select-option>
+				}
+			</ion-select>
+			<!-- <div class="textarea-label">
+				<ion-text appTranslate="add_note">Edit note</ion-text>
+				<ion-icon slot="start" name="pencil" />
+				<ion-text appTranslate="optionally">(optionally)</ion-text>
+			</div>
+			<ion-textarea [rows]="3" [autoGrow]="true" type="text" maxlength="3000" /> -->
+
+			<div class="buttons-wrapper">
+				<ion-button fill="outline" (click)="cancel()" appTranslate="cancel">Cancel</ion-button>
+				<ion-button
+					[disabled]="selectedMonth.length === 0 || selectedMoney.length === 0"
+					(click)="save()"
+					appTranslate="save"
+					>Save</ion-button
+				>
+			</div>
+		</ion-card-content>
+	</ion-card>
+</ion-content>

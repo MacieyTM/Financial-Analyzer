@@ -13,7 +13,7 @@ export const CHART_BORDER_COLOR: string = getComputedStyle(
 	document.documentElement
 ).getPropertyValue("--ion-color-primary");
 
-const BANK_ACCOUNT_AMOUNT: number = 107800.22;
+// const BANK_ACCOUNT_AMOUNT: number = 107800.22;
 // const BANK_ACCOUNT_AMOUNT: number = +localStorage.getItem("selectedMoney");
 
 @Component({
@@ -25,9 +25,11 @@ const BANK_ACCOUNT_AMOUNT: number = 107800.22;
 export class HomePage {
 	protected readonly helpVisible = signal<boolean>(false);
 	protected readonly isDarkMode = signal(document.body.classList.contains("dark"));
-	protected readonly bankAccountAmount = signal<string>(BANK_ACCOUNT_AMOUNT.toLocaleString());
+	// protected readonly bankAccountAmount = signal<string>(BANK_ACCOUNT_AMOUNT.toLocaleString());
 
 	protected data: number[];
+	protected userName: string;
+	protected userNick: string;
 	protected chartData: ChartConfiguration<"doughnut">["data"];
 	protected chartOptions: ChartConfiguration<"doughnut">["options"];
 
@@ -46,7 +48,7 @@ export class HomePage {
 	}
 
 	public ngOnInit(): void {
-		this.refreshQuarterData();
+		this.refreshData();
 
 		this.chartOptions = {
 			cutout: "50%",
@@ -64,7 +66,7 @@ export class HomePage {
 	}
 
 	public ionViewWillEnter(): void {
-		this.refreshQuarterData();
+		this.refreshData();
 	}
 
 	protected addPhotoToStorage(): void {
@@ -119,7 +121,10 @@ export class HomePage {
 		};
 	}
 
-	private refreshQuarterData(): void {
+	private refreshData(): void {
+		this.userName = localStorage.getItem("userName") || "";
+		this.userNick = localStorage.getItem("userNick") || "";
+
 		this.chartData = this.calculateChartData();
 		this.cdr.detectChanges();
 	}

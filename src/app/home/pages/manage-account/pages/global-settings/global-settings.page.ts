@@ -25,7 +25,7 @@ export class GlobalSettingsPage implements OnInit, OnDestroy {
 		private readonly translatePipe: AppTranslatePipe
 	) {}
 
-	ngOnInit() {
+	public ngOnInit(): void {
 		const storedKpiType = localStorage.getItem("selectedKpiType");
 
 		this.kpiTypesOptions = CHART_TYPES;

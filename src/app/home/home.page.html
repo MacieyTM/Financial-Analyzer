@@ -12,18 +12,29 @@
 
 <ion-content>
 	<ion-card>
-		<ion-card-header>
-			<ion-text appTranslate="mobile_application_for_financial_management"
+		<ion-card-header class="ion-no-padding">
+			@if (userName.length > 0 && userNick.length === 0) {
+			<ion-text class="welcome-text">Welcome {{ userName }}!</ion-text>
+			} @else if (userName.length === 0 && userNick.length > 0) {
+			<ion-text class="welcome-text">Welcome ({{ userNick }})!</ion-text>
+			} @else if (userName.length > 0 && userNick.length > 0) {
+			<ion-text class="welcome-text">Welcome {{ userName }} ({{userNick}})!</ion-text>
+			} @else {
+			<ion-text class="welcome-text">Welcome!</ion-text>
+			}
+			<!-- <div class="amount-wrapper">
+				<ion-text appTranslate="current_bank_account_amount">Current bank account amount:</ion-text>
+				<span>{{ bankAccountAmount() }}</span>
+				<ion-text>PLN</ion-text>
+			</div> -->
+			<!-- TODO - move to mat-dialog welcome -->
+			<!-- <ion-text appTranslate="mobile_application_for_financial_management"
 				>Mobile application for financial management</ion-text
-			>
+			> -->
+			<!-- Terms and Conditions -->
 		</ion-card-header>
 		<mat-divider />
-		<div class="amount-wrapper">
-			<ion-text appTranslate="current_bank_account_amount">Current bank account amount:</ion-text>
-			<span>{{ bankAccountAmount() }}</span>
-			<ion-text>PLN</ion-text>
-		</div>
-		<ion-card-content>
+		<ion-card-content class="ion-no-padding">
 			@if (chartHasData()) {
 			<canvas
 				baseChart
@@ -34,9 +45,19 @@
 			>
 			</canvas>
 			<div class="buttons-wrapper">
-				<ion-button routerLink="/home/kpi-trends" color="primary" appTranslate="see_your_kpi"
+				<ion-button routerLink="/home/kpi-trends" color="tertiary" appTranslate="see_your_kpi"
 					>See your KPI</ion-button
 				>
+				<!-- <ion-button
+					routerLink="/home/kpi-trends/add-kpi-values"
+					color="tertiary"
+					appTranslate="add_kpi_values"
+					>Add KPI values</ion-button
+				> -->
+			</div>
+			} @else {
+			<ion-text appTranslate="no_data_available">No data available</ion-text>
+			<div class="buttons-wrapper">
 				<ion-button
 					routerLink="/home/kpi-trends/add-kpi-values"
 					color="tertiary"
@@ -44,20 +65,22 @@
 					>Add KPI values</ion-button
 				>
 			</div>
-			} @else {
-			<ion-text appTranslate="no_data_available">No data available</ion-text>
-			<ion-button
-				routerLink="/home/kpi-trends/add-kpi-values"
-				color="tertiary"
-				appTranslate="add_kpi_values"
-				>Add KPI values</ion-button
-			>
 			}
 		</ion-card-content>
+		<ion-fab class="help-fab">
+			<ion-fab-button (click)="toggleHelp()">
+				@if (!helpVisible()) {
+				<ion-icon name="help" />
+				} @else {
+				<ion-icon name="eye-off" />
+				}
+			</ion-fab-button>
+		</ion-fab>
 	</ion-card>
 
 	<ion-item lines="none" class="dark-mode-container">
-		<ion-icon name="contrast" />
+		<!-- <ion-icon name="contrast" /> -->
+		<ion-icon name="moon" />
 		<ion-label appTranslate="dark_mode">Dark mode</ion-label>
 		<ion-text appTranslate="off">Off</ion-text>
 		<div class="toggle-wrapper">
@@ -66,7 +89,7 @@
 		<ion-text appTranslate="on">On</ion-text>
 	</ion-item>
 
-	<ion-fab slot="fixed" horizontal="start" vertical="bottom">
+	<!-- <ion-fab slot="fixed" horizontal="start" vertical="bottom">
 		<ion-fab-button (click)="toggleHelp()">
 			@if (!helpVisible()) {
 			<ion-icon name="help" />
@@ -74,7 +97,7 @@
 			<ion-icon name="eye-off" />
 			}
 		</ion-fab-button>
-	</ion-fab>
+	</ion-fab> -->
 
 	<ion-fab slot="fixed" horizontal="end" vertical="bottom">
 		<ion-fab-button routerLink="/home/kpi-trends/add-kpi-values">

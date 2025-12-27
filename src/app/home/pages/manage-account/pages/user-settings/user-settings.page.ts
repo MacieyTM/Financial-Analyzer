@@ -94,9 +94,14 @@ export class UserSettingsPage implements OnInit {
 	}
 
 	protected save(name: string, surname: string, nick: string): void {
+		const userName = name;
+		const userNick = nick;
 		const fullUserName = nick ? `${name} ${surname} (${nick})` : `${name} ${surname}`;
 
+		localStorage.setItem("userName", userName);
+		localStorage.setItem("userNick", userNick);
 		localStorage.setItem("userFullName", fullUserName);
+
 		this.userSettingsChanged = true;
 		this.navController.navigateBack("home");
 	}

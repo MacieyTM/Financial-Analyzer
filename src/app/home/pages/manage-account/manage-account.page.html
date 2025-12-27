@@ -57,6 +57,14 @@
 				<ion-icon name="chevron-forward" class="second-icon" />
 			</div>
 			<mat-divider />
+			<div class="settings-item" routerLink="edit-data-settings">
+				<div class="square">
+					<ion-icon name="pencil" class="first-icon" />
+				</div>
+				<ion-text>Edit data settings</ion-text>
+				<ion-icon name="chevron-forward" class="second-icon" />
+			</div>
+			<mat-divider />
 			<div class="settings-item" routerLink="global-settings">
 				<div class="square">
 					<ion-icon name="earth" class="first-icon" />
@@ -64,14 +72,14 @@
 				<ion-text appTranslate="global_settings">Global settings</ion-text>
 				<ion-icon name="chevron-forward" class="second-icon" />
 			</div>
-			<!-- <mat-divider />
-			<div class="settings-item" (click)="alert()">
+			<mat-divider />
+			<div class="settings-item" routerLink="data-settings">
 				<div class="square">
-					<ion-icon name="contrast" class="first-icon" />
+					<ion-icon name="settings" class="first-icon" />
 				</div>
-				<ion-text appTranslate="theme_settings">Theme settings</ion-text>
+				<ion-text>Data settings</ion-text>
 				<ion-icon name="chevron-forward" class="second-icon" />
-			</div> -->
+			</div>
 		</ion-card-content>
 	</ion-card>
 </ion-content>

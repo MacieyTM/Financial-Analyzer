@@ -29,6 +29,7 @@ ion-content {
 	--background: var(--ion-color-secondary);
 
 	ion-card {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -36,48 +37,48 @@ ion-content {
 		gap: 0.75rem;
 
 		ion-card-header {
-			margin-top: 1rem;
+			padding: 0.25rem;
 
-			ion-text {
+			ion-text.welcome-text {
+				padding-top: 0.25rem;
 				font-weight: 400;
 				font-size: 1.5rem;
 				text-align: center;
 				letter-spacing: 0.1rem;
 				color: var(--ion-color-text-primary);
 			}
-		}
 
-		.amount-wrapper {
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: center;
-			gap: 0.25rem;
-			padding: 0 0.5rem;
-			color: var(--ion-color-text-primary);
+			// .amount-wrapper {
+			// 	margin-top: 0.75rem;
+			// 	display: flex;
+			// 	flex-direction: row;
+			// 	justify-content: center;
+			// 	align-items: center;
+			// 	gap: 0.25rem;
+			// 	padding: 0 0.5rem;
+			// 	color: var(--ion-color-text-primary);
 
-			span {
-				font-size: 1.5rem;
-				font-weight: 700;
-			}
+			// 	span {
+			// 		font-size: 1.5rem;
+			// 		font-weight: 700;
+			// 	}
+			// }
 		}
 
 		canvas {
-			width: 15rem !important;
-			height: 15rem !important;
+			margin-top: -0.5rem;
+			width: 17.5rem !important;
+			height: 17.5rem !important;
 		}
 
 		.buttons-wrapper {
+			// margin-top: -0.5rem;
 			display: flex;
 			flex-direction: row;
 			justify-content: center;
 			align-items: center;
 			gap: 1rem;
-
-			ion-button {
-				height: 3rem;
-				letter-spacing: 0.05rem;
-			}
+			padding-bottom: 0.5rem;
 		}
 
 		ion-card-content {
@@ -86,6 +87,12 @@ ion-content {
 			justify-content: center;
 			align-items: center;
 			gap: 1rem;
+		}
+
+		.help-fab {
+			position: absolute;
+			left: 0.5rem;
+			bottom: 0.5rem;
 		}
 	}
 
@@ -117,7 +124,7 @@ ion-content {
 		width: 1.25rem;
 		height: 1.25rem;
 		font-size: 1.25rem;
-		color: var(--ion-color-dark);
+		color: var(--ion-color-text-primary);
 
 		&.help-first {
 			bottom: 10.5rem;
@@ -162,9 +169,12 @@ ion-item.dark-mode-container {
 	// --inner-border-width: 0;
 	--background: var(--ion-color-text-secondary);
 	margin-left: 1rem;
-	line-height: 2rem;
 	border-radius: 0.75rem;
-	width: calc(100% - 2rem);
+	width: calc(100% - 5rem);
+
+	@media screen and (min-width: 25rem) {
+		width: 20rem;
+	}
 
 	ion-icon {
 		width: 1.25rem;
@@ -182,6 +192,7 @@ ion-item.dark-mode-container {
 	}
 
 	ion-text {
+		line-height: 4rem;
 		font-size: 0.75rem;
 		color: var(--ion-color-text-primary);
 	}
