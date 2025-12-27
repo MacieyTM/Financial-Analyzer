@@ -16,9 +16,21 @@ ion-content {
 				gap: 0.5rem;
 
 				ion-button {
+					--border-radius: 0.25rem;
 					font-size: 1rem;
+
+					&.clear-btn {
+						--background: var(--ion-color-danger);
+						color: var(--ion-color-light);
+					}
 				}
 			}
 		}
 	}
+}
+
+::ng-deep .danger-btn {
+	color: var(--ion-color-light) !important;
+	background: var(--ion-color-danger) !important;
+	border: 1px solid var(--ion-color-light) !important;
 }

@@ -212,7 +212,7 @@ export class KpiTrendsPage implements OnInit {
 			maintainAspectRatio: false,
 			plugins: {
 				legend: {
-					display: true,
+					display: false,
 				},
 				tooltip: {
 					enabled: false,
