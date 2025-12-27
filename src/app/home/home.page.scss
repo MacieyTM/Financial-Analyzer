@@ -142,7 +142,7 @@ ion-content {
 
 ::ng-deep .custom-action-sheet {
 	--button-border-radius: 0.75rem;
-	--background: var(--ion-color-light);
+	--background: var(--ion-color-medium);
 	--color: var(--ion-color-text-primary);
 
 	.action-sheet-group {
@@ -204,9 +204,9 @@ ion-item.dark-mode-container {
 		padding: 0 0.5rem;
 
 		ion-toggle {
-			--track-background: var(--ion-color-medium);
-			--track-background-checked: var(--ion-color-tertiary);
 			--handle-background: var(--ion-color-light);
+			--track-background: var(--ion-color-secondary);
+			--track-background-checked: var(--ion-color-tertiary);
 			--handle-background-checked: var(--ion-color-primary);
 			zoom: 0.9;
 		}
