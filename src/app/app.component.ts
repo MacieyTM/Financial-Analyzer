@@ -2,6 +2,8 @@ import { Component } from "@angular/core";
 import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
 import { Platform } from "@ionic/angular";
 import { Capacitor } from "@capacitor/core";
+import { MatDialog } from "@angular/material/dialog";
+import { TermsAndConditionsComponent } from "./components/terms-and-condtions/terms-and-conditions.component";
 
 @Component({
 	selector: "app-root",
@@ -9,7 +11,7 @@ import { Capacitor } from "@capacitor/core";
 	styleUrls: ["app.component.scss"],
 })
 export class AppComponent {
-	constructor(private readonly platform: Platform) {
+	constructor(private readonly platform: Platform, private readonly dialog: MatDialog) {
 		const dark = localStorage.getItem("darkMode") === "true";
 		document.body.classList.toggle("dark", dark);
 	}
@@ -23,5 +25,13 @@ export class AppComponent {
 		// if (this.platform.is("android") || this.platform.is("ios")) {
 		// 	await ScreenOrientation.lock({ type: OrientationType.PORTRAIT });
 		// }
+
+		const isFirstLaunch = localStorage.getItem("firstLaunchDone");
+		if (!isFirstLaunch) {
+			this.dialog.open(TermsAndConditionsComponent, {
+				width: "90vw",
+				disableClose: true,
+			});
+		}
 	}
 }

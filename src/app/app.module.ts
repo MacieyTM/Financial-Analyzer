@@ -15,6 +15,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatDialogModule } from "@angular/material/dialog";
 import { IonicStorageModule } from "@ionic/storage-angular";
+import { UiModule } from "./ui.module";
 
 export function createTranslateLoader(http: HttpClient) {
 	return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -36,6 +37,7 @@ const initializeApp = () => {
 		MatIconModule,
 		MatDividerModule,
 		MatDialogModule,
+		UiModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,

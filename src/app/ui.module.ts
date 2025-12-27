@@ -12,12 +12,19 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatDialogModule } from "@angular/material/dialog";
 import { HomeHeaderComponent } from "./components/home-header/home-header.component";
 import { HomeFooterComponent } from "./components/home-footer/home-footer.component";
+import { TermsAndConditionsComponent } from "./components/terms-and-condtions/terms-and-conditions.component";
 
 const PIPES = [AppTranslatePipe];
 const DIRECTIVES = [TranslateDirective];
 
 @NgModule({
-	declarations: [HomeHeaderComponent, HomeFooterComponent, ...PIPES, ...DIRECTIVES],
+	declarations: [
+		HomeHeaderComponent,
+		HomeFooterComponent,
+		TermsAndConditionsComponent,
+		...PIPES,
+		...DIRECTIVES,
+	],
 	exports: [
 		MatFormFieldModule,
 		MatSelectModule,
@@ -25,6 +32,7 @@ const DIRECTIVES = [TranslateDirective];
 		MatDividerModule,
 		HomeHeaderComponent,
 		HomeFooterComponent,
+		TermsAndConditionsComponent,
 		...PIPES,
 		...DIRECTIVES,
 	],
