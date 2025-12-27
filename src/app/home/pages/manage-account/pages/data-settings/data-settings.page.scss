@@ -22,6 +22,16 @@ ion-content {
 					&.clear-btn {
 						--background: var(--ion-color-danger);
 						color: var(--ion-color-light);
+
+						ion-icon {
+							width: 1.2rem;
+							height: 1.2rem;
+							font-size: 1.2rem;
+						}
+
+						span {
+							padding-left: 0.5rem;
+						}
 					}
 				}
 			}
