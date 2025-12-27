@@ -3,20 +3,21 @@
 <ion-content>
 	<ion-card>
 		<ion-card-header>
-			<div class="text-icon-wrapper">
-				<ion-icon name="stats-chart" />
-				<ion-text appTranslate="this_is_kpi_trends_page">This is KPI Trends page</ion-text>
-			</div>
-
 			@if (hasKpiData) {
-			<ion-icon id="date-question-trigger" name="help-circle" />
 			<div class="date-wrapper">
-				<ion-text appTranslate="choose_start_date">Choose start date</ion-text>
 				<div class="date-btn">
 					<ion-datetime-button slot="date-target" datetime="dateFrom" />
 					<ion-icon name="calendar" />
 				</div>
+				<ion-text appTranslate="choose_start_date">Choose start date</ion-text>
 			</div>
+			}
+			<div class="text-icon-wrapper">
+				<ion-icon name="stats-chart" />
+				<ion-text appTranslate="this_is_kpi_trends_page">This is KPI Trends page</ion-text>
+			</div>
+			<ion-icon id="date-question-trigger" name="help-circle" />
+			@if (hasKpiData) {
 			<div class="date-wrapper">
 				<ion-text>Choose end date</ion-text>
 				<div class="date-btn">

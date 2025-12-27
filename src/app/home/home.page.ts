@@ -124,8 +124,13 @@ export class HomePage {
 	private refreshData(): void {
 		this.userName = localStorage.getItem("userName") || "";
 		this.userNick = localStorage.getItem("userNick") || "";
+		this.isDarkMode.set(localStorage.getItem("darkMode") === "true");
+		this.isDarkMode()
+			? document.body.classList.add("dark")
+			: document.body.classList.remove("dark");
 
 		this.chartData = this.calculateChartData();
+
 		this.cdr.detectChanges();
 	}
 }
