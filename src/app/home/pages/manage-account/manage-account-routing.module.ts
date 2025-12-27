@@ -26,6 +26,11 @@ const routes: Routes = [
 				(m) => m.GlobalSettingsPageModule
 			),
 	},
+	{
+		path: "data-settings",
+		loadChildren: () =>
+			import("./pages/data-settings/data-settings.module").then((m) => m.DataSettingsPageModule),
+	},
 ];
 
 @NgModule({

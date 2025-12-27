@@ -1,0 +1,15 @@
+<app-home-header defaultHref="manage-account" headerTitle="Data Settings" />
+
+<ion-content>
+	<ion-card>
+		<ion-card-header>
+			<ion-text>Clear all your data and user settings</ion-text>
+		</ion-card-header>
+		<ion-card-content>
+			<div class="buttons-wrapper">
+				<ion-button fill="outline" (click)="cancel()" appTranslate="cancel">Cancel</ion-button>
+				<ion-button color="danger" (click)="openAlertDialog()">Clear</ion-button>
+			</div>
+		</ion-card-content>
+	</ion-card>
+</ion-content>
