@@ -7,6 +7,7 @@ ion-content {
 			flex-direction: row;
 			justify-content: space-between;
 			align-items: center;
+			gap: 0.5rem;
 
 			.text-icon-wrapper {
 				display: flex;
@@ -26,6 +27,13 @@ ion-content {
 					font-size: 1rem;
 					font-weight: 700;
 				}
+			}
+
+			ion-icon#date-question-trigger {
+				width: 1.25rem;
+				height: 1.25rem;
+				font-size: 1.25rem;
+				color: var(--ion-color-medium);
 			}
 
 			.date-wrapper {
@@ -56,13 +64,6 @@ ion-content {
 						padding-right: 0.5rem;
 						color: var(--ion-color-tertiary);
 					}
-				}
-
-				ion-icon#date-question-trigger {
-					width: 1.25rem;
-					height: 1.25rem;
-					font-size: 1.25rem;
-					color: var(--ion-color-medium);
 				}
 			}
 		}

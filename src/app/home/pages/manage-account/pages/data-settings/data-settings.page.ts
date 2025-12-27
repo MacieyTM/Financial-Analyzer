@@ -57,6 +57,7 @@ export class DataSettingsPage implements OnInit, OnDestroy {
 					},
 					{
 						text: "Clear",
+						cssClass: "danger-btn",
 						handler: () => this.clear(),
 					},
 				],
