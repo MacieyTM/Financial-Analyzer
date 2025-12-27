@@ -9,13 +9,20 @@
 			</div>
 
 			@if (hasKpiData) {
+			<ion-icon id="date-question-trigger" name="help-circle" />
 			<div class="date-wrapper">
 				<ion-text appTranslate="choose_start_date">Choose start date</ion-text>
 				<div class="date-btn">
 					<ion-datetime-button slot="date-target" datetime="dateFrom" />
 					<ion-icon name="calendar" />
 				</div>
-				<ion-icon id="date-question-trigger" name="help-circle" />
+			</div>
+			<div class="date-wrapper">
+				<ion-text>Choose end date</ion-text>
+				<div class="date-btn">
+					<ion-datetime-button slot="date-target" datetime="dateTo" />
+					<ion-icon name="calendar" />
+				</div>
 			</div>
 			}
 		</ion-card-header>
@@ -62,13 +69,35 @@
 
 <ion-modal [keepContentsMounted]="true">
 	<ng-template>
-		<ion-datetime id="dateFrom" presentation="date" displayFormat="MMMM YY" />
+		<ion-datetime
+			id="dateFrom"
+			presentation="month"
+			[value]="startMonth() ? formatMonthValue(startMonth()) : null"
+			[min]="'2026-01'"
+			[max]="endMonth() ? formatMonthValue(endMonth()) : '2026-12'"
+			(ionChange)="onStartMonthChange($event)"
+		/>
+
+		<!-- <ion-datetime id="dateFrom" presentation="date" displayFormat="MMMM YY" /> -->
 		<!-- [locale]="datetimeLocale$ | async"
 						[firstDayOfWeek]="(datetimeLocale$ | async) === 'en-US' ? 7 : 1"
 						[min]="isEventCompleted ? undefined : defaultDate"
 						[max]="isEventCompleted ? defaultDate : undefined"
 						formControlName="date"
 						(ionChange)="transformDate()" -->
+	</ng-template>
+</ion-modal>
+
+<ion-modal [keepContentsMounted]="true">
+	<ng-template>
+		<ion-datetime
+			id="dateTo"
+			presentation="month"
+			[value]="endMonth() ? formatMonthValue(endMonth()) : null"
+			[min]="startMonth() ? formatMonthValue(startMonth()) : '2026-01'"
+			[max]="'2026-12'"
+			(ionChange)="onEndMonthChange($event)"
+		/>
 	</ng-template>
 </ion-modal>
 
