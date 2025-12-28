@@ -37,12 +37,14 @@ export class LanguageSettingsPage implements OnInit, OnDestroy {
 	) {}
 
 	public async ngOnInit(): Promise<void> {
-		this.selectedLanguage =
-			localStorage.getItem("selectedLang") ||
-			localStorage.getItem("deviceLanguage") ||
-			localStorage.getItem("browserLanguage") ||
-			this.translateService.getSystemLanguage() ||
-			"en";
+		// this.selectedLanguage =
+		// 	localStorage.getItem("selectedLang") ||
+		// 	localStorage.getItem("deviceLanguage") ||
+		// 	localStorage.getItem("browserLanguage") ||
+		// 	this.translateService.getSystemLanguage() ||
+		// 	"en";
+
+		this.selectedLanguage = localStorage.getItem("selectedLang") || "en";
 
 		if (!this.translate.getLangs().includes(this.selectedLanguage)) {
 			this.selectedLanguage = "en";

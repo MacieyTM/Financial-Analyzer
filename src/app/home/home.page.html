@@ -20,7 +20,7 @@
 			} @else if (userName.length > 0 && userNick.length > 0) {
 			<ion-text class="welcome-text">Welcome {{ userName }} ({{userNick}})!</ion-text>
 			} @else {
-			<ion-text class="welcome-text">Welcome!</ion-text>
+			<ion-text class="welcome-text" appTranslate="welcome">Welcome!</ion-text>
 			}
 			<!-- <div class="amount-wrapper">
 				<ion-text appTranslate="current_bank_account_amount">Current bank account amount:</ion-text>

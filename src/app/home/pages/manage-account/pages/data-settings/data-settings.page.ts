@@ -35,28 +35,18 @@ export class DataSettingsPage implements OnInit, OnDestroy {
 	protected openAlertDialog(): void {
 		this.alertController
 			.create({
-				// header: this.translatePipe.transform("Confirm Clear", "confirm_clear"),
-				// message: this.translatePipe.transform(
-				// 	"Are you sure you want to clear all data and user settings?",
-				// 	"are_you_sure_clear"
-				// ),
-				header: "Confirm Clear",
-				message: "Are you sure you want to clear all data and user settings?",
+				header: this.translatePipe.transform("Confirm Clear", "confirm_clear"),
+				message: this.translatePipe.transform(
+					"Are you sure you want to clear all data and user settings?",
+					"are_you_sure_clear"
+				),
 				buttons: [
-					// {
-					// 	text: this.translatePipe.transform("Cancel", "cancel"),
-					// 	role: "cancel",
-					// },
-					// {
-					// 	text: this.translatePipe.transform("Clear", "clear"),
-					// 	handler: () => this.clear(),
-					// },
 					{
-						text: "Cancel",
+						text: this.translatePipe.transform("Cancel", "cancel"),
 						role: "cancel",
 					},
 					{
-						text: "Clear",
+						text: this.translatePipe.transform("Clear", "clear"),
 						cssClass: "danger-btn",
 						handler: () => this.clear(),
 					},
@@ -73,12 +63,11 @@ export class DataSettingsPage implements OnInit, OnDestroy {
 
 	private async showSuccessToast(): Promise<void> {
 		const toast = await this.toastController.create({
-			// header: 'Success',
-			// message: this.translatePipe.transform(
-			// 	"Chart data type changed successfully!",
-			// 	"chart_data_type_changed_successfully"
-			// ),
-			message: "All data and user settings have been cleared successfully!",
+			// header: "Success",
+			message: this.translatePipe.transform(
+				"All data and user settings have been cleared successfully!",
+				"all_data_and_user_settings_cleared_successfully"
+			),
 			duration: 3000,
 			color: "success",
 			icon: "checkmark-circle",
