@@ -16,6 +16,7 @@ export class AppTranslateService {
 		// 	localStorage.getItem("browserLanguage") ||
 		// 	this.getSystemLanguage() ||
 		// 	"en";
+
 		const savedLanguage: SupportedLanguage = localStorage.getItem("selectedLang") || "en";
 
 		if (!this.translateService.getLangs().includes(savedLanguage)) {

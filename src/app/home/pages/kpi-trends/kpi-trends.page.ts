@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit, signal } from "@angular/core";
-import { Chart, ChartConfiguration } from "chart.js";
+import { ChartConfiguration } from "chart.js";
 import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
 import { Capacitor } from "@capacitor/core";
 import { SupportedChartTypes } from "src/app/models/chart.model";
 import { CHART_BORDER_COLOR } from "../../home.page";
-// import zoomPlugin from "chartjs-plugin-zoom";
-
-// Chart.register(zoomPlugin);
+import { SupportedLanguage } from "src/app/models/languages.model";
+import { TranslateService } from "@ngx-translate/core";
 
 export interface KpiEntry {
 	month: string;
@@ -34,6 +33,7 @@ export class KpiTrendsPage implements OnInit {
 	// protected chartOptionsDoughnut: ChartConfiguration<"doughnut">["options"];
 
 	protected hasKpiData = false;
+	protected datetimeLocale: string;
 
 	protected readonly startMonth = signal<Date | null>(null);
 	protected readonly endMonth = signal<Date | null>(null);
@@ -41,6 +41,7 @@ export class KpiTrendsPage implements OnInit {
 	private data: number[];
 	private labelMonths: string[];
 	private allKpiData: KpiEntry[] = [];
+	private savedLanguage: SupportedLanguage;
 
 	private readonly START_YEAR = 2026;
 	private readonly END_YEAR = 2026;
@@ -58,6 +59,10 @@ export class KpiTrendsPage implements OnInit {
 		"november",
 		"december",
 	];
+
+	constructor(private readonly translate: TranslateService) {
+		this.initializeLanguage();
+	}
 
 	public ngOnInit(): void {
 		if (Capacitor.getPlatform() !== "web") {
@@ -134,6 +139,79 @@ export class KpiTrendsPage implements OnInit {
 		const year = date.getFullYear();
 		const month = String(date.getMonth() + 1).padStart(2, "0");
 		return `${year}-${month}`;
+	}
+
+	private initializeLanguage(): void {
+		// this.selectedLanguage =
+		// 	localStorage.getItem("selectedLang") ||
+		// 	localStorage.getItem("deviceLanguage") ||
+		// 	localStorage.getItem("browserLanguage") ||
+		// 	this.translateService.getSystemLanguage() ||
+		// 	"en";
+
+		this.savedLanguage = localStorage.getItem("selectedLang") || "en";
+
+		if (!this.translate.getLangs().includes(this.savedLanguage)) {
+			this.savedLanguage = "en";
+		}
+
+		this.setLanguage(this.savedLanguage);
+	}
+
+	private setLanguage(savedLanguage: SupportedLanguage): void {
+		let locale = "en-US";
+
+		switch (savedLanguage) {
+			case "en":
+				locale = "en-US";
+				break;
+			case "pl":
+				locale = "pl-PL";
+				break;
+			case "de":
+				locale = "de-DE";
+				break;
+			case "fr":
+				locale = "fr-FR";
+				break;
+			case "it":
+				locale = "it-IT";
+				break;
+			case "es":
+				locale = "es-ES";
+				break;
+			case "zh":
+				locale = "zh-CN";
+				break;
+			case "hi":
+				locale = "hi-IN";
+				break;
+			case "pt":
+				locale = "pt-PT";
+				break;
+			case "ru":
+				locale = "ru-RU";
+				break;
+			case "ja":
+				locale = "ja-JP";
+				break;
+			case "ko":
+				locale = "ko-KR";
+				break;
+			case "tr":
+				locale = "tr-TR";
+				break;
+			case "nl":
+				locale = "nl-NL";
+				break;
+			case "uk":
+				locale = "uk-UA";
+				break;
+			default:
+				locale = "en-US";
+		}
+
+		this.datetimeLocale = locale;
 	}
 
 	private initializeChart(): void {

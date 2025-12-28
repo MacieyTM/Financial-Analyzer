@@ -73,19 +73,12 @@
 		<ion-datetime
 			id="dateFrom"
 			presentation="month"
+			[locale]="datetimeLocale"
 			[value]="startMonth() ? formatMonthValue(startMonth()) : null"
 			[min]="'2026-01'"
 			[max]="endMonth() ? formatMonthValue(endMonth()) : '2026-12'"
 			(ionChange)="onStartMonthChange($event)"
 		/>
-
-		<!-- <ion-datetime id="dateFrom" presentation="date" displayFormat="MMMM YY" /> -->
-		<!-- [locale]="datetimeLocale$ | async"
-						[firstDayOfWeek]="(datetimeLocale$ | async) === 'en-US' ? 7 : 1"
-						[min]="isEventCompleted ? undefined : defaultDate"
-						[max]="isEventCompleted ? defaultDate : undefined"
-						formControlName="date"
-						(ionChange)="transformDate()" -->
 	</ng-template>
 </ion-modal>
 
@@ -94,6 +87,7 @@
 		<ion-datetime
 			id="dateTo"
 			presentation="month"
+			[locale]="datetimeLocale"
 			[value]="endMonth() ? formatMonthValue(endMonth()) : null"
 			[min]="startMonth() ? formatMonthValue(startMonth()) : '2026-01'"
 			[max]="'2026-12'"
