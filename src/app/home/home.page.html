@@ -12,13 +12,34 @@
 
 <ion-content>
 	<ion-card>
+		<!-- <ion-text
+        appTranslate="tabs.gateways-page.no_gateways_commissioned"
+        [appTranslateParams]="{ plant: plantName$ | async }"
+        >You have no gateways commissioned to the
+        {{ plantName$ | async }} plant.</ion-text
+      > -->
 		<ion-card-header class="ion-no-padding">
 			@if (userName.length > 0 && userNick.length === 0) {
-			<ion-text class="welcome-text">Welcome {{ userName }}!</ion-text>
+			<ion-text
+				class="welcome-text"
+				appTranslate="welcome_username"
+				[appTranslateParams]="{ username: userName }"
+				>Welcome {{ userName }}!</ion-text
+			>
 			} @else if (userName.length === 0 && userNick.length > 0) {
-			<ion-text class="welcome-text">Welcome ({{ userNick }})!</ion-text>
+			<ion-text
+				class="welcome-text"
+				appTranslate="welcome_usernick"
+				[appTranslateParams]="{ usernick: userNick }"
+				>Welcome ({{ userNick }})!</ion-text
+			>
 			} @else if (userName.length > 0 && userNick.length > 0) {
-			<ion-text class="welcome-text">Welcome {{ userName }} ({{userNick}})!</ion-text>
+			<ion-text
+				class="welcome-text"
+				appTranslate="welcome_username_usernick"
+				[appTranslateParams]="{ username: userName, usernick: userNick }"
+				>Welcome {{ userName }} ({{userNick}})!</ion-text
+			>
 			} @else {
 			<ion-text class="welcome-text" appTranslate="welcome">Welcome!</ion-text>
 			}
