@@ -6,6 +6,8 @@ import { SupportedChartTypes } from "src/app/models/chart.model";
 import { CHART_BORDER_COLOR } from "../../home.page";
 import { SupportedLanguage } from "src/app/models/languages.model";
 import { TranslateService } from "@ngx-translate/core";
+import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
+import { SupportedLabelMonths } from "src/app/models/kpi.model";
 
 export interface KpiEntry {
 	month: string;
@@ -39,7 +41,7 @@ export class KpiTrendsPage implements OnInit {
 	protected readonly endMonth = signal<Date | null>(null);
 
 	private data: number[];
-	private labelMonths: string[];
+	private chartLabelMonths: string[];
 	private allKpiData: KpiEntry[] = [];
 	private savedLanguage: SupportedLanguage;
 
@@ -60,7 +62,10 @@ export class KpiTrendsPage implements OnInit {
 		"december",
 	];
 
-	constructor(private readonly translate: TranslateService) {
+	constructor(
+		private readonly translate: TranslateService,
+		private readonly translatePipe: AppTranslatePipe
+	) {
 		this.initializeLanguage();
 	}
 
@@ -119,7 +124,7 @@ export class KpiTrendsPage implements OnInit {
 			return true;
 		});
 
-		this.labelMonths = filteredData.map((item) => this.capitalize(item.month));
+		this.chartLabelMonths = filteredData.map((item) => this.capitalize(item.month));
 		this.data = filteredData.map((item) => item.money);
 
 		if (this.data.length > 0) {
@@ -216,7 +221,7 @@ export class KpiTrendsPage implements OnInit {
 
 	private initializeChart(): void {
 		this.chartDataLine = {
-			labels: this.labelMonths,
+			labels: this.translateChartLabelMonths(),
 			datasets: [
 				{
 					fill: false,
@@ -274,7 +279,7 @@ export class KpiTrendsPage implements OnInit {
 		};
 
 		this.chartDataBar = {
-			labels: this.labelMonths,
+			labels: this.translateChartLabelMonths(),
 			datasets: [
 				{
 					data: this.data,
@@ -309,7 +314,7 @@ export class KpiTrendsPage implements OnInit {
 		};
 
 		// this.chartDataDoughnut = {
-		// 	labels: this.labelMonths,
+		// 	labels: this.translateChartLabelMonths(),
 		// 	datasets: [
 		// 		{
 		// 			data: this.data,
@@ -373,5 +378,16 @@ export class KpiTrendsPage implements OnInit {
 		// 		},
 		// 	},
 		// };
+	}
+
+	private translateChartLabelMonths(): string[] {
+		const translated = this.chartLabelMonths.map((chartLabelMonth) =>
+			this.translatePipe.transform(
+				chartLabelMonth,
+				chartLabelMonth.toLowerCase() as SupportedLabelMonths
+			)
+		);
+
+		return translated;
 	}
 }
