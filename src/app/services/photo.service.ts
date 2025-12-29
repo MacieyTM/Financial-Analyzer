@@ -4,6 +4,7 @@ import { Filesystem, Directory } from "@capacitor/filesystem";
 import { Preferences } from "@capacitor/preferences";
 import { Capacitor } from "@capacitor/core";
 import { ActionSheetController, ToastController } from "@ionic/angular";
+import { TranslateService } from "@ngx-translate/core";
 
 export interface UserPhoto {
 	filepath: string;
@@ -21,25 +22,27 @@ export class PhotoService {
 
 	constructor(
 		private readonly actionSheetController: ActionSheetController,
-		private readonly toastController: ToastController
+		private readonly toastController: ToastController,
+		private readonly translate: TranslateService
 	) {}
 
 	public async addNewToGallery(): Promise<void> {
 		if (this.isMobile()) {
 			const actionSheet = await this.actionSheetController.create({
-				header: "Choose a source",
+				header: this.translate.instant("choose_a_source"),
 				cssClass: "custom-action-sheet",
 				buttons: [
 					{
 						icon: "camera",
-						text: "Take a Photo",
+						text: this.translate.instant("take_a_photo"),
 						handler: async () => {
 							await this.capturePhotoFromCamera();
 						},
 					},
 					{
 						icon: "images",
-						text: "Choose from Gallery",
+						text: this.translate.instant("choose_from_gallery"),
+
 						handler: async () => {
 							await this.capturePhotoFromGallery();
 						},
@@ -195,7 +198,8 @@ export class PhotoService {
 
 	private async showSuccessToastUpload(): Promise<void> {
 		const toast = await this.toastController.create({
-			message: "Photo uploaded successfully!",
+			// header: 'Success',
+			message: this.translate.instant("photo_uploaded_successfully"),
 			duration: 3000,
 			color: "success",
 			icon: "checkmark-circle",
@@ -205,7 +209,8 @@ export class PhotoService {
 
 	private async showSuccessToastDelete(): Promise<void> {
 		const toast = await this.toastController.create({
-			message: "Photo deleted successfully!",
+			// header: 'Success',
+			message: this.translate.instant("photo_deleted_successfully"),
 			duration: 3000,
 			color: "success",
 			icon: "checkmark-circle",
@@ -215,7 +220,8 @@ export class PhotoService {
 
 	private async showErrorToastUpload(): Promise<void> {
 		const toast = await this.toastController.create({
-			message: "Failed to upload a photo!",
+			// header: 'Error',
+			message: this.translate.instant("failed_to_upload_a_photo"),
 			duration: 3000,
 			color: "danger",
 			icon: "close-circle",
@@ -225,7 +231,8 @@ export class PhotoService {
 
 	private async showErrorToastDelete(): Promise<void> {
 		const toast = await this.toastController.create({
-			message: "Failed to delete a photo!",
+			// header: 'Error',
+			message: this.translate.instant("failed_to_delete_a_photo"),
 			duration: 3000,
 			color: "danger",
 			icon: "close-circle",

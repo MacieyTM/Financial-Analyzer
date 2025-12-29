@@ -1,15 +1,28 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, signal } from "@angular/core";
-import { CHART_LABEL_MONTHS, CHART_LABEL_QUARTERS } from "src/app/models/chart.model";
+import {
+	CHART_LABEL_MONTHS,
+	CHART_LABEL_QUARTERS,
+	SupportedChartTypes,
+} from "src/app/models/chart.model";
 import { PhotoService } from "../services/photo.service";
-import { ChartConfiguration } from "chart.js";
+import { Chart, ChartConfiguration } from "chart.js";
 import { KpiEntry } from "./pages/kpi-trends/kpi-trends.page";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+// import zoomPlugin from "chartjs-plugin-zoom";
 
-export const BORDER_COLOR = getComputedStyle(document.documentElement).getPropertyValue(
-	"--ion-color-primary"
-);
+// Chart.register(zoomPlugin);
+Chart.register(ChartDataLabels);
 
-// const BANK_ACCOUNT_AMOUNT: number = 1234567.89;
-const BANK_ACCOUNT_AMOUNT: number = +localStorage.getItem("selectedMoney");
+export const DEFAULT_CHART_TYPE: SupportedChartTypes = "bar";
+export const CHART_BORDER_COLOR: string = getComputedStyle(
+	document.documentElement
+).getPropertyValue("--ion-color-primary");
+export const CHART_LABEL_COLOR: string = getComputedStyle(
+	document.documentElement
+).getPropertyValue("--ion-color-dark");
+
+// const BANK_ACCOUNT_AMOUNT: number = 107800.22;
+// const BANK_ACCOUNT_AMOUNT: number = +localStorage.getItem("selectedMoney");
 
 @Component({
 	selector: "app-home",
@@ -19,9 +32,12 @@ const BANK_ACCOUNT_AMOUNT: number = +localStorage.getItem("selectedMoney");
 })
 export class HomePage {
 	protected readonly helpVisible = signal<boolean>(false);
-	protected readonly bankAccountAmount = signal<string>(BANK_ACCOUNT_AMOUNT.toLocaleString());
+	protected readonly isDarkMode = signal(document.body.classList.contains("dark"));
+	// protected readonly bankAccountAmount = signal<string>(BANK_ACCOUNT_AMOUNT.toLocaleString());
 
 	protected data: number[];
+	protected userName: string;
+	protected userNick: string;
 	protected chartData: ChartConfiguration<"doughnut">["data"];
 	protected chartOptions: ChartConfiguration<"doughnut">["options"];
 
@@ -30,8 +46,17 @@ export class HomePage {
 		private readonly photoService: PhotoService
 	) {}
 
+	protected toggleDarkMode(event: CustomEvent): void {
+		const enabled = event.detail.checked;
+
+		document.body.classList.toggle("dark", enabled);
+		this.isDarkMode.set(enabled);
+
+		localStorage.setItem("darkMode", String(enabled));
+	}
+
 	public ngOnInit(): void {
-		this.refreshQuarterData();
+		this.refreshData();
 
 		this.chartOptions = {
 			cutout: "50%",
@@ -44,12 +69,32 @@ export class HomePage {
 				tooltip: {
 					enabled: false,
 				},
+				datalabels: {
+					color: CHART_LABEL_COLOR,
+					font: {
+						size: 10,
+						weight: "bold",
+					},
+					formatter: (value, context) => {
+						if (!value) return "";
+
+						const labels = context.chart.data.labels as string[];
+						const label = labels[context.dataIndex];
+						const data = context.dataset.data as number[];
+						const total = data.reduce((sum, v) => sum + v, 0);
+						const percent = total ? ((value / total) * 100).toFixed(1) : "0";
+
+						return `${label}\n${value} (${percent}%)`;
+					},
+					anchor: "center",
+					align: "center",
+				},
 			},
 		};
 	}
 
 	public ionViewWillEnter(): void {
-		this.refreshQuarterData();
+		this.refreshData();
 	}
 
 	protected addPhotoToStorage(): void {
@@ -75,7 +120,7 @@ export class HomePage {
 		storedKpiData.forEach((entry) => {
 			const monthIdx = monthIndexMap[entry.month.toLowerCase()];
 
-			if (monthIdx) {
+			if (monthIdx !== undefined) {
 				const quarter = Math.floor(monthIdx / 3);
 				quarters[quarter] += entry.money;
 			}
@@ -92,7 +137,7 @@ export class HomePage {
 			datasets: [
 				{
 					data: this.data,
-					borderColor: BORDER_COLOR,
+					borderColor: CHART_BORDER_COLOR,
 					backgroundColor: ["#f00", "#ff0", "#0f0", "#00f"],
 					hoverBackgroundColor: ["#f00", "#ff0", "#0f0", "#00f"],
 					hoverBorderColor: ["#f00", "#ff0", "#0f0", "#00f"],
@@ -104,8 +149,16 @@ export class HomePage {
 		};
 	}
 
-	private refreshQuarterData(): void {
+	private refreshData(): void {
+		this.userName = localStorage.getItem("userName") || "";
+		this.userNick = localStorage.getItem("userNick") || "";
+		this.isDarkMode.set(localStorage.getItem("darkMode") === "true");
+		this.isDarkMode()
+			? document.body.classList.add("dark")
+			: document.body.classList.remove("dark");
+
 		this.chartData = this.calculateChartData();
+
 		this.cdr.detectChanges();
 	}
 }

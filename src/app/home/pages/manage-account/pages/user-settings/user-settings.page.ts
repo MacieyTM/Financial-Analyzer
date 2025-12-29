@@ -94,15 +94,21 @@ export class UserSettingsPage implements OnInit {
 	}
 
 	protected save(name: string, surname: string, nick: string): void {
+		const userName = name;
+		const userNick = nick;
 		const fullUserName = nick ? `${name} ${surname} (${nick})` : `${name} ${surname}`;
 
+		localStorage.setItem("userName", userName);
+		localStorage.setItem("userNick", userNick);
 		localStorage.setItem("userFullName", fullUserName);
+
 		this.userSettingsChanged = true;
 		this.navController.navigateBack("home");
 	}
 
 	private async showSuccessToast(): Promise<void> {
 		const toast = await this.toastController.create({
+			// header: 'Success',
 			message: this.translatePipe.transform(
 				"User details saved successfully!",
 				"user_details_saved_successfully"

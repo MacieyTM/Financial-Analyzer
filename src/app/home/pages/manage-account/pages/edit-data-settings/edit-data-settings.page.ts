@@ -3,16 +3,16 @@ import { NavController, ToastController } from "@ionic/angular";
 import { CHART_LABEL_MONTHS } from "src/app/models/chart.model";
 import { MONTHS_LABELS, SelectOption, SupportedLabelMonths } from "src/app/models/kpi.model";
 import { MONEY_VALUES } from "src/app/models/kpi.model";
-import { KpiEntry } from "../kpi-trends.page";
+import { KpiEntry } from "../../../kpi-trends/kpi-trends.page";
 import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
 
 @Component({
-	selector: "app-add-kpi-values",
-	templateUrl: "./add-kpi-values.page.html",
-	styleUrls: ["./add-kpi-values.page.scss"],
+	selector: "app-edit-data-settings",
+	templateUrl: "./edit-data-settings.page.html",
+	styleUrls: ["./edit-data-settings.page.scss"],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddKpiValuesPage implements OnInit, OnDestroy {
+export class EditDataSettingsPage implements OnInit, OnDestroy {
 	protected monthsOptions: SelectOption[];
 	protected moneyOptions: SelectOption[];
 
@@ -62,8 +62,8 @@ export class AddKpiValuesPage implements OnInit, OnDestroy {
 		);
 
 		if (existingMonthIndex >= 0) {
-			// Update the existing month's money value as addition
-			storedKpiData[existingMonthIndex].money += selectedMoney;
+			// Update the existing month's money value as setting
+			storedKpiData[existingMonthIndex].money = selectedMoney;
 		} else {
 			storedKpiData.push({ month: selectedMonth, money: selectedMoney });
 		}
@@ -81,7 +81,7 @@ export class AddKpiValuesPage implements OnInit, OnDestroy {
 		localStorage.setItem("kpiData", JSON.stringify(storedKpiData));
 
 		this.kpiChanged = true;
-		this.navController.back();
+		this.navController.navigateBack("/home");
 	}
 
 	protected translateLabel(label: string): string {
