@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit, signal } from "@angular/core";
-import { Chart, ChartConfiguration } from "chart.js";
+import { ChartConfiguration } from "chart.js";
 import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
 import { Capacitor } from "@capacitor/core";
 import { SupportedChartTypes } from "src/app/models/chart.model";
-import zoomPlugin from "chartjs-plugin-zoom";
 import { CHART_BORDER_COLOR } from "../../home.page";
-
-Chart.register(zoomPlugin);
+import { SupportedLanguage } from "src/app/models/languages.model";
+import { TranslateService } from "@ngx-translate/core";
+import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
+import { SupportedLabelMonths } from "src/app/models/kpi.model";
 
 export interface KpiEntry {
 	month: string;
@@ -30,17 +31,19 @@ export class KpiTrendsPage implements OnInit {
 	protected chartDataBar: ChartConfiguration<"bar">["data"];
 	protected chartOptionsBar: ChartConfiguration<"bar">["options"];
 
-	protected chartDataDoughnut: ChartConfiguration<"doughnut">["data"];
-	protected chartOptionsDoughnut: ChartConfiguration<"doughnut">["options"];
+	// protected chartDataDoughnut: ChartConfiguration<"doughnut">["data"];
+	// protected chartOptionsDoughnut: ChartConfiguration<"doughnut">["options"];
 
 	protected hasKpiData = false;
+	protected datetimeLocale: string;
 
 	protected readonly startMonth = signal<Date | null>(null);
 	protected readonly endMonth = signal<Date | null>(null);
 
 	private data: number[];
-	private labelMonths: string[];
+	private chartLabelMonths: string[];
 	private allKpiData: KpiEntry[] = [];
+	private savedLanguage: SupportedLanguage;
 
 	private readonly START_YEAR = 2026;
 	private readonly END_YEAR = 2026;
@@ -58,6 +61,13 @@ export class KpiTrendsPage implements OnInit {
 		"november",
 		"december",
 	];
+
+	constructor(
+		private readonly translate: TranslateService,
+		private readonly translatePipe: AppTranslatePipe
+	) {
+		this.initializeLanguage();
+	}
 
 	public ngOnInit(): void {
 		if (Capacitor.getPlatform() !== "web") {
@@ -114,7 +124,7 @@ export class KpiTrendsPage implements OnInit {
 			return true;
 		});
 
-		this.labelMonths = filteredData.map((item) => this.capitalize(item.month));
+		this.chartLabelMonths = filteredData.map((item) => this.capitalize(item.month));
 		this.data = filteredData.map((item) => item.money);
 
 		if (this.data.length > 0) {
@@ -122,7 +132,7 @@ export class KpiTrendsPage implements OnInit {
 		} else {
 			this.chartDataLine = { labels: [], datasets: [{ data: [] }] };
 			this.chartDataBar = { labels: [], datasets: [{ data: [] }] };
-			this.chartDataDoughnut = { labels: [], datasets: [{ data: [] }] };
+			// this.chartDataDoughnut = { labels: [], datasets: [{ data: [] }] };
 		}
 	}
 
@@ -136,9 +146,82 @@ export class KpiTrendsPage implements OnInit {
 		return `${year}-${month}`;
 	}
 
+	private initializeLanguage(): void {
+		// this.selectedLanguage =
+		// 	localStorage.getItem("selectedLang") ||
+		// 	localStorage.getItem("deviceLanguage") ||
+		// 	localStorage.getItem("browserLanguage") ||
+		// 	this.translateService.getSystemLanguage() ||
+		// 	"en";
+
+		this.savedLanguage = localStorage.getItem("selectedLang") || "en";
+
+		if (!this.translate.getLangs().includes(this.savedLanguage)) {
+			this.savedLanguage = "en";
+		}
+
+		this.setLanguage(this.savedLanguage);
+	}
+
+	private setLanguage(savedLanguage: SupportedLanguage): void {
+		let locale = "en-US";
+
+		switch (savedLanguage) {
+			case "en":
+				locale = "en-US";
+				break;
+			case "pl":
+				locale = "pl-PL";
+				break;
+			case "de":
+				locale = "de-DE";
+				break;
+			case "fr":
+				locale = "fr-FR";
+				break;
+			case "it":
+				locale = "it-IT";
+				break;
+			case "es":
+				locale = "es-ES";
+				break;
+			case "zh":
+				locale = "zh-CN";
+				break;
+			case "hi":
+				locale = "hi-IN";
+				break;
+			case "pt":
+				locale = "pt-PT";
+				break;
+			case "ru":
+				locale = "ru-RU";
+				break;
+			case "ja":
+				locale = "ja-JP";
+				break;
+			case "ko":
+				locale = "ko-KR";
+				break;
+			case "tr":
+				locale = "tr-TR";
+				break;
+			case "nl":
+				locale = "nl-NL";
+				break;
+			case "uk":
+				locale = "uk-UA";
+				break;
+			default:
+				locale = "en-US";
+		}
+
+		this.datetimeLocale = locale;
+	}
+
 	private initializeChart(): void {
 		this.chartDataLine = {
-			labels: this.labelMonths,
+			labels: this.translateChartLabelMonths(),
 			datasets: [
 				{
 					fill: false,
@@ -166,6 +249,11 @@ export class KpiTrendsPage implements OnInit {
 				tooltip: {
 					enabled: false,
 				},
+				datalabels: {
+					font: {
+						size: 0,
+					},
+				},
 				// zoom: {
 				// 	zoom: {
 				// 		wheel: {
@@ -191,7 +279,7 @@ export class KpiTrendsPage implements OnInit {
 		};
 
 		this.chartDataBar = {
-			labels: this.labelMonths,
+			labels: this.translateChartLabelMonths(),
 			datasets: [
 				{
 					data: this.data,
@@ -217,73 +305,89 @@ export class KpiTrendsPage implements OnInit {
 				tooltip: {
 					enabled: false,
 				},
-			},
-		};
-
-		this.chartDataDoughnut = {
-			labels: this.labelMonths,
-			datasets: [
-				{
-					data: this.data,
-					borderColor: CHART_BORDER_COLOR,
-					backgroundColor: [
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-					],
-					hoverBackgroundColor: [
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-					],
-					hoverBorderColor: [
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-						"#f00",
-						"#ff0",
-						"#0f0",
-						"#00f",
-					],
-				},
-			],
-		};
-
-		this.chartOptionsDoughnut = {
-			cutout: "50%",
-			responsive: false,
-			maintainAspectRatio: false,
-			plugins: {
-				legend: {
-					display: true,
-				},
-				tooltip: {
-					enabled: false,
+				datalabels: {
+					font: {
+						size: 0,
+					},
 				},
 			},
 		};
+
+		// this.chartDataDoughnut = {
+		// 	labels: this.translateChartLabelMonths(),
+		// 	datasets: [
+		// 		{
+		// 			data: this.data,
+		// 			borderColor: CHART_BORDER_COLOR,
+		// 			backgroundColor: [
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 			],
+		// 			hoverBackgroundColor: [
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 			],
+		// 			hoverBorderColor: [
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 				"#f00",
+		// 				"#ff0",
+		// 				"#0f0",
+		// 				"#00f",
+		// 			],
+		// 		},
+		// 	],
+		// };
+
+		// this.chartOptionsDoughnut = {
+		// 	cutout: "50%",
+		// 	responsive: false,
+		// 	maintainAspectRatio: false,
+		// 	plugins: {
+		// 		legend: {
+		// 			display: false,
+		// 		},
+		// 		tooltip: {
+		// 			enabled: false,
+		// 		},
+		// 	},
+		// };
+	}
+
+	private translateChartLabelMonths(): string[] {
+		const translated = this.chartLabelMonths.map((chartLabelMonth) =>
+			this.translatePipe.transform(
+				chartLabelMonth,
+				chartLabelMonth.toLowerCase() as SupportedLabelMonths
+			)
+		);
+
+		return translated;
 	}
 }

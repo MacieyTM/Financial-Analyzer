@@ -3,22 +3,23 @@
 <ion-content>
 	<ion-card>
 		<ion-card-header>
-			<div class="text-icon-wrapper">
-				<ion-icon name="stats-chart" />
-				<ion-text appTranslate="this_is_kpi_trends_page">This is KPI Trends page</ion-text>
-			</div>
-
 			@if (hasKpiData) {
-			<ion-icon id="date-question-trigger" name="help-circle" />
 			<div class="date-wrapper">
-				<ion-text appTranslate="choose_start_date">Choose start date</ion-text>
 				<div class="date-btn">
 					<ion-datetime-button slot="date-target" datetime="dateFrom" />
 					<ion-icon name="calendar" />
 				</div>
+				<ion-text appTranslate="choose_start_date">Choose start date</ion-text>
 			</div>
+			}
+			<div class="text-icon-wrapper">
+				<ion-icon name="stats-chart" />
+				<ion-text appTranslate="this_is_kpi_trends_page">This is KPI Trends page</ion-text>
+			</div>
+			<ion-icon id="date-question-trigger" name="help-circle" />
+			@if (hasKpiData) {
 			<div class="date-wrapper">
-				<ion-text>Choose end date</ion-text>
+				<ion-text appTranslate="choose_end_date">Choose end date</ion-text>
 				<div class="date-btn">
 					<ion-datetime-button slot="date-target" datetime="dateTo" />
 					<ion-icon name="calendar" />
@@ -46,7 +47,7 @@
 				[labels]="chartDataBar.labels"
 			>
 			</canvas>
-			} @case ("doughnut") {
+			<!-- } @case ("doughnut") {
 			<canvas
 				baseChart
 				type="doughnut"
@@ -54,7 +55,7 @@
 				[options]="chartOptionsBar"
 				[labels]="chartDataBar.labels"
 			>
-			</canvas>
+			</canvas> -->
 			} @default {
 			<ion-text
 				>Something went wrong! Please clear cache, restart the application and select chart type in
@@ -72,19 +73,12 @@
 		<ion-datetime
 			id="dateFrom"
 			presentation="month"
+			[locale]="datetimeLocale"
 			[value]="startMonth() ? formatMonthValue(startMonth()) : null"
 			[min]="'2026-01'"
 			[max]="endMonth() ? formatMonthValue(endMonth()) : '2026-12'"
 			(ionChange)="onStartMonthChange($event)"
 		/>
-
-		<!-- <ion-datetime id="dateFrom" presentation="date" displayFormat="MMMM YY" /> -->
-		<!-- [locale]="datetimeLocale$ | async"
-						[firstDayOfWeek]="(datetimeLocale$ | async) === 'en-US' ? 7 : 1"
-						[min]="isEventCompleted ? undefined : defaultDate"
-						[max]="isEventCompleted ? defaultDate : undefined"
-						formControlName="date"
-						(ionChange)="transformDate()" -->
 	</ng-template>
 </ion-modal>
 
@@ -93,6 +87,7 @@
 		<ion-datetime
 			id="dateTo"
 			presentation="month"
+			[locale]="datetimeLocale"
 			[value]="endMonth() ? formatMonthValue(endMonth()) : null"
 			[min]="startMonth() ? formatMonthValue(startMonth()) : '2026-01'"
 			[max]="'2026-12'"

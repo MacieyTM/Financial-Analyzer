@@ -7,7 +7,7 @@ export type SupportedChartTypes = "bar" | "line" | "doughnut";
 export const CHART_TYPES: SelectOption<SupportedChartTypes>[] = [
 	{ value: "line", label: "Line" },
 	{ value: "bar", label: "Bar" },
-	{ value: "doughnut", label: "Doughnut" },
+	// { value: "doughnut", label: "Doughnut" },
 ];
 
 export const CHART_LABEL_MONTHS: string[] = [

@@ -1,9 +1,12 @@
-<app-home-header defaultHref="kpi-trends" headerTitle="Edit KPI values" />
+<app-home-header
+	defaultHref="kpi-trends"
+	[headerTitle]="'Edit KPI values' | appTranslate: 'edit_kpi_values'"
+/>
 
 <ion-content>
 	<ion-card>
 		<ion-card-header>
-			<ion-text>Edit KPI Trends values</ion-text>
+			<ion-text appTranslate="edit_kpi_trends_values">Edit KPI Trends values</ion-text>
 		</ion-card-header>
 		<ion-card-content>
 			<ion-select

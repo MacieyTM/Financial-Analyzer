@@ -5,13 +5,21 @@ import {
 	SupportedChartTypes,
 } from "src/app/models/chart.model";
 import { PhotoService } from "../services/photo.service";
-import { ChartConfiguration } from "chart.js";
+import { Chart, ChartConfiguration } from "chart.js";
 import { KpiEntry } from "./pages/kpi-trends/kpi-trends.page";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+// import zoomPlugin from "chartjs-plugin-zoom";
+
+// Chart.register(zoomPlugin);
+Chart.register(ChartDataLabels);
 
 export const DEFAULT_CHART_TYPE: SupportedChartTypes = "bar";
 export const CHART_BORDER_COLOR: string = getComputedStyle(
 	document.documentElement
 ).getPropertyValue("--ion-color-primary");
+export const CHART_LABEL_COLOR: string = getComputedStyle(
+	document.documentElement
+).getPropertyValue("--ion-color-dark");
 
 // const BANK_ACCOUNT_AMOUNT: number = 107800.22;
 // const BANK_ACCOUNT_AMOUNT: number = +localStorage.getItem("selectedMoney");
@@ -61,6 +69,26 @@ export class HomePage {
 				tooltip: {
 					enabled: false,
 				},
+				datalabels: {
+					color: CHART_LABEL_COLOR,
+					font: {
+						size: 10,
+						weight: "bold",
+					},
+					formatter: (value, context) => {
+						if (!value) return "";
+
+						const labels = context.chart.data.labels as string[];
+						const label = labels[context.dataIndex];
+						const data = context.dataset.data as number[];
+						const total = data.reduce((sum, v) => sum + v, 0);
+						const percent = total ? ((value / total) * 100).toFixed(1) : "0";
+
+						return `${label}\n${value} (${percent}%)`;
+					},
+					anchor: "center",
+					align: "center",
+				},
 			},
 		};
 	}
@@ -92,7 +120,7 @@ export class HomePage {
 		storedKpiData.forEach((entry) => {
 			const monthIdx = monthIndexMap[entry.month.toLowerCase()];
 
-			if (monthIdx) {
+			if (monthIdx !== undefined) {
 				const quarter = Math.floor(monthIdx / 3);
 				quarters[quarter] += entry.money;
 			}
@@ -124,8 +152,13 @@ export class HomePage {
 	private refreshData(): void {
 		this.userName = localStorage.getItem("userName") || "";
 		this.userNick = localStorage.getItem("userNick") || "";
+		this.isDarkMode.set(localStorage.getItem("darkMode") === "true");
+		this.isDarkMode()
+			? document.body.classList.add("dark")
+			: document.body.classList.remove("dark");
 
 		this.chartData = this.calculateChartData();
+
 		this.cdr.detectChanges();
 	}
 }

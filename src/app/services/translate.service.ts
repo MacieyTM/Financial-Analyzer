@@ -9,7 +9,21 @@ import { SUPPORTED_LANGUAGES, SupportedLanguage } from "../models/languages.mode
 export class AppTranslateService {
 	public constructor(private readonly translateService: TranslateService) {
 		this.translateService.addLangs(SUPPORTED_LANGUAGES);
-		const savedLanguage = localStorage.getItem("selectedLang") || "en";
+
+		// const savedLanguage: SupportedLanguage =
+		// 	localStorage.getItem("selectedLang") ||
+		// 	localStorage.getItem("deviceLanguage") ||
+		// 	localStorage.getItem("browserLanguage") ||
+		// 	this.getSystemLanguage() ||
+		// 	"en";
+
+		const savedLanguage: SupportedLanguage = localStorage.getItem("selectedLang") || "en";
+
+		if (!this.translateService.getLangs().includes(savedLanguage)) {
+			this.translateService.use("en");
+			return;
+		}
+
 		this.translateService.use(savedLanguage);
 	}
 
