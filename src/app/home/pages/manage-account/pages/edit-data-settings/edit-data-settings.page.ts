@@ -29,7 +29,9 @@ export class EditDataSettingsPage implements OnInit, OnDestroy {
 	) {}
 
 	public ngOnInit() {
-		this.monthsOptions = MONTHS_LABELS;
+		const usedMonths = this.getMonthsWithValues();
+
+		this.monthsOptions = MONTHS_LABELS.filter((option) => usedMonths.includes(option.value));
 		this.moneyOptions = MONEY_VALUES;
 
 		this.kpiChanged = false;
@@ -91,6 +93,12 @@ export class EditDataSettingsPage implements OnInit, OnDestroy {
 		);
 
 		return translated;
+	}
+
+	private getMonthsWithValues(): string[] {
+		const storedKpiData: KpiEntry[] = JSON.parse(localStorage.getItem("kpiData") ?? "[]");
+
+		return storedKpiData.map((item) => item.month);
 	}
 
 	private async showSuccessToast(): Promise<void> {

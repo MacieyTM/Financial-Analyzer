@@ -9,8 +9,12 @@
 			<ion-text appTranslate="edit_kpi_trends_values">Edit KPI Trends values</ion-text>
 		</ion-card-header>
 		<ion-card-content>
+			@if (!monthsOptions.length) {
+			<ion-text class="no-data" appTranslate="no_data_available">No data available</ion-text>
+			}
 			<ion-select
 				interface="popover"
+				[disabled]="!monthsOptions.length"
 				[cancelText]="'cancel' | appTranslate: 'cancel'"
 				mode="md"
 				fill="outline"
@@ -26,7 +30,7 @@
 			</ion-select>
 			<ion-select
 				interface="popover"
-				[disabled]="selectedMonth.length === 0"
+				[disabled]="!selectedMonth.length"
 				[cancelText]="'cancel' | appTranslate: 'cancel'"
 				mode="md"
 				fill="outline"
@@ -48,7 +52,7 @@
 			<div class="buttons-wrapper">
 				<ion-button fill="outline" (click)="cancel()" appTranslate="cancel">Cancel</ion-button>
 				<ion-button
-					[disabled]="selectedMonth.length === 0 || selectedMoney.length === 0"
+					[disabled]="!selectedMonth.length || !selectedMoney.length"
 					(click)="save()"
 					appTranslate="save"
 					>Save</ion-button
