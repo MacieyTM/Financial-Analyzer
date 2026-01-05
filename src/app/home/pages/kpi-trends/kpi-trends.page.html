@@ -12,7 +12,7 @@
 				<ion-text appTranslate="choose_start_date">Choose start date</ion-text>
 			</div>
 			<div class="download-report">
-				<ion-button (click)="downloadPDF()">
+				<ion-button [disabled]="isPDFBlocked()" (click)="downloadPDF()">
 					<ion-icon slot="start" name="document-text" />
 					<span>PDF</span>
 				</ion-button>
@@ -40,7 +40,11 @@
 		</ion-card-header>
 
 		<ion-card-content>
-			@if (hasKpiData) { @switch (selectedChartType()) { @case ("line") {
+			@if (isPDFBlocked()) {
+			<ion-text appTranslate="pdf_export_not_supported_for_this_language"
+				>PDF export not supported for this language</ion-text
+			>
+			} @if (hasKpiData) { @switch (selectedChartType()) { @case ("line") {
 			<canvas
 				baseChart
 				type="line"
