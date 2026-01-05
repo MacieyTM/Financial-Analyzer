@@ -11,6 +11,7 @@ import { SupportedLabelMonths } from "src/app/models/kpi.model";
 import { BaseChartDirective } from "ng2-charts";
 import { Filesystem, Directory } from "@capacitor/filesystem";
 import { Share } from "@capacitor/share";
+import { RobotoRegular } from "src/app/fonts/roboto";
 import jsPDF from "jspdf";
 
 export interface KpiEntry {
@@ -135,8 +136,10 @@ export class KpiTrendsPage implements OnInit {
 		const average = total / values.length;
 		const min = Math.min(...values);
 		const max = Math.max(...values);
-		const bestMonth = this.chartLabelMonths[values.indexOf(min)];
-		const worstMonth = this.chartLabelMonths[values.indexOf(max)];
+		const bestMonthIndex = values.indexOf(min);
+		const worstMonthIndex = values.indexOf(max);
+		const translatedBestMonth = this.t(this.chartLabelMonths[bestMonthIndex].toLowerCase());
+		const translatedWorstMonth = this.t(this.chartLabelMonths[worstMonthIndex].toLowerCase());
 		const percentageChanges = values.map((v, i) =>
 			i === 0 || values[i - 1] === 0 ? null : ((v - values[i - 1]) / values[i - 1]) * 100
 		);
@@ -149,6 +152,9 @@ export class KpiTrendsPage implements OnInit {
 		const canvas = this.chart.chart.canvas;
 		const imageData = canvas.toDataURL("image/png", 1.0);
 		const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: "a4" });
+		pdf.addFileToVFS("Roboto-Regular.ttf", RobotoRegular);
+		pdf.addFont("Roboto-Regular.ttf", "Roboto", "normal");
+		pdf.setFont("Roboto");
 		const pageWidth = pdf.internal.pageSize.getWidth();
 		const pageHeight = pdf.internal.pageSize.getHeight();
 		let y = 30;
@@ -196,7 +202,7 @@ export class KpiTrendsPage implements OnInit {
 		pdf.line(20, y, pageWidth - 20, y);
 		y += 15;
 
-		pdf.setFont(undefined, "bold");
+		pdf.setFont("Roboto");
 		pdf.text(this.t("total"), colMonth, y);
 		pdf.text(formatCurrency(total), colValue, y);
 		y += rowHeight;
@@ -218,8 +224,8 @@ export class KpiTrendsPage implements OnInit {
 			pdf.text(`${this.t("average")}: ${formatCurrency(average)}`, 20, 105);
 			pdf.text(`${this.t("minimum")}: ${formatCurrency(min)}`, 20, 130);
 			pdf.text(`${this.t("maximum")}: ${formatCurrency(max)}`, 20, 155);
-			pdf.text(`${this.t("best_month")}: ${bestMonth}`, 20, 190);
-			pdf.text(`${this.t("worst_month")}: ${worstMonth}`, 20, 215);
+			pdf.text(`${this.t("best_month")}: ${translatedBestMonth}`, 20, 190);
+			pdf.text(`${this.t("worst_month")}: ${translatedWorstMonth}`, 20, 215);
 
 			pdf.save("financial-analyzer-report.pdf");
 		} else {
@@ -236,8 +242,10 @@ export class KpiTrendsPage implements OnInit {
 		const average = total / values.length;
 		const min = Math.min(...values);
 		const max = Math.max(...values);
-		const bestMonth = this.chartLabelMonths[values.indexOf(min)];
-		const worstMonth = this.chartLabelMonths[values.indexOf(max)];
+		const bestMonthIndex = values.indexOf(min);
+		const worstMonthIndex = values.indexOf(max);
+		const translatedBestMonth = this.t(this.chartLabelMonths[bestMonthIndex].toLowerCase());
+		const translatedWorstMonth = this.t(this.chartLabelMonths[worstMonthIndex].toLowerCase());
 		const percentageChanges = values.map((v, i) =>
 			i === 0 || values[i - 1] === 0 ? "" : (((v - values[i - 1]) / values[i - 1]) * 100).toFixed(2)
 		);
@@ -258,13 +266,16 @@ export class KpiTrendsPage implements OnInit {
 			[this.t("average"), formatNumber(average)],
 			[this.t("min"), formatNumber(min)],
 			[this.t("max"), formatNumber(max)],
-			[this.t("best_month"), bestMonth],
-			[this.t("worst_month"), worstMonth],
+			[this.t("best_month"), translatedBestMonth],
+			[this.t("worst_month"), translatedWorstMonth],
 		];
-		const csvContent = rows.map((r) => r.join(";")).join("\n");
+		const BOM = "\uFEFF";
+		const csvContent = BOM + rows.map((r) => r.join(";")).join("\n");
 
 		if (Capacitor.getPlatform() === "web") {
-			const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+			const blob = new Blob([csvContent], {
+				type: "text/csv;charset=utf-8;",
+			});
 			const url = URL.createObjectURL(blob);
 			const link = document.createElement("a");
 
@@ -275,6 +286,7 @@ export class KpiTrendsPage implements OnInit {
 			link.click();
 			URL.revokeObjectURL(url);
 		} else {
+			// const base64Data = btoa(unescape(encodeURIComponent(csvContent)));
 			const base64Data = btoa(csvContent);
 
 			try {
