@@ -124,6 +124,7 @@ export class KpiTrendsPage implements OnInit {
 	}
 
 	protected downloadPDF(): void {
+		// TODO - implement quarterly reports
 		if (!this.chart?.chart || !this.data?.length) return;
 
 		const values = this.data;
@@ -132,6 +133,8 @@ export class KpiTrendsPage implements OnInit {
 		const average = total / values.length;
 		const min = Math.min(...values);
 		const max = Math.max(...values);
+		const bestMonth = this.chartLabelMonths[values.indexOf(min)];
+		const worstMonth = this.chartLabelMonths[values.indexOf(max)];
 		const percentageChanges = values.map((v, i) =>
 			i === 0 || values[i - 1] === 0 ? null : ((v - values[i - 1]) / values[i - 1]) * 100
 		);
@@ -212,11 +215,14 @@ export class KpiTrendsPage implements OnInit {
 		pdf.text(`${this.t("average")}: ${formatCurrency(average)}`, 20, 105);
 		pdf.text(`${this.t("minimum")}: ${formatCurrency(min)}`, 20, 130);
 		pdf.text(`${this.t("maximum")}: ${formatCurrency(max)}`, 20, 155);
+		pdf.text(`${this.t("best_month")}: ${bestMonth}`, 20, 190);
+		pdf.text(`${this.t("worst_month")}: ${worstMonth}`, 20, 215);
 
 		pdf.save("financial-analyzer-report.pdf");
 	}
 
 	protected downloadCSV(): void {
+		// TODO - implement quarterly reports
 		if (!this.data || !this.chartLabelMonths) return;
 
 		const values = this.data;
@@ -224,6 +230,8 @@ export class KpiTrendsPage implements OnInit {
 		const average = total / values.length;
 		const min = Math.min(...values);
 		const max = Math.max(...values);
+		const bestMonth = this.chartLabelMonths[values.indexOf(min)];
+		const worstMonth = this.chartLabelMonths[values.indexOf(max)];
 		const percentageChanges = values.map((v, i) =>
 			i === 0 || values[i - 1] === 0 ? "" : (((v - values[i - 1]) / values[i - 1]) * 100).toFixed(2)
 		);
@@ -244,6 +252,8 @@ export class KpiTrendsPage implements OnInit {
 			[this.t("average"), formatNumber(average)],
 			[this.t("min"), formatNumber(min)],
 			[this.t("max"), formatNumber(max)],
+			[this.t("best_month"), bestMonth],
+			[this.t("worst_month"), worstMonth],
 		];
 		const csvContent = rows.map((r) => r.join(";")).join("\n");
 		const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
