@@ -127,10 +127,51 @@ export class KpiTrendsPage implements OnInit {
 		});
 		const pageWidth = pdf.internal.pageSize.getWidth();
 		const pageHeight = pdf.internal.pageSize.getHeight();
+		let y = 30;
 
-		pdf.setFontSize(16);
-		pdf.text("KPI Trends Report", 20, 30);
-		pdf.addImage(imageData, "PNG", 20, 50, pageWidth - 40, pageHeight - 80);
+		pdf.setFontSize(18);
+		pdf.text("KPI Trends Report", 20, y);
+		y += 20;
+		pdf.setFontSize(12);
+		pdf.text(
+			`Selected range: ${this.chartLabelMonths[0]} – ${
+				this.chartLabelMonths[this.chartLabelMonths.length - 1]
+			}`,
+			20,
+			y
+		);
+		y += 20;
+
+		const chartHeight = pageHeight * 0.45;
+
+		pdf.addImage(imageData, "PNG", 20, y, pageWidth - 40, chartHeight);
+		y += chartHeight + 20;
+		pdf.setFontSize(14);
+		pdf.text("Details", 20, y);
+		y += 15;
+
+		const colMonth = 40;
+		const colValue = 220;
+		const rowHeight = 18;
+
+		pdf.setFontSize(12);
+		pdf.text("Month", colMonth, y);
+		pdf.text("Value", colValue, y);
+		y += 8;
+		pdf.line(20, y, pageWidth - 20, y);
+		y += 12;
+		this.chartLabelMonths.forEach((month, index) => {
+			pdf.text(month, colMonth, y);
+			pdf.text(this.data[index].toString(), colValue, y);
+
+			y += rowHeight;
+
+			if (y > pageHeight - 30) {
+				pdf.addPage();
+				y = 40;
+			}
+		});
+
 		pdf.save("financial-analyzer-report.pdf");
 	}
 
