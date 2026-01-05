@@ -70,9 +70,9 @@ export class UserSettingsPage implements OnInit {
 	}
 
 	protected isButtonDisabled(): boolean {
-		const name = !this.userName.trim().length;
-		const surname = !this.userSurname.trim().length;
-		const nick = !this.userNick.trim().length;
+		const name = this.userName.trim().length === 0;
+		const surname = this.userSurname.trim().length === 0;
+		const nick = this.userNick.trim().length === 0;
 
 		if (this.userNick.includes("(") || this.userNick.includes(")")) {
 			return true;

@@ -26,7 +26,7 @@
 			</ion-select>
 			<ion-select
 				interface="popover"
-				[disabled]="!selectedMonth.length"
+				[disabled]="selectedMonth.length === 0"
 				[cancelText]="'cancel' | appTranslate: 'cancel'"
 				mode="md"
 				fill="outline"
@@ -48,7 +48,7 @@
 			<div class="buttons-wrapper">
 				<ion-button fill="outline" (click)="cancel()" appTranslate="cancel">Cancel</ion-button>
 				<ion-button
-					[disabled]="!selectedMonth.length || !selectedMoney.length"
+					[disabled]="selectedMonth.length === 0 || selectedMoney.length === 0"
 					(click)="save()"
 					appTranslate="save"
 					>Save</ion-button

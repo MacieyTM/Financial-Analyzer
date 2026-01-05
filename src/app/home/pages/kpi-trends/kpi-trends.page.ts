@@ -81,8 +81,10 @@ export class KpiTrendsPage implements OnInit {
 		this.allKpiData = JSON.parse(localStorage.getItem("kpiData")) || [];
 		this.hasKpiData = this.allKpiData.length > 0;
 
-		this.startMonth.set(new Date(this.START_YEAR, this.MONTH_INDEX.indexOf("january"), 1));
-		this.endMonth.set(new Date(this.END_YEAR, this.MONTH_INDEX.indexOf("december"), 1));
+		// this.startMonth.set(new Date(this.START_YEAR, this.MONTH_INDEX.indexOf("january"), 1));
+		// this.endMonth.set(new Date(this.END_YEAR, this.MONTH_INDEX.indexOf("december"), 1));
+		this.startMonth.set(new Date(this.START_YEAR, 0, 1));
+		this.endMonth.set(new Date(this.END_YEAR, 11, 1));
 
 		if (this.hasKpiData) {
 			this.applyMonthRangeFilter();
@@ -115,28 +117,46 @@ export class KpiTrendsPage implements OnInit {
 		this.applyMonthRangeFilter();
 	}
 
-	protected downloadPDF(): void {
-		if (!this.chart?.chart) return;
+	protected formatMonthValue(date: Date): string {
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, "0");
+		return `${year}-${month}`;
+	}
 
+	protected downloadPDF(): void {
+		if (!this.chart?.chart || !this.data?.length) return;
+
+		const values = this.data;
+		const currency = this.getCurrencyForLocale(this.datetimeLocale);
+		const total = values.reduce((s, v) => s + v, 0);
+		const average = total / values.length;
+		const min = Math.min(...values);
+		const max = Math.max(...values);
+		const percentageChanges = values.map((v, i) =>
+			i === 0 || values[i - 1] === 0 ? null : ((v - values[i - 1]) / values[i - 1]) * 100
+		);
+		const formatCurrency = (v: number) =>
+			new Intl.NumberFormat(this.datetimeLocale, {
+				style: "currency",
+				currency,
+			}).format(v);
+
+		const formatPercent = (v: number | null) => (v === null ? "-" : `${v.toFixed(2)} %`);
 		const canvas = this.chart.chart.canvas;
 		const imageData = canvas.toDataURL("image/png", 1.0);
-		const pdf = new jsPDF({
-			orientation: "landscape",
-			unit: "px",
-			format: "a4",
-		});
+		const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: "a4" });
 		const pageWidth = pdf.internal.pageSize.getWidth();
 		const pageHeight = pdf.internal.pageSize.getHeight();
 		let y = 30;
 
 		pdf.setFontSize(18);
-		pdf.text("KPI Trends Report", 20, y);
+		pdf.text(this.t("kpi_trends_report"), 20, y);
 		y += 20;
 		pdf.setFontSize(12);
 		pdf.text(
-			`Selected range: ${this.chartLabelMonths[0]} – ${
-				this.chartLabelMonths[this.chartLabelMonths.length - 1]
-			}`,
+			`${this.t("selected_range")}: ${this.formatMonthLabel(
+				this.chartLabelMonths[0]
+			)} – ${this.formatMonthLabel(this.chartLabelMonths[this.chartLabelMonths.length - 1])}`,
 			20,
 			y
 		);
@@ -147,51 +167,51 @@ export class KpiTrendsPage implements OnInit {
 		pdf.addImage(imageData, "PNG", 20, y, pageWidth - 40, chartHeight);
 		y += chartHeight + 20;
 		pdf.setFontSize(14);
-		pdf.text("Details", 20, y);
+		pdf.text(this.t("details"), 20, y);
 		y += 15;
 
 		const colMonth = 40;
-		const colValue = 220;
+		const colValue = 240;
+		const colChange = 420;
 		const rowHeight = 18;
 
 		pdf.setFontSize(12);
-		pdf.text("Month", colMonth, y);
-		pdf.text("Value", colValue, y);
+		pdf.text(this.t("month"), colMonth, y);
+		pdf.text(this.t("value"), colValue, y);
+		pdf.text(this.t("monthly_change"), colChange, y);
 		y += 8;
 		pdf.line(20, y, pageWidth - 20, y);
 		y += 12;
-		this.chartLabelMonths.forEach((month, index) => {
-			pdf.text(month, colMonth, y);
-			pdf.text(this.data[index].toString(), colValue, y);
-
+		this.chartLabelMonths.forEach((month, i) => {
+			pdf.text(this.formatMonthLabel(month), colMonth, y);
+			pdf.text(formatCurrency(values[i]), colValue, y);
+			pdf.text(formatPercent(percentageChanges[i]), colChange, y);
 			y += rowHeight;
-
-			if (y > pageHeight - 30) {
-				pdf.addPage();
-				y = 40;
-			}
 		});
-
-		const total = this.data.reduce((sum, v) => sum + v, 0);
-		const average = this.data.length ? total / this.data.length : 0;
-		// const formatValue = (value: number) =>
-		// 	new Intl.NumberFormat(this.datetimeLocale, {
-		// 		style: "currency",
-		// 		currency: "PLN",
-		// 	}).format(value);
-
-		y += 5;
+		y += 10;
 		pdf.line(20, y, pageWidth - 20, y);
 		y += 15;
+
 		pdf.setFont(undefined, "bold");
-		pdf.text("Total", colMonth, y);
-		// pdf.text(formatValue(total), colValue, y);
-		pdf.text(total.toString(), colValue, y);
+		pdf.text(this.t("total"), colMonth, y);
+		pdf.text(formatCurrency(total), colValue, y);
 		y += rowHeight;
-		pdf.setFont(undefined, "normal");
-		pdf.text("Average", colMonth, y);
-		// pdf.text(formatValue(average), colValue, y);
-		pdf.text(average.toString(), colValue, y);
+		pdf.text(this.t("average"), colMonth, y);
+		pdf.text(formatCurrency(average), colValue, y);
+		y += rowHeight;
+		pdf.text(this.t("min"), colMonth, y);
+		pdf.text(formatCurrency(min), colValue, y);
+		y += rowHeight;
+		pdf.text(this.t("max"), colMonth, y);
+		pdf.text(formatCurrency(max), colValue, y);
+		pdf.addPage();
+		pdf.setFontSize(18);
+		pdf.text(this.t("kpi_summary"), 20, 40);
+		pdf.setFontSize(12);
+		pdf.text(`${this.t("total")}: ${formatCurrency(total)}`, 20, 80);
+		pdf.text(`${this.t("average")}: ${formatCurrency(average)}`, 20, 105);
+		pdf.text(`${this.t("minimum")}: ${formatCurrency(min)}`, 20, 130);
+		pdf.text(`${this.t("maximum")}: ${formatCurrency(max)}`, 20, 155);
 
 		pdf.save("financial-analyzer-report.pdf");
 	}
@@ -199,17 +219,41 @@ export class KpiTrendsPage implements OnInit {
 	protected downloadCSV(): void {
 		if (!this.data || !this.chartLabelMonths) return;
 
+		const values = this.data;
+		const total = values.reduce((s, v) => s + v, 0);
+		const average = total / values.length;
+		const min = Math.min(...values);
+		const max = Math.max(...values);
+		const percentageChanges = values.map((v, i) =>
+			i === 0 || values[i - 1] === 0 ? "" : (((v - values[i - 1]) / values[i - 1]) * 100).toFixed(2)
+		);
+		const formatNumber = (v: number) =>
+			new Intl.NumberFormat(this.datetimeLocale, {
+				minimumFractionDigits: 2,
+				maximumFractionDigits: 2,
+			}).format(v);
 		const rows = [
-			["Month", "Value"],
-			...this.chartLabelMonths.map((month, i) => [month, this.data[i].toString()]),
+			[this.t("month"), this.t("value"), this.t("monthly_change")],
+			...this.chartLabelMonths.map((m, i) => [
+				this.formatMonthLabel(m),
+				formatNumber(values[i]),
+				percentageChanges[i],
+			]),
+			[],
+			[this.t("total"), formatNumber(total)],
+			[this.t("average"), formatNumber(average)],
+			[this.t("min"), formatNumber(min)],
+			[this.t("max"), formatNumber(max)],
 		];
-		const csvContent = rows.map((e) => e.join(",")).join("\n");
+		const csvContent = rows.map((r) => r.join(";")).join("\n");
 		const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
 		const url = URL.createObjectURL(blob);
 		const link = document.createElement("a");
 
 		link.href = url;
+
 		link.download = "financial-analyzer-report.csv";
+
 		link.click();
 		URL.revokeObjectURL(url);
 	}
@@ -219,34 +263,25 @@ export class KpiTrendsPage implements OnInit {
 		const endIndex = this.endMonth().getMonth();
 
 		const filteredData = this.allKpiData.filter((entry) => {
-			const entryIndex = this.MONTH_INDEX.indexOf(entry.month.toLowerCase());
-
-			if (startIndex !== undefined && entryIndex < startIndex) return false;
-			if (endIndex !== undefined && entryIndex > endIndex) return false;
-
-			return true;
+			const idx = this.MONTH_INDEX.indexOf(entry.month.toLowerCase());
+			return idx >= startIndex && idx <= endIndex;
 		});
 
 		this.chartLabelMonths = filteredData.map((item) => this.capitalize(item.month));
 		this.data = filteredData.map((item) => item.money);
 
-		if (this.data.length > 0) {
-			this.initializeChart();
-		} else {
-			this.chartDataLine = { labels: [], datasets: [{ data: [] }] };
-			this.chartDataBar = { labels: [], datasets: [{ data: [] }] };
-			// this.chartDataDoughnut = { labels: [], datasets: [{ data: [] }] };
-		}
+		this.initializeChart();
+		// if (this.data.length > 0) {
+		// 	this.initializeChart();
+		// } else {
+		// 	this.chartDataLine = { labels: [], datasets: [{ data: [] }] };
+		// 	this.chartDataBar = { labels: [], datasets: [{ data: [] }] };
+		// 	// this.chartDataDoughnut = { labels: [], datasets: [{ data: [] }] };
+		// }
 	}
 
 	private capitalize(value: string): string {
 		return value.charAt(0).toUpperCase() + value.slice(1);
-	}
-
-	protected formatMonthValue(date: Date): string {
-		const year = date.getFullYear();
-		const month = String(date.getMonth() + 1).padStart(2, "0");
-		return `${year}-${month}`;
 	}
 
 	private initializeLanguage(): void {
@@ -264,62 +299,6 @@ export class KpiTrendsPage implements OnInit {
 		}
 
 		this.setLanguage(this.savedLanguage);
-	}
-
-	private setLanguage(savedLanguage: SupportedLanguage): void {
-		let locale = "en-US";
-
-		switch (savedLanguage) {
-			case "en":
-				locale = "en-US";
-				break;
-			case "pl":
-				locale = "pl-PL";
-				break;
-			case "de":
-				locale = "de-DE";
-				break;
-			case "fr":
-				locale = "fr-FR";
-				break;
-			case "it":
-				locale = "it-IT";
-				break;
-			case "es":
-				locale = "es-ES";
-				break;
-			case "zh":
-				locale = "zh-CN";
-				break;
-			case "hi":
-				locale = "hi-IN";
-				break;
-			case "pt":
-				locale = "pt-PT";
-				break;
-			case "ru":
-				locale = "ru-RU";
-				break;
-			case "ja":
-				locale = "ja-JP";
-				break;
-			case "ko":
-				locale = "ko-KR";
-				break;
-			case "tr":
-				locale = "tr-TR";
-				break;
-			case "nl":
-				locale = "nl-NL";
-				break;
-			case "uk":
-				locale = "uk-UA";
-				break;
-			default:
-				locale = "en-US";
-		}
-
-		this.datetimeLocale = locale;
 	}
 
 	private initializeChart(): void {
@@ -492,5 +471,115 @@ export class KpiTrendsPage implements OnInit {
 		);
 
 		return translated;
+	}
+
+	private t(key: string): string {
+		return this.translate.instant(key);
+	}
+
+	private formatMonthLabel(month: string): string {
+		return new Intl.DateTimeFormat(this.datetimeLocale, { month: "long" }).format(
+			new Date(this.START_YEAR, this.MONTH_INDEX.indexOf(month.toLowerCase()), 1)
+		);
+	}
+
+	private getCurrencyForLocale(locale: string): string {
+		switch (locale) {
+			case "pl-PL":
+				return "PLN";
+			case "en-US":
+				return "USD";
+			case "en-GB":
+				return "GBP";
+			case "ja-JP":
+				return "JPY";
+			case "zh-CN":
+				return "CNY";
+			case "ko-KR":
+				return "KRW";
+			case "ru-RU":
+				return "RUB";
+			case "tr-TR":
+				return "TRY";
+			case "uk-UA":
+				return "UAH";
+			default:
+				return "EUR";
+		}
+	}
+
+	private setLanguage(savedLanguage: SupportedLanguage): void {
+		const map: Record<SupportedLanguage, string> = {
+			en: "en-US",
+			pl: "pl-PL",
+			de: "de-DE",
+			fr: "fr-FR",
+			it: "it-IT",
+			es: "es-ES",
+			zh: "zh-CN",
+			hi: "hi-IN",
+			pt: "pt-PT",
+			ru: "ru-RU",
+			ja: "ja-JP",
+			ko: "ko-KR",
+			tr: "tr-TR",
+			nl: "nl-NL",
+			uk: "uk-UA",
+		};
+
+		this.datetimeLocale = map[savedLanguage] || "en-US";
+		// let locale = "en-US";
+
+		// switch (savedLanguage) {
+		// 	case "en":
+		// 		locale = "en-US";
+		// 		break;
+		// 	case "pl":
+		// 		locale = "pl-PL";
+		// 		break;
+		// 	case "de":
+		// 		locale = "de-DE";
+		// 		break;
+		// 	case "fr":
+		// 		locale = "fr-FR";
+		// 		break;
+		// 	case "it":
+		// 		locale = "it-IT";
+		// 		break;
+		// 	case "es":
+		// 		locale = "es-ES";
+		// 		break;
+		// 	case "zh":
+		// 		locale = "zh-CN";
+		// 		break;
+		// 	case "hi":
+		// 		locale = "hi-IN";
+		// 		break;
+		// 	case "pt":
+		// 		locale = "pt-PT";
+		// 		break;
+		// 	case "ru":
+		// 		locale = "ru-RU";
+		// 		break;
+		// 	case "ja":
+		// 		locale = "ja-JP";
+		// 		break;
+		// 	case "ko":
+		// 		locale = "ko-KR";
+		// 		break;
+		// 	case "tr":
+		// 		locale = "tr-TR";
+		// 		break;
+		// 	case "nl":
+		// 		locale = "nl-NL";
+		// 		break;
+		// 	case "uk":
+		// 		locale = "uk-UA";
+		// 		break;
+		// 	default:
+		// 		locale = "en-US";
+		// }
+
+		// this.datetimeLocale = locale;
 	}
 }

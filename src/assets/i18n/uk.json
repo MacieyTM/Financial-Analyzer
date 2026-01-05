@@ -107,5 +107,19 @@
 	"doughnut": "Кругова",
 	"cancel": "Скасувати",
 	"save": "Зберегти",
-	"delete": "Видалити"
+	"delete": "Видалити",
+	"kpi_trends_report": "Звіт трендів KPI",
+	"selected_range": "Вибраний період",
+	"month": "Місяць",
+	"value": "Значення",
+	"monthly_change": "Місячна зміна %",
+	"total": "Загалом",
+	"average": "Середнє",
+	"min": "Мін",
+	"max": "Макс",
+	"kpi_summary": "Підсумок KPI",
+	"best_month": "Найкращий місяць",
+	"worst_month": "Найгірший місяць",
+	"minimum": "Мінімум",
+	"maximum": "Максимум"
 }

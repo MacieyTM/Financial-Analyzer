@@ -107,5 +107,19 @@
 	"doughnut": "Doughnut",
 	"cancel": "Cancel",
 	"save": "Save",
-	"delete": "Delete"
+	"delete": "Delete",
+	"kpi_trends_report": "KPI Trends Report",
+	"selected_range": "Selected range",
+	"month": "Month",
+	"value": "Value",
+	"monthly_change": "Monthly % Change",
+	"total": "Total",
+	"average": "Average",
+	"min": "Min",
+	"max": "Max",
+	"kpi_summary": "KPI Summary",
+	"best_month": "Best month",
+	"worst_month": "Worst month",
+	"minimum": "Minimum",
+	"maximum": "Maximum"
 }

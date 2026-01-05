@@ -107,5 +107,19 @@
 	"doughnut": "도넛",
 	"cancel": "취소",
 	"save": "저장",
-	"delete": "삭제"
+	"delete": "삭제",
+	"kpi_trends_report": "KPI 추세 보고서",
+	"selected_range": "선택된 기간",
+	"month": "월",
+	"value": "값",
+	"monthly_change": "월간 변화 %",
+	"total": "합계",
+	"average": "평균",
+	"min": "최소",
+	"max": "최대",
+	"kpi_summary": "KPI 요약",
+	"best_month": "최고의 달",
+	"worst_month": "최악의 달",
+	"minimum": "최소값",
+	"maximum": "최대값"
 }

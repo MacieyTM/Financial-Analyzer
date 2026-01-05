@@ -107,5 +107,19 @@
 	"doughnut": "Rosquinha",
 	"cancel": "Cancelar",
 	"save": "Guardar",
-	"delete": "Eliminar"
+	"delete": "Eliminar",
+	"kpi_trends_report": "Relatório de tendências KPI",
+	"selected_range": "Intervalo selecionado",
+	"month": "Mês",
+	"value": "Valor",
+	"monthly_change": "Variação mensal %",
+	"total": "Total",
+	"average": "Média",
+	"min": "Mín",
+	"max": "Máx",
+	"kpi_summary": "Resumo KPI",
+	"best_month": "Melhor mês",
+	"worst_month": "Pior mês",
+	"minimum": "Mínimo",
+	"maximum": "Máximo"
 }
