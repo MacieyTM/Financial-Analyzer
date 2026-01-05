@@ -107,5 +107,20 @@
 	"doughnut": "Halka",
 	"cancel": "İptal",
 	"save": "Kaydet",
-	"delete": "Sil"
+	"delete": "Sil",
+	"kpi_trends_report": "KPI Trend Raporu",
+	"selected_range": "Seçilen aralık",
+	"details": "Detaylar",
+	"month": "Ay",
+	"value": "Değer",
+	"monthly_change": "Aylık değişim %",
+	"total": "Toplam",
+	"average": "Ortalama",
+	"min": "Min",
+	"max": "Max",
+	"kpi_summary": "KPI Özeti",
+	"best_month": "En iyi ay",
+	"worst_month": "En kötü ay",
+	"minimum": "Minimum",
+	"maximum": "Maksimum"
 }

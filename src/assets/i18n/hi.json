@@ -107,5 +107,20 @@
 	"doughnut": "डोनट",
 	"cancel": "रद्द करें",
 	"save": "सहेजें",
-	"delete": "हटाएं"
+	"delete": "हटाएं",
+	"kpi_trends_report": "KPI प्रवृत्ति रिपोर्ट",
+	"selected_range": "चयनित अवधि",
+	"details": "विवरण",
+	"month": "महीना",
+	"value": "मान",
+	"monthly_change": "मासिक परिवर्तन %",
+	"total": "कुल",
+	"average": "औसत",
+	"min": "न्यूनतम",
+	"max": "अधिकतम",
+	"kpi_summary": "KPI सारांश",
+	"best_month": "सबसे अच्छा महीना",
+	"worst_month": "सबसे खराब महीना",
+	"minimum": "न्यूनतम",
+	"maximum": "अधिकतम"
 }

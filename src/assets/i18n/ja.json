@@ -108,5 +108,20 @@
 	"doughnut": "ドーナツ",
 	"cancel": "キャンセル",
 	"save": "保存",
-	"delete": "削除"
+	"delete": "削除",
+	"kpi_trends_report": "KPIトレンドレポート",
+	"selected_range": "選択された期間",
+	"details": "詳細",
+	"month": "月",
+	"value": "値",
+	"monthly_change": "月次変化率 %",
+	"total": "合計",
+	"average": "平均",
+	"min": "最小",
+	"max": "最大",
+	"kpi_summary": "KPI概要",
+	"best_month": "最良の月",
+	"worst_month": "最悪の月",
+	"minimum": "最小値",
+	"maximum": "最大値"
 }

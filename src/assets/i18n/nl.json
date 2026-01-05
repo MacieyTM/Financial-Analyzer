@@ -107,5 +107,20 @@
 	"doughnut": "Donut",
 	"cancel": "Annuleren",
 	"save": "Opslaan",
-	"delete": "Verwijderen"
+	"delete": "Verwijderen",
+	"kpi_trends_report": "KPI-trendanalyse",
+	"selected_range": "Geselecteerde periode",
+	"details": "Details",
+	"month": "Maand",
+	"value": "Waarde",
+	"monthly_change": "Maandelijkse wijziging %",
+	"total": "Totaal",
+	"average": "Gemiddelde",
+	"min": "Min",
+	"max": "Max",
+	"kpi_summary": "KPI-overzicht",
+	"best_month": "Beste maand",
+	"worst_month": "Slechtste maand",
+	"minimum": "Minimum",
+	"maximum": "Maximum"
 }

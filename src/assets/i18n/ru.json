@@ -108,5 +108,20 @@
 	"doughnut": "Пончиковая",
 	"cancel": "Отмена",
 	"save": "Сохранить",
-	"delete": "Удалить"
+	"delete": "Удалить",
+	"kpi_trends_report": "Отчёт по трендам KPI",
+	"selected_range": "Выбранный период",
+	"details": "Детали",
+	"month": "Месяц",
+	"value": "Значение",
+	"monthly_change": "Месячное изменение %",
+	"total": "Итого",
+	"average": "Среднее",
+	"min": "Мин",
+	"max": "Макс",
+	"kpi_summary": "Сводка KPI",
+	"best_month": "Лучший месяц",
+	"worst_month": "Худший месяц",
+	"minimum": "Минимум",
+	"maximum": "Максимум"
 }

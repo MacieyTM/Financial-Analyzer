@@ -107,5 +107,20 @@
 	"doughnut": "Ciambella",
 	"cancel": "Annulla",
 	"save": "Salva",
-	"delete": "Elimina"
+	"delete": "Elimina",
+	"kpi_trends_report": "Report delle tendenze KPI",
+	"selected_range": "Intervallo selezionato",
+	"details": "Dettagli",
+	"month": "Mese",
+	"value": "Valore",
+	"monthly_change": "Variazione mensile %",
+	"total": "Totale",
+	"average": "Media",
+	"min": "Min",
+	"max": "Max",
+	"kpi_summary": "Riepilogo KPI",
+	"best_month": "Mese migliore",
+	"worst_month": "Mese peggiore",
+	"minimum": "Minimo",
+	"maximum": "Massimo"
 }

@@ -107,5 +107,20 @@
 	"doughnut": "环形图",
 	"cancel": "取消",
 	"save": "保存",
-	"delete": "删除"
+	"delete": "删除",
+	"kpi_trends_report": "KPI趋势报告",
+	"selected_range": "选择范围",
+	"details": "详情",
+	"month": "月份",
+	"value": "数值",
+	"monthly_change": "月度变化 %",
+	"total": "总计",
+	"average": "平均值",
+	"min": "最小值",
+	"max": "最大值",
+	"kpi_summary": "KPI汇总",
+	"best_month": "最佳月份",
+	"worst_month": "最差月份",
+	"minimum": "最小",
+	"maximum": "最大"
 }

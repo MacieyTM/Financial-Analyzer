@@ -9,8 +9,12 @@
 			<ion-text appTranslate="edit_kpi_trends_values">Edit KPI Trends values</ion-text>
 		</ion-card-header>
 		<ion-card-content>
+			@if (!monthsOptions.length) {
+			<ion-text class="no-data" appTranslate="no_data_available">No data available</ion-text>
+			}
 			<ion-select
 				interface="popover"
+				[disabled]="monthsOptions.length === 0"
 				[cancelText]="'cancel' | appTranslate: 'cancel'"
 				mode="md"
 				fill="outline"
