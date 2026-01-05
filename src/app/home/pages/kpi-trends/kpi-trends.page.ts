@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, signal } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit, signal, ViewChild } from "@angular/core";
 import { ChartConfiguration } from "chart.js";
 import { ScreenOrientation, OrientationType } from "@capawesome/capacitor-screen-orientation";
 import { Capacitor } from "@capacitor/core";
@@ -8,6 +8,8 @@ import { SupportedLanguage } from "src/app/models/languages.model";
 import { TranslateService } from "@ngx-translate/core";
 import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
 import { SupportedLabelMonths } from "src/app/models/kpi.model";
+import { BaseChartDirective } from "ng2-charts";
+import jsPDF from "jspdf";
 
 export interface KpiEntry {
 	month: string;
@@ -21,6 +23,8 @@ export interface KpiEntry {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KpiTrendsPage implements OnInit {
+	@ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+
 	protected readonly selectedChartType = signal<SupportedChartTypes>(
 		(localStorage.getItem("selectedKpiType") as SupportedChartTypes) || "bar"
 	);
@@ -109,6 +113,43 @@ export class KpiTrendsPage implements OnInit {
 		this.endMonth.set(new Date(2026, Number(month) - 1, 1));
 
 		this.applyMonthRangeFilter();
+	}
+
+	protected downloadPDF(): void {
+		if (!this.chart?.chart) return;
+
+		const canvas = this.chart.chart.canvas;
+		const imageData = canvas.toDataURL("image/png", 1.0);
+		const pdf = new jsPDF({
+			orientation: "landscape",
+			unit: "px",
+			format: "a4",
+		});
+		const pageWidth = pdf.internal.pageSize.getWidth();
+		const pageHeight = pdf.internal.pageSize.getHeight();
+
+		pdf.setFontSize(16);
+		pdf.text("KPI Trends Report", 20, 30);
+		pdf.addImage(imageData, "PNG", 20, 50, pageWidth - 40, pageHeight - 80);
+		pdf.save("financial-analyzer-report.pdf");
+	}
+
+	protected downloadCSV(): void {
+		if (!this.data || !this.chartLabelMonths) return;
+
+		const rows = [
+			["Month", "Value"],
+			...this.chartLabelMonths.map((month, i) => [month, this.data[i].toString()]),
+		];
+		const csvContent = rows.map((e) => e.join(",")).join("\n");
+		const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement("a");
+
+		link.href = url;
+		link.download = "financial-analyzer-report.csv";
+		link.click();
+		URL.revokeObjectURL(url);
 	}
 
 	private applyMonthRangeFilter(): void {
