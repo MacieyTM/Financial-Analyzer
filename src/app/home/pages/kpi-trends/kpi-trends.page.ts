@@ -172,6 +172,27 @@ export class KpiTrendsPage implements OnInit {
 			}
 		});
 
+		const total = this.data.reduce((sum, v) => sum + v, 0);
+		const average = this.data.length ? total / this.data.length : 0;
+		// const formatValue = (value: number) =>
+		// 	new Intl.NumberFormat(this.datetimeLocale, {
+		// 		style: "currency",
+		// 		currency: "PLN",
+		// 	}).format(value);
+
+		y += 5;
+		pdf.line(20, y, pageWidth - 20, y);
+		y += 15;
+		pdf.setFont(undefined, "bold");
+		pdf.text("Total", colMonth, y);
+		// pdf.text(formatValue(total), colValue, y);
+		pdf.text(total.toString(), colValue, y);
+		y += rowHeight;
+		pdf.setFont(undefined, "normal");
+		pdf.text("Average", colMonth, y);
+		// pdf.text(formatValue(average), colValue, y);
+		pdf.text(average.toString(), colValue, y);
+
 		pdf.save("financial-analyzer-report.pdf");
 	}
 
