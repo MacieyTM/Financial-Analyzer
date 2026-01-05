@@ -44,16 +44,20 @@ ion-content {
 				flex-direction: row;
 				gap: 0.5rem;
 
-				ion-icon {
-					width: 1.2rem;
-					height: 1.2rem;
-					font-size: 1.2rem;
-					color: var(--ion-color-tertiary);
-				}
+				ion-button {
+					letter-spacing: normal;
 
-				span {
-					font-weight: 700;
-					font-size: 0.9rem;
+					ion-icon {
+						width: 1.2rem;
+						height: 1.2rem;
+						font-size: 1.2rem;
+						color: var(--ion-color-tertiary);
+					}
+
+					span {
+						font-weight: 700;
+						font-size: 0.9rem;
+					}
 				}
 			}
 

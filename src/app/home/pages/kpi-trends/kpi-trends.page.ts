@@ -9,6 +9,8 @@ import { TranslateService } from "@ngx-translate/core";
 import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
 import { SupportedLabelMonths } from "src/app/models/kpi.model";
 import { BaseChartDirective } from "ng2-charts";
+import { Filesystem, Directory } from "@capacitor/filesystem";
+import { Share } from "@capacitor/share";
 import jsPDF from "jspdf";
 
 export interface KpiEntry {
@@ -123,7 +125,7 @@ export class KpiTrendsPage implements OnInit {
 		return `${year}-${month}`;
 	}
 
-	protected downloadPDF(): void {
+	protected async downloadPDF(): Promise<void> {
 		// TODO - implement quarterly reports
 		if (!this.chart?.chart || !this.data?.length) return;
 
@@ -143,7 +145,6 @@ export class KpiTrendsPage implements OnInit {
 				style: "currency",
 				currency,
 			}).format(v);
-
 		const formatPercent = (v: number | null) => (v === null ? "-" : `${v.toFixed(2)} %`);
 		const canvas = this.chart.chart.canvas;
 		const imageData = canvas.toDataURL("image/png", 1.0);
@@ -207,21 +208,26 @@ export class KpiTrendsPage implements OnInit {
 		y += rowHeight;
 		pdf.text(this.t("max"), colMonth, y);
 		pdf.text(formatCurrency(max), colValue, y);
-		pdf.addPage();
-		pdf.setFontSize(18);
-		pdf.text(this.t("kpi_summary"), 20, 40);
-		pdf.setFontSize(12);
-		pdf.text(`${this.t("total")}: ${formatCurrency(total)}`, 20, 80);
-		pdf.text(`${this.t("average")}: ${formatCurrency(average)}`, 20, 105);
-		pdf.text(`${this.t("minimum")}: ${formatCurrency(min)}`, 20, 130);
-		pdf.text(`${this.t("maximum")}: ${formatCurrency(max)}`, 20, 155);
-		pdf.text(`${this.t("best_month")}: ${bestMonth}`, 20, 190);
-		pdf.text(`${this.t("worst_month")}: ${worstMonth}`, 20, 215);
 
-		pdf.save("financial-analyzer-report.pdf");
+		if (Capacitor.getPlatform() === "web") {
+			pdf.addPage();
+			pdf.setFontSize(18);
+			pdf.text(this.t("kpi_summary"), 20, 40);
+			pdf.setFontSize(12);
+			pdf.text(`${this.t("total")}: ${formatCurrency(total)}`, 20, 80);
+			pdf.text(`${this.t("average")}: ${formatCurrency(average)}`, 20, 105);
+			pdf.text(`${this.t("minimum")}: ${formatCurrency(min)}`, 20, 130);
+			pdf.text(`${this.t("maximum")}: ${formatCurrency(max)}`, 20, 155);
+			pdf.text(`${this.t("best_month")}: ${bestMonth}`, 20, 190);
+			pdf.text(`${this.t("worst_month")}: ${worstMonth}`, 20, 215);
+
+			pdf.save("financial-analyzer-report.pdf");
+		} else {
+			await this.saveFileFromPDF(pdf, "financial-analyzer-report.pdf");
+		}
 	}
 
-	protected downloadCSV(): void {
+	protected async downloadCSV(): Promise<void> {
 		// TODO - implement quarterly reports
 		if (!this.data || !this.chartLabelMonths) return;
 
@@ -256,16 +262,41 @@ export class KpiTrendsPage implements OnInit {
 			[this.t("worst_month"), worstMonth],
 		];
 		const csvContent = rows.map((r) => r.join(";")).join("\n");
-		const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-		const url = URL.createObjectURL(blob);
-		const link = document.createElement("a");
 
-		link.href = url;
+		if (Capacitor.getPlatform() === "web") {
+			const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+			const url = URL.createObjectURL(blob);
+			const link = document.createElement("a");
 
-		link.download = "financial-analyzer-report.csv";
+			link.href = url;
 
-		link.click();
-		URL.revokeObjectURL(url);
+			link.download = "financial-analyzer-report.csv";
+
+			link.click();
+			URL.revokeObjectURL(url);
+		} else {
+			const base64Data = btoa(csvContent);
+
+			try {
+				const savedFile = await Filesystem.writeFile({
+					path: "financial-analyzer-report.csv",
+
+					data: base64Data,
+					directory: Directory.Cache,
+					recursive: true,
+				});
+
+				await Share.share({
+					title: "Financial Analyzer Report",
+
+					text: "Here is your CSV report",
+					url: savedFile.uri,
+				});
+				console.log("CSV saved at:", savedFile.uri);
+			} catch (e) {
+				console.log("Error saving CSV:", e);
+			}
+		}
 	}
 
 	private applyMonthRangeFilter(): void {
@@ -591,5 +622,28 @@ export class KpiTrendsPage implements OnInit {
 		// }
 
 		// this.datetimeLocale = locale;
+	}
+
+	private async saveFileFromPDF(pdf: jsPDF, fileName: string) {
+		try {
+			const pdfData = pdf.output("datauristring");
+			const base64Data = pdfData.split(",")[1];
+			const savedFile = await Filesystem.writeFile({
+				path: fileName,
+				data: base64Data,
+				directory: Directory.Cache,
+				recursive: true,
+			});
+
+			await Share.share({
+				title: "Financial Analyzer Report",
+
+				text: "Here is your PDF report",
+				url: savedFile.uri,
+			});
+			console.log("PDF saved at:", savedFile.uri);
+		} catch (e) {
+			console.log("Error saving PDF:", e);
+		}
 	}
 }

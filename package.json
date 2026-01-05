@@ -33,6 +33,7 @@
 		"@capacitor/keyboard": "6.0.3",
 		"@capacitor/network": "^7.0.2",
 		"@capacitor/preferences": "^7.0.2",
+		"@capacitor/share": "^8.0.0",
 		"@capacitor/status-bar": "6.0.2",
 		"@capawesome/capacitor-screen-orientation": "^7.0.2",
 		"@ionic/angular": "^8.0.0",

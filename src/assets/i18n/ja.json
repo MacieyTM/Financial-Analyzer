@@ -111,6 +111,7 @@
 	"delete": "削除",
 	"kpi_trends_report": "KPIトレンドレポート",
 	"selected_range": "選択された期間",
+	"details": "詳細",
 	"month": "月",
 	"value": "値",
 	"monthly_change": "月次変化率 %",
