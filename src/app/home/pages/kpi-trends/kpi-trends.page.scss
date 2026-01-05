@@ -99,7 +99,12 @@ ion-content {
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			gap: 1rem;
+
+			ion-text {
+				font-weight: 400;
+				font-size: 0.75rem;
+				color: var(--ion-color-text-primary);
+			}
 		}
 	}
 }

@@ -126,6 +126,10 @@ export class KpiTrendsPage implements OnInit {
 		return `${year}-${month}`;
 	}
 
+	protected isPDFBlocked(): boolean {
+		return ["ja", "zh", "ko"].includes(this.savedLanguage);
+	}
+
 	protected async downloadPDF(): Promise<void> {
 		// TODO - implement quarterly reports
 		if (!this.chart?.chart || !this.data?.length) return;
