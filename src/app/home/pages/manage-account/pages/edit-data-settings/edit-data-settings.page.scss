@@ -8,6 +8,13 @@ ion-content {
 			justify-content: center;
 			gap: 1rem;
 
+			.no-data {
+				font-size: 1rem;
+				font-weight: 700;
+				text-align: center;
+				color: var(--ion-color-danger);
+			}
+
 			ion-select {
 				font-size: 1rem;
 				font-weight: 700;

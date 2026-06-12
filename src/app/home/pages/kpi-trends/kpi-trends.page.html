@@ -11,11 +11,22 @@
 				</div>
 				<ion-text appTranslate="choose_start_date">Choose start date</ion-text>
 			</div>
-			}
+			<div class="download-report">
+				<ion-button [disabled]="isPDFBlocked()" (click)="downloadPDF()">
+					<ion-icon slot="start" name="document-text" />
+					<span>PDF</span>
+				</ion-button>
+				<ion-button fill="outline" (click)="downloadCSV()">
+					<ion-icon slot="start" name="download" />
+					<span>CSV</span>
+				</ion-button>
+			</div>
+			} @if (!hasKpiData) {
 			<div class="text-icon-wrapper">
 				<ion-icon name="stats-chart" />
 				<ion-text appTranslate="this_is_kpi_trends_page">This is KPI Trends page</ion-text>
 			</div>
+			}
 			<ion-icon id="date-question-trigger" name="help-circle" />
 			@if (hasKpiData) {
 			<div class="date-wrapper">
@@ -29,7 +40,11 @@
 		</ion-card-header>
 
 		<ion-card-content>
-			@if (hasKpiData) { @switch (selectedChartType()) { @case ("line") {
+			@if (isPDFBlocked()) {
+			<ion-text appTranslate="pdf_export_not_supported_for_this_language"
+				>PDF export not supported for this language</ion-text
+			>
+			} @if (hasKpiData) { @switch (selectedChartType()) { @case ("line") {
 			<canvas
 				baseChart
 				type="line"

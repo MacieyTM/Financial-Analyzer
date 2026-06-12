@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
 import { AlertController, NavController, ToastController } from "@ionic/angular";
 import { AppTranslatePipe } from "src/app/pipes/translate.pipe";
+import { AppTranslateService } from "src/app/services/translate.service";
 
 @Component({
 	selector: "app-data-settings",
@@ -15,7 +16,8 @@ export class DataSettingsPage implements OnInit, OnDestroy {
 		private readonly navController: NavController,
 		private readonly toastController: ToastController,
 		private readonly translatePipe: AppTranslatePipe,
-		private readonly alertController: AlertController
+		private readonly alertController: AlertController,
+		private readonly translateService: AppTranslateService
 	) {}
 
 	public ngOnInit(): void {
@@ -59,6 +61,7 @@ export class DataSettingsPage implements OnInit, OnDestroy {
 		localStorage.clear();
 		this.isDataCleared = true;
 		this.navController.navigateBack("/home");
+		this.translateService.changeLanguage("en");
 	}
 
 	private async showSuccessToast(): Promise<void> {
