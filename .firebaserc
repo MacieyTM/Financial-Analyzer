@@ -1,0 +1,15 @@
+{
+	"projects": {
+		"default": "my-restaurant-30e5e"
+	},
+	"targets": {
+		"my-restaurant-30e5e": {
+			"hosting": {
+				"financial-4nalyzer": [
+					"financial-4nalyzer"
+				]
+			}
+		}
+	},
+	"etags": {}
+}

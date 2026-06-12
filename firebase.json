@@ -1,0 +1,13 @@
+{
+	"hosting": {
+		"public": "www",
+		"ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+		"rewrites": [
+			{
+				"source": "**",
+				"destination": "/index.html"
+			}
+		],
+		"target": "financial-4nalyzer"
+	}
+}
